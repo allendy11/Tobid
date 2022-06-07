@@ -25,17 +25,17 @@ const register = (req: Request, res: Response, next: NextFunction) => {
         hashError,
       });
     } else {
-      const query = `INSERT INTO users (username, email, password) VALUES (?,?,?)`;
+      var query = `INSERT INTO users (username, email, password) VALUES (?,?,?)`;
       const params = [username, email, hash];
       Connect()
         .then((connection: any) => {
-          Query<IMySQLResult>(connection, query, params)
-            .then((result: IMySQLResult) => {
+          Query(connection, query, params)
+            .then((result: any) => {
               logging.info(NAMESPACE, `Inserted user [id: ${result.insertId}]`);
               res.status(201).json(result);
             })
             .catch((error) => {
-              logging.error(NAMESPACE, `Query problem`);
+              logging.error(NAMESPACE, error.message);
               res.status(500).json({
                 message: error.message,
                 error,
@@ -43,7 +43,7 @@ const register = (req: Request, res: Response, next: NextFunction) => {
             });
         })
         .catch((error) => {
-          logging.error(NAMESPACE, `Connect problem`);
+          logging.error(NAMESPACE, error.message);
           res.status(500).json({
             message: error.message,
             error,

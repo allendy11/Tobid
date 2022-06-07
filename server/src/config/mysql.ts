@@ -22,14 +22,14 @@ export const Connect = () => {
   });
 };
 
-export const Query = <T>(
+export const Query = (
   connection: mysql.Connection,
   query: string,
   params?: string[]
 ) => {
   if (params) {
-    return new Promise<T>((resolve, reject) => {
-      connection.query(query, params, (error, result: T) => {
+    return new Promise((resolve, reject) => {
+      connection.query(query, params, (error, result) => {
         if (error) {
           reject(error);
         } else {
@@ -39,7 +39,7 @@ export const Query = <T>(
       });
     });
   } else {
-    return new Promise<T>((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       connection.query(query, (error, result) => {
         if (error) {
           reject(error);
