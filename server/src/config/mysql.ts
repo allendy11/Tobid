@@ -8,8 +8,8 @@ const development = {
   database: config.mysql.database,
 };
 
-export const Connect = async () => {
-  new Promise((resolve, reject) => {
+export const Connect = () => {
+  return new Promise((resolve, reject) => {
     const connection = mysql.createConnection(development);
 
     connection.connect((error) => {
@@ -22,19 +22,32 @@ export const Connect = async () => {
   });
 };
 
-export const Query = async (
+export const Query = <T>(
   connection: mysql.Connection,
   query: string,
-  params: []
+  params?: string[]
 ) => {
-  new Promise((resolve, reject) => {
-    connection.query(query, params, (error, result) => {
-      if (error) {
-        reject(error);
-      } else {
-        resolve(result);
-        connection.end();
-      }
+  if (params) {
+    return new Promise<T>((resolve, reject) => {
+      connection.query(query, params, (error, result: T) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(result);
+          connection.end();
+        }
+      });
     });
-  });
+  } else {
+    return new Promise<T>((resolve, reject) => {
+      connection.query(query, (error, result) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(result);
+          connection.end();
+        }
+      });
+    });
+  }
 };
