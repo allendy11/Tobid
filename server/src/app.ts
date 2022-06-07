@@ -24,7 +24,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 });
 
 // routes
-app.use("/", userRouter);
+app.use("/user", userRouter);
 
 // error handling
 app.use((req: Request, res: Response, next: NextFunction) => {
