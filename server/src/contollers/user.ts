@@ -57,42 +57,54 @@ const register = (req: Request, res: Response, next: NextFunction) => {
 // login
 const login = (req: Request, res: Response, next: NextFunction) => {
   const { email, password } = req.body;
-  // todo get userData from db
-  Connect().then((connection: any) => {
-    const query = `SELECT * FROM users WHERE (email = ?)`;
-    const params = [email];
-    Query(connection, query, params).then((userData: any) => {
-      // todo compare password
-      bcryptjs.compare(password, userData[0].password, (error, result) => {
-        if (error) {
-          res.status(401).json({
-            message: "Password Mismatch",
-            error,
-          });
-        } else {
-          // todo generate token
-          signJWT(userData[0], (error, token) => {
+  Connect()
+    .then((connection: any) => {
+      const query = `SELECT * FROM users WHERE (email = ?)`;
+      const params = [email];
+      Query(connection, query, params)
+        .then((userData: any) => {
+          bcryptjs.compare(password, userData[0].password, (error, result) => {
             if (error) {
               res.status(401).json({
-                message: "Unable to sign JWT",
+                message: "Password Mismatch",
                 error,
               });
             } else {
-              // todo send token
-              res.status(200).json({
-                message: "Auth successful",
-                token,
-                user: {
-                  username: userData[0].username,
-                  email: userData[0].email,
-                },
+              signJWT(userData[0], (error, token) => {
+                if (error) {
+                  res.status(401).json({
+                    message: "Unable to sign JWT",
+                    error,
+                  });
+                } else {
+                  res.status(200).json({
+                    message: "Auth successful",
+                    token,
+                    user: {
+                      username: userData[0].username,
+                      email: userData[0].email,
+                    },
+                  });
+                }
               });
             }
           });
-        }
+        })
+        .catch((error) => {
+          logging.error(NAMESPACE, `[Query] ${error.message}`);
+          res.status(500).json({
+            message: error.message,
+            error,
+          });
+        });
+    })
+    .catch((error) => {
+      logging.error(NAMESPACE, `[Connect] ${error.message}`);
+      res.status(500).json({
+        message: error.message,
+        error,
       });
     });
-  });
 };
 const updateUserInfo = (req: Request, res: Response, next: NextFunction) => {
   const { username, email, mobile, image } = req.body;
