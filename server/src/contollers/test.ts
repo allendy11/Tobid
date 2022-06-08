@@ -6,33 +6,29 @@ import IUser from "../interface/user";
 const NAMESPACE = "Test";
 
 const test = (req: Request, res: Response, next: NextFunction) => {
-  const query = "SELECT * FROM users";
-  Connect()
-    .then((connection: any) => {
-      Query(connection, query)
-        .then((users: any) => {
-          return res.status(200).json({
-            users,
-            count: users.length,
-          });
-        })
-        .catch((error) => {
-          logging.error(NAMESPACE, error.message);
-
-          return res.status(500).json({
-            message: error.message,
-            error,
-          });
+  const { username, email } = req.body;
+  Connect().then((connection: any) => {
+    const query = `SELECT * FROM users WHERE (username = ?)`;
+    const params = [username];
+    Query(connection, query, params).then((result: any) => {
+      if (result.length) {
+        res.json({
+          message: "username conflict",
         });
-    })
-    .catch((error) => {
-      logging.error(NAMESPACE, error.message);
-
-      return res.status(500).json({
-        message: error.message,
-        error,
-      });
+      }
     });
+  });
+  Connect().then((connection: any) => {
+    const query = `SELECT * FROM users WHERE (email = ?)`;
+    const params = [email];
+    Query(connection, query, params).then((result: any) => {
+      if (result.length) {
+        res.json({
+          message: "email conflict",
+        });
+      }
+    });
+  });
 };
 
 export default test;

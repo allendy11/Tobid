@@ -124,7 +124,36 @@ const updateUserInfo = (req: Request, res: Response, next: NextFunction) => {
       });
     });
 };
-const deleteAccount = (req: Request, res: Response, next: NextFunction) => {};
+const deleteAccount = (req: Request, res: Response, next: NextFunction) => {
+  const { email } = req.body;
+  Connect()
+    .then((connection: any) => {
+      const query = `DELETE FROM users WHERE email = ?`;
+      const params = [email];
+      Query(connection, query, params)
+        .then((result: any) => {
+          logging.info(NAMESPACE, `Account Delete`);
+          res.status(200).json({
+            message: "Account delete",
+            result,
+          });
+        })
+        .catch((error) => {
+          logging.error(NAMESPACE, `[Query] ${error.message}`);
+          res.status(500).json({
+            message: error.message,
+            error,
+          });
+        });
+    })
+    .catch((error) => {
+      logging.error(NAMESPACE, `[Connect] ${error.message}`);
+      res.status(500).json({
+        message: error.message,
+        error,
+      });
+    });
+};
 
 export default {
   validateToken,
