@@ -94,10 +94,42 @@ const login = (req: Request, res: Response, next: NextFunction) => {
     });
   });
 };
+const updateUserInfo = (req: Request, res: Response, next: NextFunction) => {
+  const { username, email, mobile, image } = req.body;
+  Connect()
+    .then((connection: any) => {
+      const query = `UPDATE users SET username=?, mobile=?, image=? WHERE email=?`;
+      const params = [username, mobile, image, email];
+      Query(connection, query, params)
+        .then((result: any) => {
+          logging.info(NAMESPACE, `profile updated`);
+          res.status(200).json({
+            message: "porfile updated",
+            result,
+          });
+        })
+        .catch((error) => {
+          logging.error(NAMESPACE, `[Query] ${error.message}`);
+          res.status(500).json({
+            message: error.message,
+            error,
+          });
+        });
+    })
+    .catch((error) => {
+      logging.error(NAMESPACE, `[Connect] ${error.message}`);
+      res.status(500).json({
+        message: error.message,
+        error,
+      });
+    });
+};
 const deleteAccount = (req: Request, res: Response, next: NextFunction) => {};
 
 export default {
   validateToken,
   register,
   login,
+  updateUserInfo,
+  deleteAccount,
 };
