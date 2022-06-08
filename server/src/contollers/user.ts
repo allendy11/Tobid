@@ -21,6 +21,7 @@ const register = (req: Request, res: Response, next: NextFunction) => {
   const { username, email, password } = req.body;
   bcryptjs.hash(password, 10, (hashError, hash) => {
     if (hashError) {
+      logging.error(NAMESPACE, hashError.message);
       res.status(500).json({
         message: hashError.message,
         hashError,
@@ -65,6 +66,7 @@ const login = (req: Request, res: Response, next: NextFunction) => {
         .then((userData: any) => {
           bcryptjs.compare(password, userData[0].password, (error, result) => {
             if (error) {
+              logging.error(NAMESPACE, "Password Mismatch");
               res.status(401).json({
                 message: "Password Mismatch",
                 error,
@@ -72,11 +74,13 @@ const login = (req: Request, res: Response, next: NextFunction) => {
             } else {
               signJWT(userData[0], (error, token) => {
                 if (error) {
+                  logging.error(NAMESPACE, "Unable to sign JWT");
                   res.status(401).json({
                     message: "Unable to sign JWT",
                     error,
                   });
                 } else {
+                  logging.info(NAMESPACE, "Auth successful");
                   res.status(200).json({
                     message: "Auth successful",
                     token,
