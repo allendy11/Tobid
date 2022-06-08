@@ -1,10 +1,11 @@
 import { Request, Response, NextFunction } from "express";
 import bcryptjs from "bcryptjs";
 import logging from "../config/logging";
-// import config from "../config/config";
 import { Connect, Query } from "../config/mysql";
+// import config from "../config/config";
 // import IMySQLResult from "../interface/result";
 import signJWT from "../middleware/signJWT";
+import getCurrentDate from "../functions/getCurrentDate";
 
 const NAMESPACE = "User";
 
@@ -27,8 +28,9 @@ const register = (req: Request, res: Response, next: NextFunction) => {
         hashError,
       });
     } else {
-      var query = `INSERT INTO users (username, email, password) VALUES (?,?,?)`;
-      const params = [username, email, hash];
+      var query = `INSERT INTO users (username, email, password, created_at, updated_at) VALUES (?,?,?,?,?)`;
+      const currentDate = getCurrentDate();
+      const params = [username, email, hash, currentDate, currentDate];
       Connect()
         .then((connection: any) => {
           Query(connection, query, params)
@@ -114,8 +116,9 @@ const updateUserInfo = (req: Request, res: Response, next: NextFunction) => {
   const { username, email, mobile, image } = req.body;
   Connect()
     .then((connection: any) => {
-      const query = `UPDATE users SET username=?, mobile=?, image=? WHERE email=?`;
-      const params = [username, mobile, image, email];
+      const query = `UPDATE users SET username=?, mobile=?, image=?, updated_at=? WHERE email=?`;
+      const currentDate = getCurrentDate();
+      const params = [username, mobile, image, currentDate, email];
       Query(connection, query, params)
         .then((result: any) => {
           logging.info(NAMESPACE, `profile updated`);
