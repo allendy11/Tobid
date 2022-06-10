@@ -100,7 +100,39 @@ const writePost = (req: Request, res: Response, next: NextFunction) => {
       });
     });
 };
-const updatePost = (req: Request, res: Response, next: NextFunction) => {};
+const updatePost = (req: Request, res: Response, next: NextFunction) => {
+  const { title, contents, price, image } = req.body;
+  Connect()
+    .then((connection: any) => {
+      const currentDate = getCurrentDate();
+      const query = `UPDATE posts SET title=?, contents=?, price=?, image=?, updated_at=? WHERE id=?`;
+      const params = [
+        title,
+        contents,
+        price,
+        image,
+        currentDate,
+        req.params.id,
+      ];
+      Query(connection, query, params).then((result: any) => {
+        logging.info(
+          NAMESPACE,
+          `[updatePost-success] [postId:${req.params.id}]`
+        );
+        res.status(200).json({
+          message: "Post updated",
+          result,
+        });
+      });
+    })
+    .catch((error) => {
+      logging.error(NAMESPACE, `[updatePost-Connect] ${error.message}`);
+      res.status(500).json({
+        message: error.message,
+        error,
+      });
+    });
+};
 const deletePost = (req: Request, res: Response, next: NextFunction) => {
   Connect()
     .then((connection: any) => {
