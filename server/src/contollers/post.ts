@@ -101,7 +101,35 @@ const writePost = (req: Request, res: Response, next: NextFunction) => {
     });
 };
 const updatePost = (req: Request, res: Response, next: NextFunction) => {};
-const deletePost = (req: Request, res: Response, next: NextFunction) => {};
+const deletePost = (req: Request, res: Response, next: NextFunction) => {
+  Connect()
+    .then((connection: any) => {
+      const query = `DELETE FROM posts WHERE id = ?`;
+      const params = [req.params.id];
+      Query(connection, query, params)
+        .then((result: any) => {
+          logging.info(
+            NAMESPACE,
+            `[deletePost-success] [postId:${req.params.id}]`
+          );
+          res.sendStatus(204);
+        })
+        .catch((error) => {
+          logging.error(NAMESPACE, `[deletePost-Query] ${error.message}`);
+          res.status(500).json({
+            message: error.message,
+            error,
+          });
+        });
+    })
+    .catch((error) => {
+      logging.error(NAMESPACE, `[deletePost-Connect] ${error.message}`);
+      res.status(500).json({
+        message: error.message,
+        error,
+      });
+    });
+};
 
 export default {
   allPosts,
