@@ -71,8 +71,17 @@ const writePost = (req: Request, res: Response, next: NextFunction) => {
   const { title, contents, price, image } = req.body;
   Connect()
     .then((connection: any) => {
-      const query = `INSERT INTO posts (title, contents, price, image, user_id) VALUES (?,?,?,?,?)`;
-      const params = [title, contents, price, image, res.locals.jwt.id];
+      const currentDate = getCurrentDate();
+      const query = `INSERT INTO posts (title, contents, price, image, user_id, created_at, updated_at) VALUES (?,?,?,?,?,?,?)`;
+      const params = [
+        title,
+        contents,
+        price,
+        image,
+        res.locals.jwt.id,
+        currentDate,
+        currentDate,
+      ];
       Query(connection, query, params)
         .then((result: any) => {
           logging.info(
