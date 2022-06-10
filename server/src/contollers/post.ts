@@ -3,14 +3,44 @@ import getCurrentDate from "../functions/getCurrentDate";
 import logging from "../config/logging";
 import { Connect, Query } from "../config/mysql";
 
-const allPost = (req: Request, res: Response, next: NextFunction) => {};
+const NAMESPACE = "Post";
+
+const allPosts = (req: Request, res: Response, next: NextFunction) => {
+  Connect()
+    .then((connection: any) => {
+      const query = `SELECT * FROM posts INNER JOIN users ON user_id = ?`;
+      const params = [res.locals.jwt.id];
+      Query(connection, query, params)
+        .then((result: any) => {
+          logging.info(NAMESPACE, `[allPosts] [id:${res.locals.jwt.id}]`);
+          res.status(200).json({
+            message: `Get all post`,
+            posts: result,
+          });
+        })
+        .catch((error) => {
+          logging.error(NAMESPACE, `[allPosts-Query] ${error.message}`);
+          res.status(500).json({
+            message: error.message,
+            error,
+          });
+        });
+    })
+    .catch((error) => {
+      logging.error(NAMESPACE, `[allPosts-Connect] ${error.message}`);
+      res.status(500).json({
+        message: error.message,
+        error,
+      });
+    });
+};
 const getPost = (req: Request, res: Response, next: NextFunction) => {};
 const writePost = (req: Request, res: Response, next: NextFunction) => {};
 const updatePost = (req: Request, res: Response, next: NextFunction) => {};
 const deletePost = (req: Request, res: Response, next: NextFunction) => {};
 
 export default {
-  allPost,
+  allPosts,
   getPost,
   writePost,
   updatePost,
