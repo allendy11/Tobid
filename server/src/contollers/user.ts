@@ -40,7 +40,7 @@ const register = (req: Request, res: Response, next: NextFunction) => {
               res.status(201).json(result);
             })
             .catch((error) => {
-              logging.error(NAMESPACE, error.message);
+              logging.error(NAMESPACE, `[register-Query]`);
               res.status(500).json({
                 message: error.message,
                 error,
@@ -48,7 +48,7 @@ const register = (req: Request, res: Response, next: NextFunction) => {
             });
         })
         .catch((error) => {
-          logging.error(NAMESPACE, error.message);
+          logging.error(NAMESPACE, `[register-Connect]`);
           res.status(500).json({
             message: error.message,
             error,
@@ -98,7 +98,7 @@ const login = (req: Request, res: Response, next: NextFunction) => {
           });
         })
         .catch((error) => {
-          logging.error(NAMESPACE, `[Query] ${error.message}`);
+          logging.error(NAMESPACE, `[login-Query] ${error.message}`);
           res.status(500).json({
             message: error.message,
             error,
@@ -106,7 +106,7 @@ const login = (req: Request, res: Response, next: NextFunction) => {
         });
     })
     .catch((error) => {
-      logging.error(NAMESPACE, `[Connect] ${error.message}`);
+      logging.error(NAMESPACE, `[login-Connect] ${error.message}`);
       res.status(500).json({
         message: error.message,
         error,
@@ -129,7 +129,7 @@ const updateUserInfo = (req: Request, res: Response, next: NextFunction) => {
           });
         })
         .catch((error) => {
-          logging.error(NAMESPACE, `[Query] ${error.message}`);
+          logging.error(NAMESPACE, `[update-Query] ${error.message}`);
           res.status(500).json({
             message: error.message,
             error,
@@ -137,7 +137,7 @@ const updateUserInfo = (req: Request, res: Response, next: NextFunction) => {
         });
     })
     .catch((error) => {
-      logging.error(NAMESPACE, `[Connect] ${error.message}`);
+      logging.error(NAMESPACE, `[update-Connect] ${error.message}`);
       res.status(500).json({
         message: error.message,
         error,
@@ -159,7 +159,7 @@ const deleteAccount = (req: Request, res: Response, next: NextFunction) => {
           });
         })
         .catch((error) => {
-          logging.error(NAMESPACE, `[Query] ${error.message}`);
+          logging.error(NAMESPACE, `[deleteAccount-Query] ${error.message}`);
           res.status(500).json({
             message: error.message,
             error,
@@ -167,7 +167,7 @@ const deleteAccount = (req: Request, res: Response, next: NextFunction) => {
         });
     })
     .catch((error) => {
-      logging.error(NAMESPACE, `[Connect] ${error.message}`);
+      logging.error(NAMESPACE, `[deleteAccount-Connect] ${error.message}`);
       res.status(500).json({
         message: error.message,
         error,

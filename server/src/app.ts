@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import logging from "./config/logging";
 import userRouter from "./routes/user";
-import boardRouter from "./routes/board";
+import postRouter from "./routes/post";
 
 const NAMESPACE = "Server";
 const app = express();
@@ -19,14 +19,14 @@ app.use(cors());
 app.use((req: Request, res: Response, next: NextFunction) => {
   logging.info(NAMESPACE, `[METHOD:${req.method}] [URL:${req.url}]`);
   res.on("finish", () => {
-    logging.info(NAMESPACE, `[STATUS:${res.statusCode}]`);
+    logging.end(NAMESPACE, `[STATUS:${res.statusCode}]`);
   });
   next();
 });
 
 // routes
 app.use("/user", userRouter);
-app.use("/board", boardRouter);
+app.use("/post", postRouter);
 
 // error handling
 app.use((req: Request, res: Response, next: NextFunction) => {
