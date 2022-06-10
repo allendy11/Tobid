@@ -14,6 +14,7 @@ const validateToken = (req: Request, res: Response, next: NextFunction) => {
   logging.info(NAMESPACE, `Token is validated`);
   res.status(200).json({
     message: "Authorized",
+    tokenData: res.locals.jwt,
   });
 };
 
