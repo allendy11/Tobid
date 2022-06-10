@@ -34,7 +34,7 @@ export const Query = (
           reject(error);
         } else {
           resolve(result);
-          connection.end();
+          // connection.end();
         }
       });
     });
@@ -45,7 +45,7 @@ export const Query = (
           reject(error);
         } else {
           resolve(result);
-          connection.end();
+          // connection.end();
         }
       });
     });
