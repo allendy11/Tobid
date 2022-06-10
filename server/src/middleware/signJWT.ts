@@ -12,7 +12,7 @@ const signJWT = (
   logging.info(NAMESPACE, `Attempting to sign token`);
   try {
     jwt.sign(
-      { email: user.email },
+      { id: user.id },
       config.server.token.secret,
       {
         issuer: config.server.token.issuer,

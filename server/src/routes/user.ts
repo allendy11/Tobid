@@ -9,6 +9,6 @@ router.post("/test", test);
 router.get("/validate", verifyJWT, controller.validateToken);
 router.post("/register", controller.register);
 router.post("/login", controller.login);
-router.put("/update", controller.updateUserInfo);
-router.delete("/delete", controller.deleteAccount);
+router.put("/update", verifyJWT, controller.updateUserInfo);
+router.delete("/delete", verifyJWT, controller.deleteAccount);
 export default router;
