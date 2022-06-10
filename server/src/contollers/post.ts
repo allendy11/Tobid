@@ -67,7 +67,39 @@ const getPost = (req: Request, res: Response, next: NextFunction) => {
       });
     });
 };
-const writePost = (req: Request, res: Response, next: NextFunction) => {};
+const writePost = (req: Request, res: Response, next: NextFunction) => {
+  const { title, contents, price, image } = req.body;
+  Connect()
+    .then((connection: any) => {
+      const query = `INSERT INTO posts (title, contents, price, image, user_id) VALUES (?,?,?,?,?)`;
+      const params = [title, contents, price, image, res.locals.jwt.id];
+      Query(connection, query, params)
+        .then((result: any) => {
+          logging.info(
+            NAMESPACE,
+            `[writePost-success] [userId:${res.locals.jwt.id}] [postId:${result.insertId}]`
+          );
+          res.status(201).json({
+            message: "Post success",
+            result,
+          });
+        })
+        .catch((error) => {
+          logging.error(NAMESPACE, `[writePost-Query] ${error.message}`);
+          res.status(500).json({
+            message: error.message,
+            error,
+          });
+        });
+    })
+    .catch((error) => {
+      logging.error(NAMESPACE, `[writePost-Connect] ${error.message}`);
+      res.status(500).json({
+        message: error.message,
+        error,
+      });
+    });
+};
 const updatePost = (req: Request, res: Response, next: NextFunction) => {};
 const deletePost = (req: Request, res: Response, next: NextFunction) => {};
 
