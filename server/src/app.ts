@@ -2,8 +2,9 @@ import express, { Request, Response, NextFunction } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
-import userRouter from "./routes/user";
 import logging from "./config/logging";
+import userRouter from "./routes/user";
+import boardRouter from "./routes/board";
 
 const NAMESPACE = "Server";
 const app = express();
@@ -25,6 +26,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 
 // routes
 app.use("/user", userRouter);
+app.use("/board", boardRouter);
 
 // error handling
 app.use((req: Request, res: Response, next: NextFunction) => {
