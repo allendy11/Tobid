@@ -19,62 +19,75 @@ const attendBid = (req: Request, res: Response, next: NextFunction) => {
             res.status(405).json({
               message: "Not allowed, you can attend other's bid only",
             });
-          }
-          const currentPrice = result[0].currentPrice;
-          // 경매가격이 현재가격보다 높아야 함
-          if (currentPrice > bidPrice) {
-            res.status(405).json({
-              message: "Not allowed, need higher price than currentPrice",
-            });
-          }
-          const query = `SELECT * FROM bid WHERE (user_id = ? AND post_id = ?)`;
-          const params = [res.locals.jwt.id, req.params.id];
-          Query(connection, query, params)
-            .then((result: any) => {
-              // 이미 참여 했던 경우 -> updateBid 로 요청해야됨
-              if (result.length) {
-                res.status(405).json({
-                  message: "Not allowed. you have to request at updateBid",
-                });
-              }
-              const query = `INSERT INTO bid (user_id, post_id, bidPrice, created_at, updated_at) VALUES (?,?,?,?,?)`;
-              const params = [
-                res.locals.jwt.id,
-                req.params.id,
-                bidPrice,
-                currentDate,
-                currentDate,
-              ];
+          } else {
+            const currentPrice = result[0].currentPrice;
+            // 경매가격이 현재가격보다 높아야 함
+            if (currentPrice >= bidPrice) {
+              res.status(405).json({
+                message: "Not allowed, need higher price than currentPrice",
+              });
+            } else {
+              const query = `SELECT * FROM bid WHERE (user_id = ? AND post_id = ?)`;
+              const params = [res.locals.jwt.id, req.params.id];
               Query(connection, query, params)
                 .then((result: any) => {
-                  const query = `UPDATE posts SET (currentPrice = ?) WHERE (id = ?)`;
-                  const params = [bidPrice, req.params.id];
-                  Query(connection, query, params)
-                    .then((result: any) => {
-                      // 성공
-                      logging.info(NAMESPACE, `[attendBid-success]`);
-                      res.status(201).json({
-                        message: `Bid success, [userId:${res.locals.jwt.id}, postId:${req.params.id}, currentPrice:${bidPrice}]`,
-                      });
-                    })
-                    .catch((error) => {
-                      logging.error(NAMESPACE, `[attendBid-Query-4]`);
+                  // 이미 참여 했던 경우 -> updateBid 로 요청해야됨
+                  if (result.length) {
+                    res.status(405).json({
+                      message: "Not allowed. you have to request at updateBid",
                     });
+                  } else {
+                    const query = `INSERT INTO bid (user_id, post_id, bidPrice, created_at, updated_at) VALUES (?,?,?,?,?)`;
+                    const params = [
+                      res.locals.jwt.id,
+                      req.params.id,
+                      bidPrice,
+                      currentDate,
+                      currentDate,
+                    ];
+                    Query(connection, query, params)
+                      .then((result: any) => {
+                        // 현재가격 수정
+                        const query = `UPDATE posts SET currentPrice = ?, updated_at = ? WHERE id = ?`;
+                        const params = [bidPrice, currentDate, req.params.id];
+                        Query(connection, query, params)
+                          .then((result: any) => {
+                            // 성공
+                            logging.info(NAMESPACE, `[attendBid-success]`);
+                            res.status(201).json({
+                              message: `Bid success, [userId:${res.locals.jwt.id}, postId:${req.params.id}, currentPrice:${bidPrice}]`,
+                            });
+                          })
+                          .catch((error) => {
+                            logging.error(
+                              NAMESPACE,
+                              `[attendBid-Query-4] ${error.message}`
+                            );
+                            res
+                              .status(500)
+                              .json({ message: error.message, error });
+                          });
+                      })
+                      .catch((error) => {
+                        logging.error(
+                          NAMESPACE,
+                          `[attendBid-Query-3] ${error.message}`
+                        );
+                        res.status(500).json({
+                          message: error.message,
+                          error,
+                        });
+                      });
+                  }
                 })
                 .catch((error) => {
                   logging.error(
                     NAMESPACE,
-                    `[attendBid-Query-3] ${error.message}`
+                    `[attendBid-Query-2] ${error.message}`
                   );
-                  res.status(500).json({
-                    message: error.message,
-                    error,
-                  });
                 });
-            })
-            .catch((error) => {
-              logging.error(NAMESPACE, `[attendBid-Query-2] ${error.message}`);
-            });
+            }
+          }
         })
         .catch((error) => {
           logging.error(NAMESPACE, `[attendBid-Query-1] ${error.message}`);
