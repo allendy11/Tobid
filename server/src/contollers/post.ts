@@ -72,10 +72,11 @@ const writePost = (req: Request, res: Response, next: NextFunction) => {
   Connect()
     .then((connection: any) => {
       const currentDate = getCurrentDate();
-      const query = `INSERT INTO posts (title, contents, price, image, user_id, created_at, updated_at) VALUES (?,?,?,?,?,?,?)`;
+      const query = `INSERT INTO posts (title, contents, startingPrice, currentPrice, image, user_id, created_at, updated_at) VALUES (?,?,?,?,?,?,?,?)`;
       const params = [
         title,
         contents,
+        price,
         price,
         image,
         res.locals.jwt.id,
@@ -114,10 +115,11 @@ const updatePost = (req: Request, res: Response, next: NextFunction) => {
   Connect()
     .then((connection: any) => {
       const currentDate = getCurrentDate();
-      const query = `UPDATE posts SET title=?, contents=?, price=?, image=?, updated_at=? WHERE id=?`;
+      const query = `UPDATE posts SET title=?, contents=?, startingPrice=?, currentPrice=?, image=?, updated_at=? WHERE id=?`;
       const params = [
         title,
         contents,
+        price,
         price,
         image,
         currentDate,
