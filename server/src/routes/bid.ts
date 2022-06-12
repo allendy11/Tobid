@@ -1,10 +1,11 @@
 import express from "express";
 import controller from "../contollers/bid";
+import verifyJWT from "../middleware/verifyJWT";
 
 const router = express.Router();
 
-router.post("/", controller.attendBid);
-router.put("/:id", controller.updateBid);
-router.delete("/:id", controller.finishBid);
+router.post("/:id", verifyJWT, controller.attendBid);
+router.put("/:id", verifyJWT, controller.updateBid);
+router.delete("/:id", verifyJWT, controller.finishBid);
 
 export default router;
