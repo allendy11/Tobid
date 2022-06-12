@@ -6,3 +6,5 @@ interface IPost {
   image: string;
   user_id: number;
 }
+
+export default IPost;
