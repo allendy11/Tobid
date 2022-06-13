@@ -5,7 +5,7 @@ import getCurrentDate from "../functions/getCurrentDate";
 
 const NAMESPACE = "Bid";
 
-const getAllBid = (req: Request, res: Response, next: NextFunction) => {
+const allBid = (req: Request, res: Response, next: NextFunction) => {
   Connect()
     .then((connection: any) => {
       const query = `SELECT bid.id, bid.bidPrice, posts.title, posts.contents, posts.startingPrice, posts.currentPrice, posts.image FROM bid INNER JOIN posts ON bid.post_id = posts.id WHERE bid.user_id = ?`;
@@ -203,7 +203,7 @@ const updateBid = (req: Request, res: Response, next: NextFunction) => {
 const finishBid = (req: Request, res: Response, next: NextFunction) => {};
 
 export default {
-  getAllBid,
+  allBid,
   attendBid,
   updateBid,
   finishBid,
