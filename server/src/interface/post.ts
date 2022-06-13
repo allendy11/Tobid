@@ -4,6 +4,7 @@ interface IPost {
   contents: string;
   startingPrice: number;
   currentPrice: number;
+  winnerId: number;
   image: string;
   user_id: number;
 }
