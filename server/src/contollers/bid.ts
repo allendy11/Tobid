@@ -5,6 +5,35 @@ import getCurrentDate from "../functions/getCurrentDate";
 
 const NAMESPACE = "Bid";
 
+const getAllBid = (req: Request, res: Response, next: NextFunction) => {
+  Connect()
+    .then((connection: any) => {
+      const query = `SELECT bid.id, bid.bidPrice, posts.title, posts.contents, posts.startingPrice, posts.currentPrice, posts.image FROM bid INNER JOIN posts ON bid.post_id = posts.id WHERE bid.user_id = ?`;
+      const params = [res.locals.jwt.id];
+      Query(connection, query, params)
+        .then((result: any) => {
+          logging.info(NAMESPACE, `[getBid-Success]`);
+          res.status(200).json({
+            message: "Get all your bid",
+            result,
+          });
+        })
+        .catch((error) => {
+          logging.error(NAMESPACE, `[getBid-Query] ${error.message}`);
+          res.status(500).json({
+            message: error.message,
+            error,
+          });
+        });
+    })
+    .catch((error) => {
+      logging.error(NAMESPACE, `[getBid-Connect] ${error.message}`);
+      res.status(500).json({
+        message: error.message,
+        error,
+      });
+    });
+};
 const attendBid = (req: Request, res: Response, next: NextFunction) => {
   const { bidPrice } = req.body;
   const currentDate = getCurrentDate();
@@ -109,6 +138,7 @@ const updateBid = (req: Request, res: Response, next: NextFunction) => {};
 const finishBid = (req: Request, res: Response, next: NextFunction) => {};
 
 export default {
+  getAllBid,
   attendBid,
   updateBid,
   finishBid,

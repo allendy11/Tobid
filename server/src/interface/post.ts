@@ -2,7 +2,8 @@ interface IPost {
   id: string;
   title: string;
   contents: string;
-  price: number;
+  startingPrice: number;
+  currentPrice: number;
   image: string;
   user_id: number;
 }
