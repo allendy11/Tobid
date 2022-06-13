@@ -8,7 +8,7 @@ const NAMESPACE = "Bid";
 const allBid = (req: Request, res: Response, next: NextFunction) => {
   Connect()
     .then((connection: any) => {
-      const query = `SELECT bid.id, bid.bidPrice, posts.title, posts.contents, posts.startingPrice, posts.currentPrice, posts.image FROM bid INNER JOIN posts ON bid.post_id = posts.id WHERE bid.user_id = ?`;
+      const query = `SELECT bid.id, bid.bidPrice, posts.title, posts.contents, posts.startingPrice, posts.currentPrice, posts.winnerId, posts.image FROM bid INNER JOIN posts ON bid.post_id = posts.id WHERE bid.user_id = ?`;
       const params = [res.locals.jwt.id];
       Query(connection, query, params)
         .then((result: any) => {
@@ -77,8 +77,13 @@ const attendBid = (req: Request, res: Response, next: NextFunction) => {
                     Query(connection, query, params)
                       .then((result: any) => {
                         // 현재가격 수정
-                        const query = `UPDATE posts SET currentPrice = ?, updated_at = ? WHERE id = ?`;
-                        const params = [bidPrice, currentDate, req.params.id];
+                        const query = `UPDATE posts SET currentPrice = ?, winnerId= ?, updated_at = ? WHERE id = ?`;
+                        const params = [
+                          bidPrice,
+                          res.locals.jwt.id,
+                          currentDate,
+                          req.params.id,
+                        ];
                         Query(connection, query, params)
                           .then((result: any) => {
                             // 성공
@@ -165,11 +170,31 @@ const updateBid = (req: Request, res: Response, next: NextFunction) => {
               ];
               Query(connection, query, params)
                 .then((result: any) => {
-                  logging.info(NAMESPACE, `[updateBid-success]`);
-                  // 204 코드로 해도 된다. (no contents)
-                  res.status(200).json({
-                    result,
-                  });
+                  const query = `UPDATE posts SET currentPrice = ?, winnerId = ?, updated_at = ? WHERE id = ?`;
+                  const params = [
+                    currentPrice,
+                    res.locals.jwt.id,
+                    currentDate,
+                    req.params.id,
+                  ];
+                  Query(connection, query, params)
+                    .then((result: any) => {
+                      logging.info(NAMESPACE, `[updateBid-success]`);
+                      // 204 코드로 해도 된다. (no contents)
+                      res.status(200).json({
+                        result,
+                      });
+                    })
+                    .catch((error) => {
+                      logging.error(
+                        NAMESPACE,
+                        `[updateBid-Query-3] ${error.message}`
+                      );
+                      res.status(500).json({
+                        message: error.message,
+                        error,
+                      });
+                    });
                 })
                 .catch((error) => {
                   logging.error(
