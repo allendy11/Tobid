@@ -143,38 +143,45 @@ const updateBid = (req: Request, res: Response, next: NextFunction) => {
       const params = [req.params.id];
       Query(connection, query, params)
         .then((result: any) => {
-          // 경매가격이 현재가격보다 높은지 확인
-          const currentPrice = result[0].currentPrice;
-          if (currentPrice >= bidPrice) {
+          // 본인 참여 불가
+          if (res.locals.jwt.id === result[0].user_id) {
             res.status(405).json({
-              message: `Not Allewed, need higher price than ${currentPrice}`,
+              message: `Not Allowed, you can attend/update other's auction`,
             });
           } else {
-            const query = `UPDATE bid SET bidPrice = ?, updated_at = ? WHERE user_id = ? AND post_id = ?`;
-            const params = [
-              bidPrice,
-              currentDate,
-              res.locals.jwt.id,
-              req.params.id,
-            ];
-            Query(connection, query, params)
-              .then((result: any) => {
-                logging.info(NAMESPACE, `[updateBid-success]`);
-                // 204 코드로 해도 된다. (no contents)
-                res.status(200).json({
-                  result,
-                });
-              })
-              .catch((error) => {
-                logging.error(
-                  NAMESPACE,
-                  `[updateBid-Query-2] ${error.message}`
-                );
-                res.status(500).json({
-                  message: error.message,
-                  error,
-                });
+            // 경매가격이 현재가격보다 높은지 확인
+            const currentPrice = result[0].currentPrice;
+            if (currentPrice >= bidPrice) {
+              res.status(405).json({
+                message: `Not Allewed, need higher price than ${currentPrice}`,
               });
+            } else {
+              const query = `UPDATE bid SET bidPrice = ?, updated_at = ? WHERE user_id = ? AND post_id = ?`;
+              const params = [
+                bidPrice,
+                currentDate,
+                res.locals.jwt.id,
+                req.params.id,
+              ];
+              Query(connection, query, params)
+                .then((result: any) => {
+                  logging.info(NAMESPACE, `[updateBid-success]`);
+                  // 204 코드로 해도 된다. (no contents)
+                  res.status(200).json({
+                    result,
+                  });
+                })
+                .catch((error) => {
+                  logging.error(
+                    NAMESPACE,
+                    `[updateBid-Query-2] ${error.message}`
+                  );
+                  res.status(500).json({
+                    message: error.message,
+                    error,
+                  });
+                });
+            }
           }
         })
         .catch((error) => {
