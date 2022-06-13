@@ -225,7 +225,26 @@ const updateBid = (req: Request, res: Response, next: NextFunction) => {
       });
     });
 };
-const finishBid = (req: Request, res: Response, next: NextFunction) => {};
+const finishBid = (req: Request, res: Response, next: NextFunction) => {
+  Connect()
+    .then((connection: any) => {
+      const query = `SELECT currentPrice, winnerId FROM posts WHERE id = ?`;
+      const params = [req.params.id];
+      Query(connection, query, params).then((result: any) => {
+        logging.info(NAMESPACE, `[finishBid-success]`);
+        res.status(200).json({
+          message: "finish bid",
+          result,
+        });
+      });
+    })
+    .catch((error) => {
+      logging.error(NAMESPACE, `[finishBid-Connect] ${error.message}`);
+      res.status(500).json({
+        message: error.message,
+      });
+    });
+};
 
 export default {
   allBid,

@@ -7,6 +7,6 @@ const router = express.Router();
 router.get("/all", verifyJWT, controller.allBid);
 router.post("/:id", verifyJWT, controller.attendBid);
 router.put("/:id", verifyJWT, controller.updateBid);
-router.delete("/:id", verifyJWT, controller.finishBid);
+router.get("/finish", controller.finishBid);
 
 export default router;
