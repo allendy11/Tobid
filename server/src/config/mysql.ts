@@ -9,7 +9,7 @@ const development = {
 };
 
 export const Connect = () => {
-  return new Promise((resolve, reject) => {
+  return new Promise<mysql.Connection>((resolve, reject) => {
     const connection = mysql.createConnection(development);
 
     connection.connect((error) => {
@@ -22,13 +22,13 @@ export const Connect = () => {
   });
 };
 
-export const Query = (
+export const Query = <T>(
   connection: mysql.Connection,
   query: string,
   params?: string[]
 ) => {
   if (params) {
-    return new Promise((resolve, reject) => {
+    return new Promise<T>((resolve, reject) => {
       connection.query(query, params, (error, result) => {
         if (error) {
           reject(error);
@@ -39,7 +39,7 @@ export const Query = (
       });
     });
   } else {
-    return new Promise((resolve, reject) => {
+    return new Promise<T>((resolve, reject) => {
       connection.query(query, (error, result) => {
         if (error) {
           reject(error);

@@ -2,17 +2,19 @@ import { Request, Response, NextFunction } from "express";
 import getCurrentDate from "../functions/getCurrentDate";
 import logging from "../config/logging";
 import { Connect, Query } from "../config/mysql";
+import IPost from "../interface/post";
+import IMySQLResult from "../interface/result";
 
 const NAMESPACE = "Post";
 //! result interface 필요
 
 const allPosts = (req: Request, res: Response, next: NextFunction) => {
   Connect()
-    .then((connection: any) => {
+    .then((connection) => {
       const query = `SELECT * FROM posts INNER JOIN users ON posts.user_id = users.id WHERE users.id = ?`;
       const params = [res.locals.jwt.id];
-      Query(connection, query, params)
-        .then((result: any) => {
+      Query<IPost[]>(connection, query, params)
+        .then((result) => {
           logging.info(NAMESPACE, `[allPosts] [id:${res.locals.jwt.id}]`);
           res.status(200).json({
             message: `Get all post`,
@@ -37,11 +39,11 @@ const allPosts = (req: Request, res: Response, next: NextFunction) => {
 };
 const getPost = (req: Request, res: Response, next: NextFunction) => {
   Connect()
-    .then((connection: any) => {
+    .then((connection) => {
       const query = `SELECT * FROM posts INNER JOIN users ON posts.user_id = users.id WHERE (users.id = ? AND posts.id = ?`;
       const params = [res.locals.jwt.id, req.params.id];
-      Query(connection, query, params)
-        .then((result: any) => {
+      Query<IPost[]>(connection, query, params)
+        .then((result) => {
           logging.info(
             NAMESPACE,
             `[getPost-success] [userId:${res.locals.jwt.id}] [postId: ${req.params.id}]`
@@ -70,7 +72,7 @@ const getPost = (req: Request, res: Response, next: NextFunction) => {
 const writePost = (req: Request, res: Response, next: NextFunction) => {
   const { title, contents, price, image } = req.body;
   Connect()
-    .then((connection: any) => {
+    .then((connection) => {
       const currentDate = getCurrentDate();
       const query = `INSERT INTO posts (title, contents, startingPrice, currentPrice, image, user_id, created_at, updated_at) VALUES (?,?,?,?,?,?,?,?)`;
       const params = [
@@ -83,8 +85,8 @@ const writePost = (req: Request, res: Response, next: NextFunction) => {
         currentDate,
         currentDate,
       ];
-      Query(connection, query, params)
-        .then((result: any) => {
+      Query<IMySQLResult>(connection, query, params)
+        .then((result) => {
           logging.info(
             NAMESPACE,
             `[writePost-success] [userId:${res.locals.jwt.id}] [postId:${result.insertId}]`
@@ -113,7 +115,7 @@ const writePost = (req: Request, res: Response, next: NextFunction) => {
 const updatePost = (req: Request, res: Response, next: NextFunction) => {
   const { title, contents, price, image } = req.body;
   Connect()
-    .then((connection: any) => {
+    .then((connection) => {
       const currentDate = getCurrentDate();
       const query = `UPDATE posts SET title=?, contents=?, startingPrice=?, currentPrice=?, image=?, updated_at=? WHERE id=?`;
       const params = [
@@ -125,7 +127,7 @@ const updatePost = (req: Request, res: Response, next: NextFunction) => {
         currentDate,
         req.params.id,
       ];
-      Query(connection, query, params).then((result: any) => {
+      Query<IMySQLResult>(connection, query, params).then((result) => {
         logging.info(
           NAMESPACE,
           `[updatePost-success] [postId:${req.params.id}]`
@@ -146,11 +148,11 @@ const updatePost = (req: Request, res: Response, next: NextFunction) => {
 };
 const deletePost = (req: Request, res: Response, next: NextFunction) => {
   Connect()
-    .then((connection: any) => {
+    .then((connection) => {
       const query = `DELETE FROM posts WHERE id = ?`;
       const params = [req.params.id];
-      Query(connection, query, params)
-        .then((result: any) => {
+      Query<IMySQLResult>(connection, query, params)
+        .then((result) => {
           logging.info(
             NAMESPACE,
             `[deletePost-success] [postId:${req.params.id}]`

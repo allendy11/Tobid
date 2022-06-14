@@ -2,20 +2,23 @@ import { Request, Response, NextFunction } from "express";
 import logging from "../config/logging";
 import { Connect, Query } from "../config/mysql";
 import getCurrentDate from "../functions/getCurrentDate";
+import IBid from "../interface/bid";
+import IPost from "../interface/post";
+import IMySQLResult from "../interface/result";
 
 const NAMESPACE = "Bid";
 
 const allBid = (req: Request, res: Response, next: NextFunction) => {
   Connect()
-    .then((connection: any) => {
+    .then((connection) => {
       const query = `SELECT bid.id, bid.bidPrice, posts.title, posts.contents, posts.startingPrice, posts.currentPrice, posts.winnerId, posts.image FROM bid INNER JOIN posts ON bid.post_id = posts.id WHERE bid.user_id = ?`;
       const params = [res.locals.jwt.id];
-      Query(connection, query, params)
-        .then((result: any) => {
+      Query<IBid[]>(connection, query, params)
+        .then((result) => {
           logging.info(NAMESPACE, `[getBid-Success]`);
           res.status(200).json({
             message: "Get all your bid",
-            result,
+            data: result[0],
           });
         })
         .catch((error) => {
@@ -38,11 +41,11 @@ const attendBid = (req: Request, res: Response, next: NextFunction) => {
   const { bidPrice } = req.body;
   const currentDate = getCurrentDate();
   Connect()
-    .then((connection: any) => {
+    .then((connection) => {
       const query = `SELECT currentPrice, user_id FROM posts WHERE (id = ?)`;
       const params = [req.params.id];
-      Query(connection, query, params)
-        .then((result: any) => {
+      Query<IPost[]>(connection, query, params)
+        .then((result) => {
           // 본인은 참여 불가
           if (result[0].user_id === res.locals.jwt.id) {
             res.status(405).json({
@@ -58,8 +61,8 @@ const attendBid = (req: Request, res: Response, next: NextFunction) => {
             } else {
               const query = `SELECT * FROM bid WHERE (user_id = ? AND post_id = ?)`;
               const params = [res.locals.jwt.id, req.params.id];
-              Query(connection, query, params)
-                .then((result: any) => {
+              Query<IBid[]>(connection, query, params)
+                .then((result) => {
                   // 이미 참여 했던 경우 -> updateBid 로 요청해야됨
                   if (result.length) {
                     res.status(405).json({
@@ -74,8 +77,8 @@ const attendBid = (req: Request, res: Response, next: NextFunction) => {
                       currentDate,
                       currentDate,
                     ];
-                    Query(connection, query, params)
-                      .then((result: any) => {
+                    Query<IMySQLResult>(connection, query, params)
+                      .then((result) => {
                         // 현재가격 수정
                         const query = `UPDATE posts SET currentPrice = ?, winnerId= ?, updated_at = ? WHERE id = ?`;
                         const params = [
@@ -84,12 +87,13 @@ const attendBid = (req: Request, res: Response, next: NextFunction) => {
                           currentDate,
                           req.params.id,
                         ];
-                        Query(connection, query, params)
-                          .then((result: any) => {
+                        Query<IMySQLResult>(connection, query, params)
+                          .then((result) => {
                             // 성공
                             logging.info(NAMESPACE, `[attendBid-success]`);
                             res.status(201).json({
                               message: `Bid success, [userId:${res.locals.jwt.id}, postId:${req.params.id}, currentPrice:${bidPrice}]`,
+                              result,
                             });
                           })
                           .catch((error) => {
@@ -143,11 +147,11 @@ const updateBid = (req: Request, res: Response, next: NextFunction) => {
   const { bidPrice } = req.body;
   const currentDate = getCurrentDate();
   Connect()
-    .then((connection: any) => {
+    .then((connection) => {
       const query = `SELECT * FROM posts WHERE id = ?`;
       const params = [req.params.id];
-      Query(connection, query, params)
-        .then((result: any) => {
+      Query<IPost[]>(connection, query, params)
+        .then((result) => {
           // 본인 참여 불가
           if (res.locals.jwt.id === result[0].user_id) {
             res.status(405).json({
@@ -168,8 +172,8 @@ const updateBid = (req: Request, res: Response, next: NextFunction) => {
                 res.locals.jwt.id,
                 req.params.id,
               ];
-              Query(connection, query, params)
-                .then((result: any) => {
+              Query<IMySQLResult>(connection, query, params)
+                .then((result) => {
                   const query = `UPDATE posts SET currentPrice = ?, winnerId = ?, updated_at = ? WHERE id = ?`;
                   const params = [
                     currentPrice,
@@ -177,7 +181,7 @@ const updateBid = (req: Request, res: Response, next: NextFunction) => {
                     currentDate,
                     req.params.id,
                   ];
-                  Query(connection, query, params)
+                  Query<IMySQLResult>(connection, query, params)
                     .then((result: any) => {
                       logging.info(NAMESPACE, `[updateBid-success]`);
                       // 204 코드로 해도 된다. (no contents)
@@ -227,14 +231,14 @@ const updateBid = (req: Request, res: Response, next: NextFunction) => {
 };
 const finishBid = (req: Request, res: Response, next: NextFunction) => {
   Connect()
-    .then((connection: any) => {
+    .then((connection) => {
       const query = `SELECT currentPrice, winnerId FROM posts WHERE id = ?`;
       const params = [req.params.id];
-      Query(connection, query, params).then((result: any) => {
+      Query<IPost[]>(connection, query, params).then((result) => {
         logging.info(NAMESPACE, `[finishBid-success]`);
         res.status(200).json({
           message: "finish bid",
-          result,
+          data: result[0],
         });
       });
     })

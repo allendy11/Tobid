@@ -3,9 +3,10 @@ import bcryptjs from "bcryptjs";
 import logging from "../config/logging";
 import { Connect, Query } from "../config/mysql";
 // import config from "../config/config";
-// import IMySQLResult from "../interface/result";
 import signJWT from "../middleware/signJWT";
 import getCurrentDate from "../functions/getCurrentDate";
+import IMySQLResult from "../interface/result";
+import IUser from "../interface/user";
 
 const NAMESPACE = "User";
 
@@ -33,9 +34,9 @@ const register = (req: Request, res: Response, next: NextFunction) => {
       const currentDate = getCurrentDate();
       const params = [username, email, hash, currentDate, currentDate];
       Connect()
-        .then((connection: any) => {
-          Query(connection, query, params)
-            .then((result: any) => {
+        .then((connection) => {
+          Query<IMySQLResult>(connection, query, params)
+            .then((result) => {
               logging.info(NAMESPACE, `Inserted user [id: ${result.insertId}]`);
               res.status(201).json(result);
             })
@@ -62,11 +63,11 @@ const register = (req: Request, res: Response, next: NextFunction) => {
 const login = (req: Request, res: Response, next: NextFunction) => {
   const { email, password } = req.body;
   Connect()
-    .then((connection: any) => {
+    .then((connection) => {
       const query = `SELECT * FROM users WHERE (email = ?)`;
       const params = [email];
-      Query(connection, query, params)
-        .then((userData: any) => {
+      Query<IUser[]>(connection, query, params)
+        .then((userData) => {
           bcryptjs.compare(password, userData[0].password, (error, result) => {
             if (error) {
               logging.error(NAMESPACE, "Password Mismatch");
@@ -116,12 +117,12 @@ const login = (req: Request, res: Response, next: NextFunction) => {
 const updateUserInfo = (req: Request, res: Response, next: NextFunction) => {
   const { username, email, mobile, image } = req.body;
   Connect()
-    .then((connection: any) => {
+    .then((connection) => {
       const query = `UPDATE users SET username=?, mobile=?, image=?, updated_at=? WHERE email=?`;
       const currentDate = getCurrentDate();
       const params = [username, mobile, image, currentDate, email];
-      Query(connection, query, params)
-        .then((result: any) => {
+      Query<IMySQLResult>(connection, query, params)
+        .then((result) => {
           logging.info(NAMESPACE, `profile updated`);
           res.status(200).json({
             message: "porfile updated",
@@ -147,11 +148,11 @@ const updateUserInfo = (req: Request, res: Response, next: NextFunction) => {
 const deleteAccount = (req: Request, res: Response, next: NextFunction) => {
   const { email } = req.body;
   Connect()
-    .then((connection: any) => {
+    .then((connection) => {
       const query = `DELETE FROM users WHERE email = ?`;
       const params = [email];
-      Query(connection, query, params)
-        .then((result: any) => {
+      Query<IMySQLResult>(connection, query, params)
+        .then((result) => {
           logging.info(NAMESPACE, `Account Delete`);
           res.status(200).json({
             message: "Account delete",
