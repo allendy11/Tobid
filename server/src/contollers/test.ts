@@ -7,7 +7,7 @@ const NAMESPACE = "Test";
 // 2중 쿼리문 테스트
 const test = (req: Request, res: Response, next: NextFunction) => {
   Connect()
-    .then((connection: any) => {
+    .then((connection) => {
       const query = `SELECT * FROM users WHERE (id = ?)`;
       const params = [req.body.id];
       Query(connection, query, params)
