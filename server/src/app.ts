@@ -5,6 +5,8 @@ import cookieParser from "cookie-parser";
 import logging from "./config/logging";
 import userRouter from "./routes/user";
 import postRouter from "./routes/post";
+import bidRouter from "./routes/bid";
+import testRouter from "./routes/test";
 
 const NAMESPACE = "Server";
 const app = express();
@@ -24,9 +26,13 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   next();
 });
 
+// test
+app.use("/test", testRouter);
+
 // routes
 app.use("/user", userRouter);
 app.use("/post", postRouter);
+app.use("/bid", bidRouter);
 
 // error handling
 app.use((req: Request, res: Response, next: NextFunction) => {

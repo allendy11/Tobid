@@ -1,4 +1,4 @@
-export default interface IMySQLResult {
+interface IMySQLResult {
   fieldCount: number;
   affectedRows: number;
   insertId: number;
@@ -8,3 +8,5 @@ export default interface IMySQLResult {
   protocol41: boolean;
   changedRows: number;
 }
+
+export default IMySQLResult;
