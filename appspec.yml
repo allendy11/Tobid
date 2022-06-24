@@ -10,6 +10,6 @@ hooks:
   ApplicationInstall:
     - location: scripts/initialize.sh
       runas: root
-  ApplicationStart:
-    - location: scripts/start.sh
-      runas: root
+  # ApplicationStart:
+  #   - location: scripts/start.sh
+  #     runas: root
