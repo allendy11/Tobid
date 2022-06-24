@@ -1,7 +1,7 @@
 version: 0.0
 os: linux
 files:
-  - souce: /
+  - source: /
     destination: /home/ubuntu/tobid
 hooks:
   ApplicationStop:
