@@ -25,9 +25,9 @@ const server = {
 
 // mysql
 const MYSQL_HOST = process.env.MYSQL_HOST || "localhost";
-const MYSQL_USER = process.env.MYSQL_USER || "localhost";
-const MYSQL_PASSWORD = process.env.MYSQL_PASSWORD || "localhost";
-const MYSQL_DATABASE = process.env.MYSQL_DATABASE || "localhost";
+const MYSQL_USER = process.env.MYSQL_USER || "root";
+const MYSQL_PASSWORD = process.env.MYSQL_PASSWORD || "password";
+const MYSQL_DATABASE = process.env.MYSQL_DATABASE || "tobid";
 
 const mysql = {
   host: MYSQL_HOST,

@@ -33,7 +33,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 });
 
 // test
-app.use("/test", testRouter);
+app.use("/", testRouter);
 
 // routes
 app.use("/user", userRouter);
