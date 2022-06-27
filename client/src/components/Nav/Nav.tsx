@@ -5,10 +5,12 @@ const Nav = () => {
   return (
     <div id="Nav">
       <div className="container">
-        <div className="box">
-          <img src={process.env.PUBLIC_URL + "logo_32.png"} alt="" />
-          <span>TOBID</span>
-        </div>
+        <Link to="/">
+          <div className="box">
+            <img src={process.env.PUBLIC_URL + "logo_32.png"} alt="" />
+            <span>TOBID</span>
+          </div>
+        </Link>
         <div className="box">
           <Link to="/login">
             <div>로그인</div>
