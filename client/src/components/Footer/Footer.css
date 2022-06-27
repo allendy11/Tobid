@@ -1,7 +1,7 @@
 #Footer {
   border: 1px solid black;
   width: 100vw;
-  flex: 0 1 20rem;
+  flex: 0 1 5rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -10,25 +10,25 @@
 #Footer .container {
   border: 1px solid black;
   width: 60rem;
-  height: 15rem;
+  height: 5rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 #Footer .box {
   border: 1px solid black;
-  height: 12rem;
+  height: 5rem;
 }
 #Footer .box:first-child {
   width: 20rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 3rem;
+  font-size: 2rem;
   font-weight: 700;
 }
 #Footer .box:first-child > img {
-  width: 5rem;
+  width: 3rem;
 }
 #Footer .box:last-child {
   width: 40rem;
@@ -39,11 +39,11 @@
 #Footer .contents {
   border: 1px solid black;
   width: 30rem;
-  height: 8rem;
+  height: 4rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  font-size: 1.5rem;
+  font-size: 1rem;
 }
 #Footer .contents a {
   margin-left: 0.3rem;
