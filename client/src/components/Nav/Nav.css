@@ -1,7 +1,7 @@
 #Nav {
   border-bottom: 1px solid black;
   width: 100vw;
-  height: 4rem;
+  flex: 0 1 4rem;
 }
 #Nav .container {
   border: 1px solid black;

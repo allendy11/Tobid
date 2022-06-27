@@ -8,7 +8,7 @@ import Landing from "./pages/Landing";
 import Register from "./pages/Register";
 function App() {
   return (
-    <div className="App">
+    <div id="App">
       <BrowserRouter>
         <Nav />
         <Routes>
