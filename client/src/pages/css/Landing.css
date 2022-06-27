@@ -1,3 +1,30 @@
 #Landing {
   flex: 1 1 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#Landing .container {
+  border: 1px solid black;
+  width: 60rem;
+  height: 45rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#Landing .box {
+  border: 1px solid black;
+  margin: 5rem
+}
+#Landing .box:first-child {
+  width: 20rem;
+  height: 20rem;
+  font-size: 2rem;
+}
+#Landing  .box:last-child {
+  width: 30rem;
+  height: 30rem;
+}
+#Landing .box:last-child img {
+  width: 20rem;
 }
