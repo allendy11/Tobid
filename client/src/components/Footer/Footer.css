@@ -1,0 +1,61 @@
+#Footer {
+  width: 100vw;
+  flex: 0 1 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(211, 211, 211);
+
+}
+#Footer .container {
+  width: 60rem;
+  height: 5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+#Footer .box {
+  height: 5rem;
+}
+#Footer .box:first-child {
+  width: 10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  font-weight: 700;
+}
+#Footer .box:first-child > img {
+  width: 3rem;
+}
+#Footer .box:last-child {
+  width: 40rem;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+#Footer .contents {
+  width: 50rem;
+  height: 4rem;
+  display: flex; 
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.8rem;
+}
+#Footer .contents > div {
+  margin: 0.1rem 0;
+}
+#Footer .contents span {
+  margin-right: 0.3rem;
+}
+#Footer .contents span:first-child {
+  font-weight: 700;
+}
+#Footer .contents a {
+  margin-left: 0.3rem;
+}#Footer .bar {
+  background-color: black;
+  padding: 7px 0.7px;
+  margin: 0 0.2rem
+}

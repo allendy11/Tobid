@@ -1,13 +1,13 @@
 version: 0.0
 os: linux
 files:
-  - souce: /
+  - source: /
     destination: /home/ubuntu/tobid
 hooks:
   ApplicationStop:
     - location: scripts/stop.sh
       runas: root
-  ApplicationInstall:
+  AfterInstall:
     - location: scripts/initialize.sh
       runas: root
   ApplicationStart:

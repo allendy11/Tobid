@@ -15,7 +15,13 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(cors());
+app.use(
+  cors({
+    origin: ["*"],
+    methods: ["OPTIONS", "GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
 
 // log
 app.use((req: Request, res: Response, next: NextFunction) => {
@@ -27,7 +33,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 });
 
 // test
-app.use("/test", testRouter);
+app.use("/", testRouter);
 
 // routes
 app.use("/user", userRouter);
