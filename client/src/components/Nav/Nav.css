@@ -1,0 +1,41 @@
+#Nav {
+  border-bottom: 1px solid black;
+  width: 100vw;
+  flex: 0 1 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#Nav .container {
+  border: 1px solid black;
+  width: 60rem;
+  height: 4rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  
+}
+#Nav .box {
+  display: flex;
+  align-items: center;
+}
+#Nav .box:first-child {
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+#Nav .box:first-child img {
+  margin-right: 0.2rem;
+}
+#Nav .box:last-child {
+}
+#Nav .box:last-child > a{
+  font-size: 1.2rem;
+  margin: 0 0.5rem;
+}
+#Nav .box:last-child > a div {
+}
+#Nav .bar {
+  background-color: black;
+  padding: 10px 0.8px
+}
