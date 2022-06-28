@@ -13,11 +13,11 @@ const Nav = () => {
         </Link>
         <div className="box">
           <Link to="/login">
-            <div>로그인</div>
+            <div>Login</div>
           </Link>
           <span className="bar"></span>
           <Link to="/register">
-            <div>회원가입</div>
+            <div>Register</div>
           </Link>
         </div>
       </div>

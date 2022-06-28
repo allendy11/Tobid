@@ -12,6 +12,5 @@ html, body, #root {
 #App {
   display: flex;
   flex-direction: column;
-  background-color: antiquewhite;
   height:100%
 }

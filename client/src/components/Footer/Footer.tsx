@@ -5,15 +5,24 @@ const Footer = () => {
     <div id="Footer">
       <div className="container">
         <div className="box">
-          <img src={process.env.PUBLIC_URL + "logo_192.png"} alt="" />
+          <img src={process.env.PUBLIC_URL + "logo_192b.png"} alt="" />
           <span>TOBID</span>
         </div>
         <div className="box">
           <div className="contents">
-            <div>제작자 : 윤대희</div>
-            <div>E-MAIL : allendy11@gmail.com</div>
             <div>
-              GITHUB :
+              <span>Developer</span>
+              <span>윤대희</span>
+            </div>
+            <span className="bar"></span>
+            <div>
+              <span>Email</span>
+              <span>allendy11@gmail.com</span>
+            </div>
+            <span className="bar"></span>
+
+            <div>
+              <span>Github</span>
               <a href="https://github.com/allendy11">
                 https://github.com/allendy11
               </a>

@@ -1,5 +1,4 @@
 #Nav {
-  border-bottom: 1px solid black;
   width: 100vw;
   flex: 0 1 4rem;
   display: flex;
@@ -7,7 +6,6 @@
   align-items: center;
 }
 #Nav .container {
-  border: 1px solid black;
   width: 60rem;
   height: 4rem;
   display: flex;
