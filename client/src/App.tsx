@@ -8,31 +8,43 @@ import Landing from "./pages/Landing";
 import Register from "./pages/Register";
 import axios from "axios";
 function App() {
-  const getAccessToken = (code: string | null) => {
-    if (code) {
-      axios({
-        method: "POST",
-        url: `${process.env.REACT_APP_SERVER_URL_LOCAL}/user/kakao`,
-        data: { authorizationCode: code },
-      }).then((res) => {
-        console.log(res.data);
-      });
+  const [userData, setUserData] = useState({
+    username: "",
+    email: "",
+    token: "",
+  });
+  const [loginStatus, setLoginStatus] = useState(false);
+  const getAccessToken = (code: string | null, type: string | null) => {
+    if (type === "kakao") {
+      if (code) {
+        axios({
+          method: "POST",
+          url: `${process.env.REACT_APP_SERVER_URL_LOCAL}/user/kakao`,
+          data: { authorizationCode: code },
+        }).then((res) => {
+          setUserData({
+            ...userData,
+            username: res.data.user.username,
+            email: res.data.user.email,
+            token: res.data.token,
+          });
+        });
+      }
+    } else if (type === "google") {
     }
-    // axios({
-    //   method: "GET",
-    //   url: "https://kapi.kakao.com/v2/user/me",
-    //   headers: {
-    //     Authorization: `Bearer ${token}`,
-    //     "Content-Type": "application/x-www-form-urlencoded",
-    //   },
-    // }).then((res) => {
-    //   console.log(res.data);
-    // });
   };
   useEffect(() => {
+    const loginStatusSession = sessionStorage.getItem("loginStatusSession");
+    if (loginStatusSession) {
+      setLoginStatus(true);
+    }
     const url = new URL(window.location.href);
     const authorizationCode = url.searchParams.get("code");
-    getAccessToken(authorizationCode);
+    if (!loginStatusSession && authorizationCode) {
+      const loginType = sessionStorage.getItem("loginType");
+      getAccessToken(authorizationCode, loginType);
+    }
+    window.location.assign("http://localhost:3000");
   }, []);
   return (
     <div id="App">
