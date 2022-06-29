@@ -7,7 +7,10 @@ const Nav = () => {
       <div className="container">
         <Link to="/">
           <div className="box">
-            <img src={process.env.PUBLIC_URL + "logo_32.png"} alt="" />
+            <img
+              src={process.env.PUBLIC_URL + "images/logo/logo_32.png"}
+              alt="logo-nav"
+            />
             <span>TOBID</span>
           </div>
         </Link>

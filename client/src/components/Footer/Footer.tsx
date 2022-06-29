@@ -5,7 +5,10 @@ const Footer = () => {
     <div id="Footer">
       <div className="container">
         <div className="box">
-          <img src={process.env.PUBLIC_URL + "logo_192b.png"} alt="" />
+          <img
+            src={process.env.PUBLIC_URL + "images/logo/logo_192b.png"}
+            alt="logo-footer"
+          />
           <span>TOBID</span>
         </div>
         <div className="box">
