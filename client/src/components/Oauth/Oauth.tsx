@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 dotenv.config();
 const Oauth = () => {
   const kakaoLogin = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    const client_id = "9e0fef1189320ab5cd9d7869a7c00f5b";
+    const client_id = process.env.REACT_APP_KAKAO_CLIENT_ID;
     const api_url = `https://kauth.kakao.com/oauth/authorize?client_id=${client_id}&redirect_uri=${process.env.REACT_APP_CLIENT_URL_LOCAL}&response_type=code`;
     window.location.assign(api_url);
   };
