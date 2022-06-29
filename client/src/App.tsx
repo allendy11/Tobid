@@ -28,24 +28,25 @@ function App() {
             email: res.data.user.email,
             token: res.data.token,
           });
+          localStorage.setItem("loginStatus_local", "true");
         });
       }
     } else if (type === "google") {
     }
   };
   useEffect(() => {
-    const loginStatusSession = sessionStorage.getItem("loginStatusSession");
-    if (loginStatusSession) {
+    const loginStatus_local = localStorage.getItem("loginStatus_local");
+    if (loginStatus_local === "true") {
       setLoginStatus(true);
     }
     const url = new URL(window.location.href);
     const authorizationCode = url.searchParams.get("code");
-    if (!loginStatusSession && authorizationCode) {
-      const loginType = sessionStorage.getItem("loginType");
-      getAccessToken(authorizationCode, loginType);
+    if (!loginStatus_local && authorizationCode) {
+      const loginType_local = localStorage.getItem("loginType_local");
+      getAccessToken(authorizationCode, loginType_local);
+      window.location.assign("http://localhost:3000");
     }
-    window.location.assign("http://localhost:3000");
-  }, []);
+  }, [loginStatus]);
   return (
     <div id="App">
       <BrowserRouter>
