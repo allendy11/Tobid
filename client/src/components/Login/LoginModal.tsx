@@ -1,6 +1,7 @@
 import React from "react";
 import "./LoginModal.css";
 import { Link } from "react-router-dom";
+import Oauth from "../Oauth/Oauth";
 const LoginModal = () => {
   return (
     <div id="LoginModal">
@@ -21,7 +22,9 @@ const LoginModal = () => {
             </Link>
           </div>
         </div>
-        <div className="modal-box"></div>
+        <div className="modal-box">
+          <Oauth />
+        </div>
       </div>
     </div>
   );
