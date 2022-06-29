@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import Oauth from "../Oauth/Oauth";
 import axios from "axios";
 import dotenv from "dotenv";
+import { stringify } from "querystring";
 dotenv.config();
 const LoginModal = ({
   userInfo,
@@ -51,12 +52,15 @@ const LoginModal = ({
         },
       })
         .then((res) => {
-          setUserInfo({
-            ...userInfo,
-            email: res.data.user.email,
-            username: res.data.user.username,
-            token: res.data.token,
-          });
+          localStorage.setItem("loginStatus_local", JSON.stringify(true));
+          localStorage.setItem("token_local", JSON.stringify(res.data.token));
+          localStorage.setItem(
+            "userInfo_local",
+            JSON.stringify({
+              username: res.data.user.username,
+              email: res.data.user.email,
+            })
+          );
           window.location.assign(`${process.env.REACT_APP_CLIENT_URL_LOCAL}`);
         })
         .catch((err) => {

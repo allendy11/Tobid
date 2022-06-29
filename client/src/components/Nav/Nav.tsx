@@ -22,6 +22,12 @@ const Nav = ({
   loginStatus: boolean;
   setLoginStatus: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
+  const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    if (e.target instanceof HTMLDivElement && e.target.id === "btn-logout") {
+      localStorage.clear();
+      window.location.assign(`${process.env.REACT_APP_CLIENT_URL_LOCAL}`);
+    }
+  };
   return (
     <div id="Nav">
       <div className="container">
@@ -35,9 +41,11 @@ const Nav = ({
           </div>
         </Link>
         {loginStatus ? (
-          <div className="box">
+          <div className="box isLogin">
             <div>Welcome {userInfo.username}</div>
-            <div>Logout</div>
+            <div id="btn-logout" onClick={(e) => handleClick(e)}>
+              Logout
+            </div>
           </div>
         ) : (
           <div className="box">

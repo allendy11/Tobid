@@ -28,12 +28,25 @@
 #Nav .box:last-child {
 }
 #Nav .box:last-child > a{
-  font-size: 1.2rem;
   margin: 0 0.5rem;
 }
 #Nav .box:last-child > a div {
+  font-size: 1.2rem;
 }
 #Nav .bar {
   background-color: black;
   padding: 10px 0.8px
+}
+#Nav .isLogin {
+  width: 13rem;
+  font-size: 1.2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+#Nav .isLogin > div:first-child {
+  font-size: 0.9rem;
+}
+#Nav .isLogin > div:last-child {
+  cursor: pointer;
 }
