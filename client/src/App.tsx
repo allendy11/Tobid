@@ -50,7 +50,12 @@ function App() {
   return (
     <div id="App">
       <BrowserRouter>
-        <Nav />
+        <Nav
+          userInfo={userInfo}
+          setUserInfo={setUserInfo}
+          loginStatus={loginStatus}
+          setLoginStatus={setLoginStatus}
+        />
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route
