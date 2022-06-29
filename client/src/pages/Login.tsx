@@ -1,7 +1,23 @@
 import React from "react";
 import "./css/Login.css";
 import LoginModal from "../components/Login/LoginModal";
-const Login = () => {
+const Login = ({
+  userInfo,
+  setUserInfo,
+}: {
+  userInfo: {
+    username: string;
+    email: string;
+    token: string;
+  };
+  setUserInfo: React.Dispatch<
+    React.SetStateAction<{
+      username: string;
+      email: string;
+      token: string;
+    }>
+  >;
+}) => {
   return (
     <div id="Login">
       <div className="container">
@@ -10,7 +26,7 @@ const Login = () => {
           <div className="content2">Welcome to TOBID.</div>
         </div>
         <div className="box">
-          <LoginModal />
+          <LoginModal userInfo={userInfo} setUserInfo={setUserInfo} />
         </div>
       </div>
     </div>

@@ -8,7 +8,7 @@ import Landing from "./pages/Landing";
 import Register from "./pages/Register";
 import axios from "axios";
 function App() {
-  const [userData, setUserData] = useState({
+  const [userInfo, setUserInfo] = useState({
     username: "",
     email: "",
     token: "",
@@ -22,8 +22,8 @@ function App() {
           url: `${process.env.REACT_APP_SERVER_URL_LOCAL}/user/kakao`,
           data: { authorizationCode: code },
         }).then((res) => {
-          setUserData({
-            ...userData,
+          setUserInfo({
+            ...userInfo,
             username: res.data.user.username,
             email: res.data.user.email,
             token: res.data.token,
@@ -44,7 +44,7 @@ function App() {
     if (!loginStatus_local && authorizationCode) {
       const loginType_local = localStorage.getItem("loginType_local");
       getAccessToken(authorizationCode, loginType_local);
-      window.location.assign("http://localhost:3000");
+      window.location.assign(`${process.env.REACT_APP_CLIENT_URL_LOCAL}`);
     }
   }, [loginStatus]);
   return (
@@ -53,7 +53,10 @@ function App() {
         <Nav />
         <Routes>
           <Route path="/" element={<Landing />} />
-          <Route path="/login" element={<Login />} />
+          <Route
+            path="/login"
+            element={<Login userInfo={userInfo} setUserInfo={setUserInfo} />}
+          />
           <Route path="/register" element={<Register />} />
         </Routes>
         <Footer />
