@@ -70,6 +70,13 @@ const login = (req: Request, res: Response, next: NextFunction) => {
         .then((userData) => {
           bcryptjs.compare(password, userData[0].password, (error, result) => {
             if (error) {
+              logging.error(NAMESPACE, "password not verified");
+              res.status(500).json({
+                message: "Password not verified",
+                error,
+              });
+            }
+            if (!result) {
               logging.error(NAMESPACE, "Password Mismatch");
               res.status(401).json({
                 message: "Password Mismatch",
