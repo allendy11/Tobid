@@ -31,7 +31,7 @@
 #Footer .box:last-child {
   width: 40rem;
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   align-items: center;
 }
 #Footer .contents {

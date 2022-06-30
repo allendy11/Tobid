@@ -17,13 +17,13 @@ const kakao = (req: Request, res: Response, next: NextFunction) => {
         "Content-Type": "application/x-www-form-urlencoded",
       },
     }).then((userData) => {
-      const { email, profile } = userData.data;
+      const { email, profile } = userData.data.kakao_account;
       if (email) {
         res.status(200).json({
           message: "kakao login success",
           token: `${tokenRes.data.access_token}`,
           user: {
-            username: userData.data.profile.nickname,
+            username: profile.nickname,
             email,
           },
           loginType: "kakao",
@@ -33,7 +33,7 @@ const kakao = (req: Request, res: Response, next: NextFunction) => {
           message: "kakao login success",
           token: `${tokenRes.data.access_token}`,
           user: {
-            username: userData.data.profile.nickname,
+            username: profile.nickname,
             email: "",
           },
           loginType: "kakao",

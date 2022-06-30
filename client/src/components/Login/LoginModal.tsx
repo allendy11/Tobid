@@ -41,31 +41,38 @@ const LoginModal = ({
     }
   };
   const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    console.log(userInput);
     if (e.target instanceof HTMLDivElement && e.target.id === "btn-login") {
-      axios({
-        method: "POST",
-        url: `${process.env.REACT_APP_SERVER_URL_LOCAL}/user/login`,
-        data: { email: userInput.email, password: userInput.password },
-        headers: {
-          "Content-type": "application/json",
-        },
+      loginFunc();
+    }
+  };
+  const loginFunc = () => {
+    axios({
+      method: "POST",
+      url: `${process.env.REACT_APP_SERVER_URL_LOCAL}/user/login`,
+      data: { email: userInput.email, password: userInput.password },
+      headers: {
+        "Content-type": "application/json",
+      },
+    })
+      .then((res) => {
+        localStorage.setItem("loginStatus_local", JSON.stringify(true));
+        localStorage.setItem("token_local", JSON.stringify(res.data.token));
+        localStorage.setItem(
+          "userInfo_local",
+          JSON.stringify({
+            username: res.data.user.username,
+            email: res.data.user.email,
+          })
+        );
+        window.location.replace(`${process.env.REACT_APP_CLIENT_URL_LOCAL}`);
       })
-        .then((res) => {
-          localStorage.setItem("loginStatus_local", JSON.stringify(true));
-          localStorage.setItem("token_local", JSON.stringify(res.data.token));
-          localStorage.setItem(
-            "userInfo_local",
-            JSON.stringify({
-              username: res.data.user.username,
-              email: res.data.user.email,
-            })
-          );
-          window.location.assign(`${process.env.REACT_APP_CLIENT_URL_LOCAL}`);
-        })
-        .catch((err) => {
-          console.log(err.message);
-        });
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
+  const handleKeyUp = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === "Enter") {
+      loginFunc();
     }
   };
   return (
@@ -78,6 +85,7 @@ const LoginModal = ({
               type="email"
               placeholder="Email"
               onChange={(e) => handleChange(e)}
+              onKeyPress={(e) => handleKeyUp(e)}
             />
           </div>
           <div>
@@ -86,6 +94,7 @@ const LoginModal = ({
               type="password"
               placeholder="Password"
               onChange={(e) => handleChange(e)}
+              onKeyPress={(e) => handleKeyUp(e)}
             />
           </div>
           <div>err msg: something wrong</div>

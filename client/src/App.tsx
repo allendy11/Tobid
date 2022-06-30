@@ -14,6 +14,7 @@ function App() {
     token: "",
   });
   const [loginStatus, setLoginStatus] = useState(false);
+
   const getAccessToken = (code: string | null, type: string | null) => {
     if (type === "kakao") {
       if (code) {
@@ -24,48 +25,53 @@ function App() {
         }).then((res) => {
           setUserInfo({
             ...userInfo,
-            username: res.data.user.username,
-            email: res.data.user.email,
             token: res.data.token,
+            email: res.data.user.email,
+            username: res.data.user.username,
           });
+          setLoginStatus(true);
           localStorage.setItem("loginStatus_local", JSON.stringify(true));
+          localStorage.setItem("token_local", JSON.stringify(res.data.token));
+          localStorage.setItem(
+            "userInfo_local",
+            JSON.stringify({
+              username: res.data.user.username,
+              email: res.data.user.email,
+            })
+          );
+          window.location.replace(`${process.env.REACT_APP_CLIENT_URL_LOCAL}`);
         });
       }
     } else if (type === "google") {
     }
   };
   useEffect(() => {
+    const url = new URL(window.location.href);
+    const authorizationCode = url.searchParams.get("code");
     const loginStatus_local = localStorage.getItem("loginStatus_local");
+
+    if (authorizationCode) {
+      const loginType_local = localStorage.getItem("loginType_local");
+      getAccessToken(authorizationCode, loginType_local);
+    }
     if (loginStatus_local && JSON.parse(loginStatus_local)) {
       setLoginStatus(true);
     }
     const token_local = localStorage.getItem("token_local");
-    if (token_local) {
-      setUserInfo({
-        ...userInfo,
-        token: token_local,
-      });
-    }
     const userInfo_local = localStorage.getItem("userInfo_local");
-    if (userInfo_local && JSON.parse(userInfo_local)) {
-      const _userInfo_local: { username: string; email: string } =
-        userInfo_local && JSON.parse(userInfo_local);
-      setUserInfo({
-        ...userInfo,
-        username: _userInfo_local.username,
-        email: _userInfo_local.email,
-      });
+    if (token_local) {
+      if (userInfo_local && JSON.parse(userInfo_local)) {
+        const _token_local = JSON.parse(token_local);
+        const _userInfo_local: { username: string; email: string } =
+          userInfo_local && JSON.parse(userInfo_local);
+        setUserInfo({
+          ...userInfo,
+          username: _userInfo_local.username,
+          email: _userInfo_local.email,
+          token: _token_local,
+        });
+      }
     }
-    const url = new URL(window.location.href);
-    const authorizationCode = url.searchParams.get("code");
-    if (!loginStatus_local && authorizationCode) {
-      const loginType_local = localStorage.getItem("loginType_local");
-      getAccessToken(authorizationCode, loginType_local);
-      window.location.assign(`${process.env.REACT_APP_CLIENT_URL_LOCAL}`);
-    }
-    // console.log(loginStatus_local);
-    // console.log(token_local);
-    // console.log(userInfo_local);
   }, [loginStatus]);
   return (
     <div id="App">
