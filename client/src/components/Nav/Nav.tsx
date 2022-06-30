@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import "./Nav.css";
 import { Link } from "react-router-dom";
 const Nav = ({
@@ -22,12 +22,28 @@ const Nav = ({
   loginStatus: boolean;
   setLoginStatus: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
+  const menuBoxRef = useRef<HTMLDivElement>(null);
+  const mymenuRef = useRef<HTMLDivElement>(null);
   const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     if (e.target instanceof HTMLDivElement && e.target.id === "btn-logout") {
       localStorage.clear();
       window.location.replace(`${process.env.REACT_APP_CLIENT_URL_LOCAL}`);
     }
   };
+  // window.addEventListener("click", (e) => {
+  //   if (e.target === mymenuRef.current) {
+  //     console.log("a");
+  //     menuBoxRef.current && menuBoxRef.current.classList.toggle("menuBtnOn");
+  //   } else {
+  //     console.log("b");
+  //     menuBoxRef.current && menuBoxRef.current.classList.remove("menuBtnOn");
+  //   }
+  // if (menuBoxRef.current) {
+  //   console.log(menuBoxRef.current.classList.contains("menuBtnOn"));
+  //   if (menuBoxRef.current.classList.contains("menuBtnOn")) {
+  //   }
+  // }
+  // });
   return (
     <div id="Nav">
       <div
@@ -59,10 +75,32 @@ const Nav = ({
           </div>
         </Link>
         {loginStatus ? (
-          <div className="box isLogin">
-            <div>Welcome {userInfo.username}</div>
-            <div id="btn-logout" onClick={(e) => handleClick(e)}>
-              Logout
+          <div className="box isLogin" ref={menuBoxRef}>
+            <div>
+              <span>Welcome</span>
+              <span
+                onClick={() => {
+                  menuBoxRef.current &&
+                    menuBoxRef.current.classList.toggle("menuBtnOn");
+                }}
+                ref={mymenuRef}
+              >
+                {userInfo.username}
+              </span>
+            </div>
+            <div id="myMenu">
+              <div
+                id="btn-mypage"
+                onClick={() => {
+                  menuBoxRef.current &&
+                    menuBoxRef.current.classList.toggle("menuBtnOn");
+                }}
+              >
+                <Link to="/mypage">Mypage</Link>
+              </div>
+              <div id="btn-logout" onClick={(e) => handleClick(e)}>
+                Logout
+              </div>
             </div>
           </div>
         ) : (

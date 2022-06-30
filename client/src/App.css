@@ -8,6 +8,7 @@ html, body, #root {
   box-sizing: border-box;
   scroll-behavior: smooth;
   height: 100%;
+  user-select: none;
 }
 #App {
   display: flex;

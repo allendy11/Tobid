@@ -11,11 +11,16 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
+  z-index: 2;
+  background-color: white;
   
 }
 #Nav .box {
+  z-index: 1;
   display: flex;
   align-items: center;
+  height: 4rem;
 }
 #Nav .box:first-child {
   font-size: 1.2rem;
@@ -38,15 +43,50 @@
   padding: 10px 0.8px
 }
 #Nav .isLogin {
-  width: 13rem;
+  width: 11rem;
   font-size: 1.2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
 }
-#Nav .isLogin > div:first-child {
-  font-size: 0.9rem;
+#Nav .isLogin div:first-child {
+  width: 11rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-#Nav .isLogin > div:last-child {
+#Nav .isLogin div:first-child span:last-child{
   cursor: pointer;
+}
+#Nav .isLogin #myMenu {
+  width: 11rem;
+  height: 0rem;
+  position: absolute;
+  top: 3.2rem;
+  right: -1px;
+  transition: all 0.2s ease-in-out;
+  flex-direction: column;
+}
+
+#Nav .menuBtnOn #myMenu {
+  height: 5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  font-size: 1rem;
+  border: 1px solid black;
+}
+#Nav .isLogin #myMenu  div {
+  display: none
+}
+#Nav .menuBtnOn #myMenu  div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0.3rem 0;
+  cursor: pointer;
+
 }
