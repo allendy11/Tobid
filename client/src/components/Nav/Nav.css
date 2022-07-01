@@ -1,0 +1,90 @@
+#Nav {
+  width: 100vw;
+  flex: 0 1 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#Nav .container {
+  width: 60rem;
+  height: 4rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  /* background-color: white; */
+  
+}
+#Nav .box {
+  display: flex;
+  align-items: center;
+  height: 4rem;
+}
+#Nav .box:first-child {
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+#Nav .box:first-child img {
+  margin-right: 0.2rem;
+}
+#Nav .box:last-child {
+}
+#Nav .box:last-child > a{
+  margin: 0 0.5rem;
+}
+#Nav .box:last-child > a div {
+  font-size: 1.2rem;
+}
+#Nav .bar {
+  background-color: black;
+  padding: 10px 0.8px
+}
+#Nav .isLogin {
+  width: 11rem;
+  font-size: 1.2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+#Nav .isLogin div:first-child {
+  width: 11rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+#Nav .isLogin div:first-child span:last-child{
+  cursor: pointer;
+}
+#Nav .isLogin #myMenu {
+  width: 11rem;
+  height: 0rem;
+  position: absolute;
+  top: 3.2rem;
+  right: -1px;
+  transition: all 0.2s ease-in-out;
+  flex-direction: column;
+}
+
+#Nav .menuBtnOn #myMenu {
+  height: 5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  font-size: 1rem;
+  border: 1px solid black;
+}
+#Nav .isLogin #myMenu  div {
+  display: none
+}
+#Nav .menuBtnOn #myMenu  div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0.3rem 0;
+  cursor: pointer;
+
+}
