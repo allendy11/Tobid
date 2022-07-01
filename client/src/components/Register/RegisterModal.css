@@ -28,7 +28,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  position: relative;
+  /* position: relative; */
 }
 #RegisterModal .modal-box:first-child > div:not(:last-child) {
   width: 19rem;
@@ -43,9 +43,13 @@
   outline: none;
   border-radius: 7px;
 }
-#RegisterModal .modal-box:first-child > div:last-child {
-  position: absolute;
-  bottom: -1.2rem;
+#RegisterModal .modal-box:nth-child(2) {
+  flex: 0 1 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+#RegisterModal .err-msg {
   color: red;
   font-size: 0.8rem;
   font-weight: 700;
