@@ -52,7 +52,7 @@ const Nav = ({
         style={{
           position: "absolute",
           top: "1rem",
-          left: "20%",
+          left: "50%",
           width: "4rem",
           height: "4rem",
           cursor: "pointer",
