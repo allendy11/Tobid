@@ -22,41 +22,74 @@ const validateToken = (req: Request, res: Response, next: NextFunction) => {
 // signup
 const register = (req: Request, res: Response, next: NextFunction) => {
   const { username, email, password } = req.body;
-  bcryptjs.hash(password, 10, (hashError, hash) => {
-    if (hashError) {
-      logging.error(NAMESPACE, hashError.message);
-      res.status(500).json({
-        message: hashError.message,
-        hashError,
-      });
-    } else {
-      var query = `INSERT INTO users (username, email, password, created_at, updated_at) VALUES (?,?,?,?,?)`;
-      const currentDate = getCurrentDate();
-      const params = [username, email, hash, currentDate, currentDate];
-      Connect()
-        .then((connection) => {
-          Query<IMySQLResult>(connection, query, params)
-            .then((result) => {
-              logging.info(NAMESPACE, `Inserted user [id: ${result.insertId}]`);
-              res.status(201).json(result);
-            })
-            .catch((error) => {
-              logging.error(NAMESPACE, `[register-Query]`);
-              res.status(500).json({
-                message: error.message,
-                error,
-              });
+  var query = "SELECT * FROM users WHERE username = ? OR email = ?";
+  var params = [username, email];
+  Connect()
+    .then((connection) => {
+      Query<IUser[]>(connection, query, params)
+        .then((result) => {
+          if (result.length !== 0) {
+            res.status(409).json({
+              message: "conflict userInfo",
             });
+          } else {
+            bcryptjs.hash(password, 10, (hashError, hash) => {
+              if (hashError) {
+                logging.error(NAMESPACE, hashError.message);
+                res.status(500).json({
+                  message: hashError.message,
+                  hashError,
+                });
+              } else {
+                var query = `INSERT INTO users (username, email, password, created_at, updated_at) VALUES (?,?,?,?,?)`;
+                const currentDate = getCurrentDate();
+                const params = [
+                  username,
+                  email,
+                  hash,
+                  currentDate,
+                  currentDate,
+                ];
+                Connect()
+                  .then((connection) => {
+                    Query<IMySQLResult>(connection, query, params)
+                      .then((result) => {
+                        logging.info(
+                          NAMESPACE,
+                          `Inserted user [id: ${result.insertId}]`
+                        );
+                        res.status(201).json(result);
+                      })
+                      .catch((error) => {
+                        logging.error(NAMESPACE, `[register-Query]`);
+                        res.status(500).json({
+                          message: error.message,
+                          error,
+                        });
+                      });
+                  })
+                  .catch((error) => {
+                    logging.error(NAMESPACE, `[register-Connect]`);
+                    res.status(500).json({
+                      message: error.message,
+                      error,
+                    });
+                  });
+              }
+            });
+          }
         })
         .catch((error) => {
-          logging.error(NAMESPACE, `[register-Connect]`);
-          res.status(500).json({
-            message: error.message,
-            error,
-          });
+          logging.error(NAMESPACE, `[register-Query-1]`);
         });
-    }
-  });
+    })
+    .catch((error) => {
+      logging.error(NAMESPACE, `[register-Connect-1]`);
+      res.status(500).json({
+        message: error.message,
+        error,
+      });
+    });
 };
 
 // login
