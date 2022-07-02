@@ -1,14 +1,17 @@
 import { Request, Response, NextFunction } from "express";
 import axios, { AxiosError } from "axios";
 import logging from "../config/logging";
-import signJWT from "../middleware/signJWT";
 import KakaoData from "../interface/kakao";
 import dotenv from "dotenv";
 dotenv.config();
 
 const NAMESPACE = "KAKAO";
 const kakao = async (req: Request, res: Response, next: NextFunction) => {
-  const url = `https://kauth.kakao.com/oauth/token?client_id=${process.env.KAKAO_CLIENT_ID}&client_secret=${process.env.KAKAO_CLIENT_SECRET}&grant_type=authorization_code&code=${req.body.authorizationCode}&redirect_uri=${process.env.CLIENT_URL_LOCAL}`;
+  const KAKAO_CLIENT_ID = process.env.KAKAO_CLIENT_ID;
+  const KAKAO_CLIENT_SECRET = process.env.KAKAO_CLIENT_SECRET;
+  const authorizationCode = req.body.authorizationCode;
+  const redirect_uri = process.env.CLIENT_URL_LOCAL;
+  const url = `https://kauth.kakao.com/oauth/token?client_id=${KAKAO_CLIENT_ID}&client_secret=${KAKAO_CLIENT_SECRET}&grant_type=authorization_code&code=${authorizationCode}&redirect_uri=${redirect_uri}`;
   try {
     await axios({ method: "GET", url }).then(async (tokenRes) => {
       axios({
