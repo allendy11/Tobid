@@ -4,7 +4,15 @@ const Footer = () => {
   return (
     <div id="Footer">
       <div className="container">
-        <div className="box">
+        <div
+          className="box"
+          onClick={() => {
+            localStorage.clear();
+            window.location.replace(
+              `${process.env.REACT_APP_CLIENT_URL_LOCAL}`
+            );
+          }}
+        >
           <img
             src={process.env.PUBLIC_URL + "images/logo/logo_192b.png"}
             alt="logo-footer"

@@ -46,24 +46,6 @@ const Nav = ({
   // });
   return (
     <div id="Nav">
-      <div
-        id="btn-admin-reset"
-        className="it_will_be_removed"
-        style={{
-          position: "absolute",
-          top: "1rem",
-          left: "50%",
-          width: "4rem",
-          height: "4rem",
-          cursor: "pointer",
-        }}
-        onClick={() => {
-          localStorage.clear();
-          window.location.replace(`${process.env.REACT_APP_CLIENT_URL_LOCAL}`);
-        }}
-      >
-        adimin
-      </div>
       <div className="container">
         <Link to="/">
           <div className="box">

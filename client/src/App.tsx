@@ -46,6 +46,7 @@ function App() {
     }
   };
   useEffect(() => {
+    // localStorage.clear();
     const url = new URL(window.location.href);
     const authorizationCode = url.searchParams.get("code");
     const loginStatus_local = localStorage.getItem("loginStatus_local");
