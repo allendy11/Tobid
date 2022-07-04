@@ -43,9 +43,21 @@ function App() {
         });
       }
     } else if (type === "google") {
+      if (code) {
+        axios({
+          method: "POST",
+          url: `${process.env.REACT_APP_SERVER_URL_LOCAL}/user/google`,
+          data: {
+            authorizationCode: code,
+          },
+        }).then((res) => {
+          console.log(res.data);
+        });
+      }
     }
   };
   useEffect(() => {
+    // localStorage.clear();
     const url = new URL(window.location.href);
     const authorizationCode = url.searchParams.get("code");
     const loginStatus_local = localStorage.getItem("loginStatus_local");

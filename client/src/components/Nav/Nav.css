@@ -41,7 +41,6 @@
   padding: 10px 0.8px
 }
 #Nav .isLogin {
-  width: 11rem;
   font-size: 1.2rem;
   display: flex;
   justify-content: space-between;
@@ -49,12 +48,9 @@
   position: relative;
 }
 #Nav .isLogin div:first-child {
-  width: 11rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 }
 #Nav .isLogin div:first-child span:last-child{
+  margin: 0 1rem;
   cursor: pointer;
 }
 #Nav .isLogin #myMenu {

@@ -1,17 +1,15 @@
-interface TokenRequest {
-  grant_type: string;
-  client_id: string;
-  redirect_uri: string;
-  code: string;
-}
-interface TokenResponse {
-  token_type: string;
-  access_token: string;
-  id_token: string;
-  expires_in: string;
-  refresh_token: string;
-  refresh_token_expires_in: number;
-  scope: string;
+interface KakaoData {
+  nickname: "string";
+  // id: number;
+  // connected_at: string;
+  // properties: { nickname: string };
+  // kakao_account: {
+  //   profile_nickname_needs_agreement: boolean;
+  //   profile: { nickname: "string" };
+  //   has_email: boolean;
+  //   email_needs_agreement: boolean;
+  //   email?: string;
+  // };
 }
 
-export default TokenRequest;
+export default KakaoData;
