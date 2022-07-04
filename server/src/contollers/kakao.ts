@@ -13,12 +13,12 @@ const kakao = async (req: Request, res: Response, next: NextFunction) => {
   const redirect_uri = process.env.CLIENT_URL_LOCAL;
   const url = `https://kauth.kakao.com/oauth/token?client_id=${KAKAO_CLIENT_ID}&client_secret=${KAKAO_CLIENT_SECRET}&grant_type=authorization_code&code=${authorizationCode}&redirect_uri=${redirect_uri}`;
   try {
-    await axios({ method: "GET", url }).then(async (tokenRes) => {
+    await axios({ method: "GET", url }).then(async (tokenData) => {
       axios({
         method: "GET",
         url: "https://kapi.kakao.com/v2/user/me",
         headers: {
-          Authorization: `Bearer ${tokenRes.data.access_token}`,
+          Authorization: `Bearer ${tokenData.data.access_token}`,
           "Content-Type": "application/x-www-form-urlencoded",
         },
       }).then((userData) => {
@@ -27,7 +27,7 @@ const kakao = async (req: Request, res: Response, next: NextFunction) => {
         if (!email) {
           res.status(200).json({
             message: "kakao login success",
-            token: `${tokenRes.data.access_token}`,
+            token: `${tokenData.data.access_token}`,
             user: {
               username: profile.nickname,
               email: "",
@@ -37,7 +37,7 @@ const kakao = async (req: Request, res: Response, next: NextFunction) => {
         } else {
           res.status(200).json({
             message: "kakao login success",
-            token: `${tokenRes.data.access_token}`,
+            token: `${tokenData.data.access_token}`,
             user: {
               username: profile.nickname,
               email,
