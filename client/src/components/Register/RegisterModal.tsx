@@ -48,30 +48,72 @@ const RegisterModal = () => {
   };
 
   const requestRegister = async () => {
-    try {
-      await axios({
-        method: "POST",
-        url: `${process.env.REACT_APP_SERVER_URL_LOCAL}/user/register`,
-        data: {
-          username: userInput.username,
-          email: userInput.email,
-          password: userInput.password,
-        },
-      }).then((res) => {
-        console.log("work");
-        setErrMessage({
-          status: false,
-          message: "",
-        });
+    const regEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
+    const regSpace = /\s/g;
+    if (userInput.username === "" || regSpace.test(userInput.username)) {
+      setErrMessage({
+        status: true,
+        message: "Incorrect username",
       });
-    } catch (err) {
-      if (err instanceof AxiosError) {
-        if (err.response) {
-          if (err.response.status === 409) {
-            setErrMessage({
-              status: true,
-              message: "Your email already exist",
-            });
+      setUserInput({
+        ...userInput,
+        username: "",
+        password: "",
+        password2: "",
+      });
+    } else if (!regEmail.test(userInput.email)) {
+      setErrMessage({
+        status: true,
+        message: "Incorrect email",
+      });
+      setUserInput({
+        ...userInput,
+        email: "",
+        password: "",
+        password2: "",
+      });
+    } else if (
+      userInput.password === "" ||
+      userInput.password2 === "" ||
+      regSpace.test(userInput.password) ||
+      regSpace.test(userInput.password2) ||
+      userInput.password !== userInput.password2
+    ) {
+      setErrMessage({
+        status: true,
+        message: "Incorrect password",
+      });
+      setUserInput({
+        ...userInput,
+        password: "",
+        password2: "",
+      });
+    } else {
+      try {
+        await axios({
+          method: "POST",
+          url: `${process.env.REACT_APP_SERVER_URL_LOCAL}/user/register`,
+          data: {
+            username: userInput.username,
+            email: userInput.email,
+            password: userInput.password,
+          },
+        }).then((res) => {
+          console.log("work");
+          setErrMessage({
+            status: false,
+            message: "",
+          });
+        });
+      } catch (err) {
+        if (err instanceof AxiosError) {
+          if (err.response) {
+            if (err.response.status === 409) {
+              setErrMessage({
+                status: true,
+                message: "Your email already exist",
+              });
+            }
           }
         }
       }
@@ -86,9 +128,11 @@ const RegisterModal = () => {
               id="register-username"
               type="text"
               placeholder="Username"
+              value={userInput.username}
               onChange={(e) => {
                 handleChange(e);
               }}
+              onKeyPress={(e) => handleKeyUp(e)}
             />
           </div>
           <div>
@@ -96,9 +140,11 @@ const RegisterModal = () => {
               id="register-email"
               type="text"
               placeholder="Email"
+              value={userInput.email}
               onChange={(e) => {
                 handleChange(e);
               }}
+              onKeyPress={(e) => handleKeyUp(e)}
             />
           </div>
           <div>
@@ -106,9 +152,11 @@ const RegisterModal = () => {
               id="register-password"
               type="password"
               placeholder="Password"
+              value={userInput.password}
               onChange={(e) => {
                 handleChange(e);
               }}
+              onKeyPress={(e) => handleKeyUp(e)}
             />
           </div>
           <div>
@@ -116,6 +164,7 @@ const RegisterModal = () => {
               id="register-password2"
               type="password"
               placeholder="Re-type Password"
+              value={userInput.password2}
               onChange={(e) => {
                 handleChange(e);
               }}
@@ -126,7 +175,9 @@ const RegisterModal = () => {
         <div className="modal-box">
           {errMessage.status ? (
             <div className="err-msg">{errMessage.message}</div>
-          ) : null}
+          ) : (
+            <div></div>
+          )}
         </div>
         <div className="modal-box">
           <div
