@@ -24,12 +24,35 @@ const google = async (req: Request, res: Response, next: NextFunction) => {
           Authorization: `Bearer ${tokenData.data.access_token}`,
         },
       }).then((userInfo) => {
-        console.log(userInfo);
+        const { email, name } = userInfo.data;
+        console.log(email, name);
+        if (!name) {
+          res.status(200).json({
+            message: "google login success",
+            token: tokenData.data.access_token,
+            user: {
+              username: `User#${Math.floor(
+                Math.random() * (999999 - 100000) + 100000
+              )}`,
+              email,
+            },
+          });
+        } else {
+          res.status(200).json({
+            message: "google login success",
+            token: tokenData.data.access_token,
+            user: {
+              username: name,
+              email,
+            },
+          });
+        }
       });
     });
   } catch (err) {
     if (err instanceof AxiosError) {
       console.log(err.message);
+      res.status(500).json({ message: err.message });
     }
   }
 };
