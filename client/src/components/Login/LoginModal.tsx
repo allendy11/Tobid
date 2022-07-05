@@ -27,6 +27,10 @@ const LoginModal = ({
     email: "",
     password: "",
   });
+  const [errMessage, setErrMessage] = useState({
+    status: false,
+    message: "test",
+  });
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.id === "input-email") {
       setUserInput({
@@ -46,29 +50,46 @@ const LoginModal = ({
     }
   };
   const loginFunc = () => {
-    axios({
-      method: "POST",
-      url: `${process.env.REACT_APP_SERVER_URL_LOCAL}/user/login`,
-      data: { email: userInput.email, password: userInput.password },
-      headers: {
-        "Content-type": "application/json",
-      },
-    })
-      .then((res) => {
-        localStorage.setItem("loginStatus_local", JSON.stringify(true));
-        localStorage.setItem("token_local", JSON.stringify(res.data.token));
-        localStorage.setItem(
-          "userInfo_local",
-          JSON.stringify({
-            username: res.data.user.username,
-            email: res.data.user.email,
-          })
-        );
-        window.location.replace(`${process.env.REACT_APP_CLIENT_URL_LOCAL}`);
-      })
-      .catch((err) => {
-        console.log(err.message);
+    const regEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
+    const regSpace = /\s/g;
+    if (
+      !regEmail.test(userInput.email) ||
+      userInput.password === "" ||
+      regSpace.test(userInput.password)
+    ) {
+      setErrMessage({
+        status: true,
+        message: "Incorrect username or password",
       });
+      setUserInput({
+        email: "",
+        password: "",
+      });
+    } else {
+      axios({
+        method: "POST",
+        url: `${process.env.REACT_APP_SERVER_URL_LOCAL}/user/login`,
+        data: { email: userInput.email, password: userInput.password },
+        headers: {
+          "Content-type": "application/json",
+        },
+      })
+        .then((res) => {
+          localStorage.setItem("loginStatus_local", JSON.stringify(true));
+          localStorage.setItem("token_local", JSON.stringify(res.data.token));
+          localStorage.setItem(
+            "userInfo_local",
+            JSON.stringify({
+              username: res.data.user.username,
+              email: res.data.user.email,
+            })
+          );
+          window.location.replace(`${process.env.REACT_APP_CLIENT_URL_LOCAL}`);
+        })
+        .catch((err) => {
+          console.log(err.message);
+        });
+    }
   };
   const handleKeyUp = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (e.key === "Enter") {
@@ -84,6 +105,7 @@ const LoginModal = ({
               id="input-email"
               type="email"
               placeholder="Email"
+              value={userInput.email}
               onChange={(e) => handleChange(e)}
               onKeyPress={(e) => handleKeyUp(e)}
             />
@@ -93,11 +115,12 @@ const LoginModal = ({
               id="input-password"
               type="password"
               placeholder="Password"
+              value={userInput.password}
               onChange={(e) => handleChange(e)}
               onKeyPress={(e) => handleKeyUp(e)}
             />
           </div>
-          <div>err msg: something wrong</div>
+          {errMessage.status ? <div>{errMessage.message}</div> : <div></div>}
           <div id="btn-login" onClick={(e) => handleClick(e)}>
             Login
           </div>

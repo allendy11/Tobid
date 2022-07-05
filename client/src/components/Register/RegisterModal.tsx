@@ -126,7 +126,9 @@ const RegisterModal = () => {
         <div className="modal-box">
           {errMessage.status ? (
             <div className="err-msg">{errMessage.message}</div>
-          ) : null}
+          ) : (
+            <div></div>
+          )}
         </div>
         <div className="modal-box">
           <div

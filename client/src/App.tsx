@@ -51,7 +51,23 @@ function App() {
             authorizationCode: code,
           },
         }).then((res) => {
-          console.log(res.data);
+          setUserInfo({
+            ...userInfo,
+            token: res.data.token,
+            email: res.data.user.email,
+            username: res.data.user.username,
+          });
+          setLoginStatus(true);
+          localStorage.setItem("loginStatus_local", JSON.stringify(true));
+          localStorage.setItem("token_local", JSON.stringify(res.data.token));
+          localStorage.setItem(
+            "userInfo_local",
+            JSON.stringify({
+              username: res.data.user.username,
+              email: res.data.user.email,
+            })
+          );
+          window.location.replace(`${process.env.REACT_APP_CLIENT_URL_LOCAL}`);
         });
       }
     }
