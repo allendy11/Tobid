@@ -24,16 +24,33 @@ const server = {
 };
 
 // mysql
-const MYSQL_HOST = process.env.MYSQL_HOST || "localhost";
-const MYSQL_USER = process.env.MYSQL_USER || "root";
-const MYSQL_PASSWORD = process.env.MYSQL_PASSWORD || "password";
-const MYSQL_DATABASE = process.env.MYSQL_DATABASE || "tobid";
+// const MYSQL_HOST = process.env.MYSQL_HOST || "localhost";
+// const MYSQL_USER = process.env.MYSQL_USER || "root";
+// const MYSQL_PASSWORD = process.env.MYSQL_PASSWORD || "password";
+// const MYSQL_DATABASE = process.env.MYSQL_DATABASE || "tobid";
+// const MYSQL_PORT = process.env.MYSQL_PORT || "3306";
+
+// const mysql = {
+//   host: MYSQL_HOST,
+//   user: MYSQL_USER,
+//   password: MYSQL_PASSWORD,
+//   database: MYSQL_DATABASE,
+//   port: Number(MYSQL_PORT),
+// };
+
+// RDS
+const RDS_HOST = process.env.RDS_HOST;
+const RDS_USER = process.env.RDS_USER;
+const RDS_PASSWORD = process.env.RDS_PASSWORD;
+const RDS_DATABASE = process.env.RDS_DATABASE;
+const RDS_PORT = process.env.RDS_PORT;
 
 const mysql = {
-  host: MYSQL_HOST,
-  user: MYSQL_USER,
-  password: MYSQL_PASSWORD,
-  database: MYSQL_DATABASE,
+  host: RDS_HOST,
+  user: RDS_USER,
+  password: RDS_PASSWORD,
+  database: RDS_DATABASE,
+  port: Number(RDS_PORT),
 };
 
 export default {
