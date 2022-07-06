@@ -1,13 +1,16 @@
 import React, { useRef } from "react";
 import "./Nav.css";
 import { Link } from "react-router-dom";
-import Mymenu from "./Mymenu";
+import MenuIcon from "../ETC/MenuIcon/MenuIcon";
+import UserMenu from "./UserMenu";
 const Nav = ({
+  innerWidth,
   userInfo,
   setUserInfo,
   loginStatus,
   setLoginStatus,
 }: {
+  innerWidth: number;
   userInfo: {
     username: string;
     email: string;
@@ -44,31 +47,13 @@ const Nav = ({
             <span>TOBID</span>
           </div>
         </Link>
-        {loginStatus ? (
-          <div className="box isLogin" ref={menuBoxRef}>
-            <div>
-              <span>Welcome</span>
-              <span
-                onClick={() => {
-                  menuBoxRef.current &&
-                    menuBoxRef.current.classList.toggle("menuBtnOn");
-                }}
-                ref={mymenuRef}
-              >
-                {userInfo.username}
-              </span>
-            </div>
-            <Mymenu menuBoxRef={menuBoxRef} handleClick={handleClick} />
+        {innerWidth > 980 ? (
+          <div className="box">
+            <UserMenu loginStatus={loginStatus} handleClick={handleClick} />
           </div>
         ) : (
           <div className="box">
-            <Link to="/login">
-              <div>Login</div>
-            </Link>
-            <span className="bar"></span>
-            <Link to="/register">
-              <div>Register</div>
-            </Link>
+            <MenuIcon />
           </div>
         )}
       </div>

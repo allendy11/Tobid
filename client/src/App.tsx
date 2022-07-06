@@ -8,6 +8,7 @@ import Landing from "./pages/Landing";
 import Register from "./pages/Register";
 import axios from "axios";
 function App() {
+  const [innerWidth, setInnerWidth] = useState(window.innerWidth);
   const [userInfo, setUserInfo] = useState({
     username: "",
     email: "",
@@ -73,7 +74,6 @@ function App() {
     }
   };
   useEffect(() => {
-    // localStorage.clear();
     const url = new URL(window.location.href);
     const authorizationCode = url.searchParams.get("code");
     const loginStatus_local = localStorage.getItem("loginStatus_local");
@@ -101,10 +101,17 @@ function App() {
       }
     }
   }, [loginStatus]);
+
+  // window resize
+  window.addEventListener("resize", (e) => {
+    setInnerWidth(window.innerWidth);
+  });
+
   return (
     <div id="App">
       <BrowserRouter>
         <Nav
+          innerWidth={innerWidth}
           userInfo={userInfo}
           setUserInfo={setUserInfo}
           loginStatus={loginStatus}
