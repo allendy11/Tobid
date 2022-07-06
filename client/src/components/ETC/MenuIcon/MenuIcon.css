@@ -1,0 +1,16 @@
+@media screen and (max-width: 980px) {
+  #MenuIcon {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    margin-right: 1rem;
+  }
+
+  #MenuIcon .bar { 
+    background-color: black;
+    padding: 2.5px 15px;
+    margin: 3px;
+  }
+
+}
+
