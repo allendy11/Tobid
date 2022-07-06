@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import "./Nav.css";
 import { Link } from "react-router-dom";
+import Mymenu from "./Mymenu";
 const Nav = ({
   userInfo,
   setUserInfo,
@@ -30,20 +31,7 @@ const Nav = ({
       window.location.replace(`${process.env.REACT_APP_CLIENT_URL_LOCAL}`);
     }
   };
-  // window.addEventListener("click", (e) => {
-  //   if (e.target === mymenuRef.current) {
-  //     console.log("a");
-  //     menuBoxRef.current && menuBoxRef.current.classList.toggle("menuBtnOn");
-  //   } else {
-  //     console.log("b");
-  //     menuBoxRef.current && menuBoxRef.current.classList.remove("menuBtnOn");
-  //   }
-  // if (menuBoxRef.current) {
-  //   console.log(menuBoxRef.current.classList.contains("menuBtnOn"));
-  //   if (menuBoxRef.current.classList.contains("menuBtnOn")) {
-  //   }
-  // }
-  // });
+
   return (
     <div id="Nav">
       <div className="container">
@@ -70,20 +58,7 @@ const Nav = ({
                 {userInfo.username}
               </span>
             </div>
-            <div id="myMenu">
-              <div
-                id="btn-mypage"
-                onClick={() => {
-                  menuBoxRef.current &&
-                    menuBoxRef.current.classList.toggle("menuBtnOn");
-                }}
-              >
-                <Link to="/mypage">Mypage</Link>
-              </div>
-              <div id="btn-logout" onClick={(e) => handleClick(e)}>
-                Logout
-              </div>
-            </div>
+            <Mymenu menuBoxRef={menuBoxRef} handleClick={handleClick} />
           </div>
         ) : (
           <div className="box">
