@@ -28,7 +28,61 @@
   width: 2.4rem;
   margin-right: 0.2rem;
 }
+/*! UserMenu*/
+#UserMenu {}
 
+#UserMenu .usermenu-box {
+  display: flex;
+  font-size: 1.2rem;
+  /* font-weight: 700; */
+}
+#UserMenu .bar {
+  padding: 10px 0.7px;
+  background-color: black;
+  margin: 0 10px
+}
+#btn-logout {
+  cursor: pointer;
+}
+
+/*! MenuIcon */
+.menuIcon-box {
+  margin-right: 1rem;
+}
+
+/*! UserMeneModal */
+#UserMenuModal {
+  width: 8rem;
+  height: 0;
+  position: absolute;
+  top: 4rem;
+  right: 1rem;
+  transition: all 0.1s ease-in-out;
+  background-color: aliceblue;
+}
+#UserMenuModal .usermenu-box {
+  display: none;
+}
+.menuBtnOn #UserMenuModal{
+  height: 7rem;
+  border: 1px solid black;
+
+}
+.menuBtnOn #UserMenuModal .usermenu-box {
+  width: 8rem;
+  height: 7rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.5s ease-in-out;
+}
+.menuBtnOn #UserMenuModal .usermenu-box div {
+  margin: 0.5rem 0
+}
+.menuBtnOn #UserMenuModal .usermenu-box span { 
+  display: none;
+}
 @media screen and (max-width: 980px) {
   #Nav {
     background-color: rgb(209, 209, 209);
