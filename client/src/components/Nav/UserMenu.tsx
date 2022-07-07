@@ -1,14 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
-interface IUserMenu {
-  loginStatus: boolean;
-  handleClick: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
-}
-const UserMenu = ({ loginStatus, handleClick }: IUserMenu) => {
+import IUserMenu from "../../Interface/IUserMenu";
+
+const UserMenu = ({ loginStatus, handleClick, menuBoxRef }: IUserMenu) => {
   return (
     <div id="UserMenu">
       {loginStatus ? (
-        <div className="box">
+        <div className="usermenu-box">
           <div>
             <Link to="/mypage">Mypage</Link>
           </div>
@@ -18,13 +16,29 @@ const UserMenu = ({ loginStatus, handleClick }: IUserMenu) => {
           </div>
         </div>
       ) : (
-        <div className="box">
+        <div className="usermenu-box">
           <Link to="/login">
-            <div>Login</div>
+            <div
+              onClick={() => {
+                menuBoxRef &&
+                  menuBoxRef.current &&
+                  menuBoxRef.current.classList.remove("menuBtnOn");
+              }}
+            >
+              Login
+            </div>
           </Link>
           <span className="bar"></span>
           <Link to="/register">
-            <div>Register</div>
+            <div
+              onClick={() => {
+                menuBoxRef &&
+                  menuBoxRef.current &&
+                  menuBoxRef.current.classList.remove("menuBtnOn");
+              }}
+            >
+              Register
+            </div>
           </Link>
         </div>
       )}
