@@ -1,0 +1,46 @@
+#Profile {
+  flex: 0 1 20rem;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+}
+.profile-container:first-child {
+  flex: 0 1 4rem;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-left: 2rem;
+  border-bottom: 1px solid black;
+}
+.profile-container:first-child > span{
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.profile-container:last-child {
+  flex: 1 1 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-box {
+  border: 1px solid black;
+  width: 15rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+#my-image{
+  object-fit: contain;
+  width: 10rem;
+  cursor: pointer;
+  
+}
+.userInfo-box {
+  border: 1px solid black;
+  width: 35rem;
+  height: 100%;
+}
