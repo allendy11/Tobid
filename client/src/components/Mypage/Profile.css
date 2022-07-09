@@ -33,14 +33,35 @@
   justify-content: center;
   align-items: center;
 }
+.image-box > form {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 #my-image{
   object-fit: contain;
   width: 10rem;
   cursor: pointer;
   
 }
+#Profile .image-box .delete-button {
+  width: 5rem;
+  height: 1.5rem;
+  margin-top: 1rem;
+}
+#Profile .image-box .delete-button > div{
+  height: 1.5rem;
+  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  cursor: pointer;
+}
 .userInfo-box {
   border: 1px solid black;
   width: 35rem;
   height: 100%;
+  
 }
