@@ -6,6 +6,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Login from "./pages/Login";
 import Landing from "./pages/Landing";
 import Register from "./pages/Register";
+import Mypage from "./pages/Mypage";
 import axios from "axios";
 function App() {
   const [innerWidth, setInnerWidth] = useState(window.innerWidth);
@@ -124,6 +125,7 @@ function App() {
             element={<Login userInfo={userInfo} setUserInfo={setUserInfo} />}
           />
           <Route path="/register" element={<Register />} />
+          <Route path="/mypage" element={<Mypage />} />
         </Routes>
         <Footer />
       </BrowserRouter>
