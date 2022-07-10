@@ -4,8 +4,22 @@ import UserImage from "./UserImage";
 import UserInfo from "./UserInfo";
 import dotenv from "dotenv";
 import IUser from "../../Interface/IUser";
+import EditUserName from "../../components/ETC/EditModal/EditUserName";
 dotenv.config();
-const Profile = ({ userInfo, setUserInfo }: IUser) => {
+const Profile = ({
+  userInfo,
+  setUserInfo,
+  setErrorModal,
+}: {
+  userInfo: IUser["userInfo"];
+  setUserInfo: IUser["setUserInfo"];
+  setErrorModal: React.Dispatch<
+    React.SetStateAction<{
+      status: boolean;
+      message: string;
+    }>
+  >;
+}) => {
   const profile = {
     username: userInfo.username,
     email: userInfo.email,
@@ -19,8 +33,9 @@ const Profile = ({ userInfo, setUserInfo }: IUser) => {
       </div>
       <div className="profile-container">
         <UserImage profileImage={profileImage} />
-        <UserInfo profile={profile} />
+        <UserInfo profile={profile} setErrorModal={setErrorModal} />
       </div>
+      <EditUserName />
     </div>
   );
 };
