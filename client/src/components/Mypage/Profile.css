@@ -3,8 +3,9 @@
   display: flex;
   width: 100%;
   flex-direction: column;
+  position: relative;
 }
-.profile-container:first-child {
+.profile-container:nth-child(1) {
   flex: 0 1 4rem;
   display: flex;
   justify-content: flex-start;
@@ -12,12 +13,12 @@
   padding-left: 2rem;
   border-bottom: 1px solid black;
 }
-.profile-container:first-child > span{
+.profile-container:nth-child(1) > span{
   font-size: 1.5rem;
   font-weight: 700;
 }
 
-.profile-container:last-child {
+.profile-container:nth-child(2){
   flex: 1 1 0;
   display: flex;
   justify-content: center;

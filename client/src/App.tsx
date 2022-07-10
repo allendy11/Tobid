@@ -8,6 +8,7 @@ import Landing from "./pages/Landing";
 import Register from "./pages/Register";
 import Mypage from "./pages/Mypage";
 import axios from "axios";
+import ErrorModal from "./components/ETC/ErrorModal/ErrorModal";
 function App() {
   const [innerWidth, setInnerWidth] = useState(window.innerWidth);
   const [userInfo, setUserInfo] = useState({
@@ -19,7 +20,10 @@ function App() {
   });
   const [token, setToken] = useState("");
   const [loginStatus, setLoginStatus] = useState(false);
-
+  const [errorModal, setErrorModal] = useState({
+    status: false,
+    message: "",
+  });
   const getAccessToken = (code: string | null, type: string | null) => {
     if (type === "kakao") {
       if (code) {
@@ -132,11 +136,23 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route
             path="/mypage"
-            element={<Mypage userInfo={userInfo} setUserInfo={setUserInfo} />}
+            element={
+              <Mypage
+                userInfo={userInfo}
+                setUserInfo={setUserInfo}
+                setErrorModal={setErrorModal}
+              />
+            }
           />
         </Routes>
         <Footer />
       </BrowserRouter>
+      {errorModal.status ? (
+        <ErrorModal
+          message={errorModal.message}
+          setErrorModal={setErrorModal}
+        />
+      ) : null}
     </div>
   );
 }

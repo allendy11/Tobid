@@ -1,0 +1,29 @@
+#ErrorModal {
+  width: 15rem;
+  height: 7rem;
+  border: 1px solid black;
+  background-color: rgb(230, 230, 230);
+  border-radius: 15px;
+  position: absolute;
+  top: 20rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+#ErrorModal > div:first-child {
+  margin-bottom: 1rem;
+}
+#ErrorModal > div:last-child {
+  width: 2.5rem;
+  height: 1.5rem;
+  position: absolute;
+  bottom: 0.5rem;
+  border: 1px solid black;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  background-color: white;
+}
