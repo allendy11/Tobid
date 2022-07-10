@@ -5,23 +5,14 @@ import Oauth from "../Oauth/Oauth";
 import axios from "axios";
 import dotenv from "dotenv";
 import { stringify } from "querystring";
+import IUser from "../../Interface/IUser";
 dotenv.config();
 const LoginModal = ({
   userInfo,
   setUserInfo,
 }: {
-  userInfo: {
-    username: string;
-    email: string;
-    token: string;
-  };
-  setUserInfo: React.Dispatch<
-    React.SetStateAction<{
-      username: string;
-      email: string;
-      token: string;
-    }>
-  >;
+  userInfo: IUser["userInfo"];
+  setUserInfo: IUser["setUserInfo"];
 }) => {
   const [userInput, setUserInput] = useState({
     email: "",
@@ -82,6 +73,9 @@ const LoginModal = ({
             JSON.stringify({
               username: res.data.user.username,
               email: res.data.user.email,
+              mobile: res.data.user.mobile,
+              image: res.data.user.image,
+              admin: res.data.user.admin,
             })
           );
           window.location.replace(`${process.env.REACT_APP_CLIENT_URL_LOCAL}`);

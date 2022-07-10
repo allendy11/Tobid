@@ -13,8 +13,11 @@ function App() {
   const [userInfo, setUserInfo] = useState({
     username: "",
     email: "",
-    token: "",
+    mobile: "",
+    image: "",
+    admin: false,
   });
+  const [token, setToken] = useState("");
   const [loginStatus, setLoginStatus] = useState(false);
 
   const getAccessToken = (code: string | null, type: string | null) => {
@@ -27,10 +30,10 @@ function App() {
         }).then((res) => {
           setUserInfo({
             ...userInfo,
-            token: res.data.token,
             email: res.data.user.email,
             username: res.data.user.username,
           });
+          setToken(res.data.token);
           setLoginStatus(true);
           localStorage.setItem("loginStatus_local", JSON.stringify(true));
           localStorage.setItem("token_local", JSON.stringify(res.data.token));
@@ -55,10 +58,10 @@ function App() {
         }).then((res) => {
           setUserInfo({
             ...userInfo,
-            token: res.data.token,
             email: res.data.user.email,
             username: res.data.user.username,
           });
+          setToken(res.data.token);
           setLoginStatus(true);
           localStorage.setItem("loginStatus_local", JSON.stringify(true));
           localStorage.setItem("token_local", JSON.stringify(res.data.token));
@@ -91,14 +94,16 @@ function App() {
     if (token_local) {
       if (userInfo_local && JSON.parse(userInfo_local)) {
         const _token_local = JSON.parse(token_local);
-        const _userInfo_local: { username: string; email: string } =
-          userInfo_local && JSON.parse(userInfo_local);
+        const _userInfo_local = userInfo_local && JSON.parse(userInfo_local);
         setUserInfo({
           ...userInfo,
           username: _userInfo_local.username,
           email: _userInfo_local.email,
-          token: _token_local,
+          mobile: _userInfo_local.mobile,
+          image: _userInfo_local.image,
+          admin: _userInfo_local.admin,
         });
+        setToken(_token_local);
       }
     }
   }, [loginStatus]);
@@ -107,7 +112,7 @@ function App() {
   window.addEventListener("resize", (e) => {
     setInnerWidth(window.innerWidth);
   });
-
+  console.log(userInfo);
   return (
     <div id="App">
       <BrowserRouter>
@@ -125,7 +130,10 @@ function App() {
             element={<Login userInfo={userInfo} setUserInfo={setUserInfo} />}
           />
           <Route path="/register" element={<Register />} />
-          <Route path="/mypage" element={<Mypage />} />
+          <Route
+            path="/mypage"
+            element={<Mypage userInfo={userInfo} setUserInfo={setUserInfo} />}
+          />
         </Routes>
         <Footer />
       </BrowserRouter>

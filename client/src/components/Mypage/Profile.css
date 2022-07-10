@@ -24,7 +24,8 @@
   align-items: center;
 }
 
-.image-box {
+/*! UserImage */
+#UserImage {
   border: 1px solid black;
   width: 15rem;
   height: 100%;
@@ -33,24 +34,24 @@
   justify-content: center;
   align-items: center;
 }
-.image-box > form {
+#UserImage > form {
   margin-top: 1.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-#my-image{
+#profile-image{
   object-fit: contain;
   width: 10rem;
   cursor: pointer;
   
 }
-#Profile .image-box .delete-button {
+#UserImage .delete-button {
   width: 5rem;
   height: 1.5rem;
   margin-top: 1rem;
 }
-#Profile .image-box .delete-button > div{
+#UserImage .delete-button > div{
   height: 1.5rem;
   border: 1px solid black;
   display: flex;
@@ -59,9 +60,39 @@
   border-radius: 5px;
   cursor: pointer;
 }
-.userInfo-box {
+
+/*! UserInfo */
+#UserInfo {
   border: 1px solid black;
   width: 35rem;
   height: 100%;
-  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* align-items: center; */
+}
+#UserInfo .infoBox {
+  margin-top: 0.5rem;
+  margin-bottom: 0.3rem;
+}
+#UserInfo .infoBox > span {
+  margin: 0 1rem;
+  font-size: 1rem;
+}
+#UserInfo .infoBox > div {
+  font-size: 1.5rem;
+  margin: 0.5rem 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+#UserInfo .edit-button {
+  font-size: 1.2rem;
+  cursor: pointer;
+  width: 3.5rem;
+  height: 1.5rem;
+  border: 1px solid black;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

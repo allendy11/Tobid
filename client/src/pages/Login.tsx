@@ -1,22 +1,14 @@
 import React from "react";
 import "./css/Login.css";
 import LoginModal from "../components/Login/LoginModal";
+import IUser from "../Interface/IUser";
+
 const Login = ({
   userInfo,
   setUserInfo,
 }: {
-  userInfo: {
-    username: string;
-    email: string;
-    token: string;
-  };
-  setUserInfo: React.Dispatch<
-    React.SetStateAction<{
-      username: string;
-      email: string;
-      token: string;
-    }>
-  >;
+  userInfo: IUser["userInfo"];
+  setUserInfo: IUser["setUserInfo"];
 }) => {
   return (
     <div id="Login">
