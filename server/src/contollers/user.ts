@@ -129,6 +129,7 @@ const login = (req: Request, res: Response, next: NextFunction) => {
                     message: "Auth successful",
                     token,
                     user: {
+                      id: userData[0].id,
                       username: userData[0].username,
                       email: userData[0].email,
                       mobile: userData[0].mobile,
@@ -157,37 +158,72 @@ const login = (req: Request, res: Response, next: NextFunction) => {
       });
     });
 };
-const updateUserInfo = (req: Request, res: Response, next: NextFunction) => {
-  const { username, email, mobile, image } = req.body;
-  // Connect()
-  //   .then((connection) => {
-  //     const query = `UPDATE users SET username=?, mobile=?, image=?, updated_at=? WHERE email=?`;
-  //     const currentDate = getCurrentDate();
-  //     const params = [username, mobile, image, currentDate, email];
-  //     Query<IMySQLResult>(connection, query, params)
-  //       .then((result) => {
-  //         logging.info(NAMESPACE, `profile updated`);
-  //         res.status(200).json({
-  //           message: "porfile updated",
-  //           result,
-  //         });
-  //       })
-  //       .catch((error) => {
-  //         logging.error(NAMESPACE, `[update-Query] ${error.message}`);
-  //         res.status(500).json({
-  //           message: error.message,
-  //           error,
-  //         });
-  //       });
-  //   })
-  //   .catch((error) => {
-  //     logging.error(NAMESPACE, `[update-Connect] ${error.message}`);
-  //     res.status(500).json({
-  //       message: error.message,
-  //       error,
-  //     });
-  //   });
+const updateUserName = (req: Request, res: Response, next: NextFunction) => {
+  const username = req.body.username;
+  const id = req.params.id;
+  Connect()
+    .then((connection) => {
+      const query = `UPDATE users SET username=?, updated_at=? WHERE id=?`;
+      const currentDate = getCurrentDate();
+      const params = [username, currentDate, id];
+      Query<IMySQLResult>(connection, query, params)
+        .then((result) => {
+          logging.info(NAMESPACE, `username updated`);
+          res.status(200).json({
+            message: "username updated",
+            result,
+          });
+        })
+        .catch((error) => {
+          logging.error(NAMESPACE, `[update-Query] ${error.message}`);
+          res.status(500).json({
+            message: error.message,
+            error,
+          });
+        });
+    })
+    .catch((error) => {
+      logging.error(NAMESPACE, `[update-Connect] ${error.message}`);
+      res.status(500).json({
+        message: error.message,
+        error,
+      });
+    });
 };
+const updateMobile = (req: Request, res: Response, next: NextFunction) => {
+  const mobile = req.body.mobile;
+  const id = req.params.id;
+  Connect()
+    .then((connection) => {
+      const query = `UPDATE users SET mobile=?, updated_at=? WHERE id=?`;
+      const currentDate = getCurrentDate();
+      const params = [mobile, currentDate, id];
+      Query<IMySQLResult>(connection, query, params)
+        .then((result) => {
+          logging.info(NAMESPACE, `mobile updated`);
+          res.status(200).json({
+            message: "mobile updated",
+            result,
+          });
+        })
+        .catch((error) => {
+          logging.error(NAMESPACE, `[update-Query] ${error.message}`);
+          res.status(500).json({
+            message: error.message,
+            error,
+          });
+        });
+    })
+    .catch((error) => {
+      logging.error(NAMESPACE, `[update-Connect] ${error.message}`);
+      res.status(500).json({
+        message: error.message,
+        error,
+      });
+    });
+};
+const updateImage = (req: Request, res: Response, next: NextFunction) => {};
+
 const deleteAccount = (req: Request, res: Response, next: NextFunction) => {
   const { email } = req.body;
   Connect()
@@ -223,6 +259,8 @@ export default {
   validateToken,
   register,
   login,
-  updateUserInfo,
+  updateUserName,
+  updateMobile,
+  updateImage,
   deleteAccount,
 };
