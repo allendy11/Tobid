@@ -53,7 +53,7 @@
 #EditUserName .editUserName-box:nth-child(3){
   flex: 1 1 0;
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   align-items: center;
   background-color: #494c54;
   border-radius: 0 0 15px 15px;

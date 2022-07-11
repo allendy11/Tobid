@@ -2,6 +2,7 @@ import React, { useState } from "react";
 const UserInfo = ({
   profile,
   setErrorModal,
+  setEditUserName,
 }: {
   profile: { username: string; email: string; mobile: string };
   setErrorModal: React.Dispatch<
@@ -10,6 +11,7 @@ const UserInfo = ({
       message: string;
     }>
   >;
+  setEditUserName: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     if (e.target instanceof HTMLDivElement && e.target.id === "edit-email") {
@@ -19,8 +21,9 @@ const UserInfo = ({
       });
     } else if (
       e.target instanceof HTMLDivElement &&
-      e.target.id === "edit-button"
+      e.target.id === "edit-username"
     ) {
+      setEditUserName(true);
     } else if (
       e.target instanceof HTMLDivElement &&
       e.target.id === "edit-mobile"
