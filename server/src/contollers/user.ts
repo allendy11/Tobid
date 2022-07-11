@@ -131,6 +131,9 @@ const login = (req: Request, res: Response, next: NextFunction) => {
                     user: {
                       username: userData[0].username,
                       email: userData[0].email,
+                      mobile: userData[0].mobile,
+                      image: userData[0].image,
+                      admin: userData[0].admin,
                     },
                   });
                 }
@@ -156,34 +159,34 @@ const login = (req: Request, res: Response, next: NextFunction) => {
 };
 const updateUserInfo = (req: Request, res: Response, next: NextFunction) => {
   const { username, email, mobile, image } = req.body;
-  Connect()
-    .then((connection) => {
-      const query = `UPDATE users SET username=?, mobile=?, image=?, updated_at=? WHERE email=?`;
-      const currentDate = getCurrentDate();
-      const params = [username, mobile, image, currentDate, email];
-      Query<IMySQLResult>(connection, query, params)
-        .then((result) => {
-          logging.info(NAMESPACE, `profile updated`);
-          res.status(200).json({
-            message: "porfile updated",
-            result,
-          });
-        })
-        .catch((error) => {
-          logging.error(NAMESPACE, `[update-Query] ${error.message}`);
-          res.status(500).json({
-            message: error.message,
-            error,
-          });
-        });
-    })
-    .catch((error) => {
-      logging.error(NAMESPACE, `[update-Connect] ${error.message}`);
-      res.status(500).json({
-        message: error.message,
-        error,
-      });
-    });
+  // Connect()
+  //   .then((connection) => {
+  //     const query = `UPDATE users SET username=?, mobile=?, image=?, updated_at=? WHERE email=?`;
+  //     const currentDate = getCurrentDate();
+  //     const params = [username, mobile, image, currentDate, email];
+  //     Query<IMySQLResult>(connection, query, params)
+  //       .then((result) => {
+  //         logging.info(NAMESPACE, `profile updated`);
+  //         res.status(200).json({
+  //           message: "porfile updated",
+  //           result,
+  //         });
+  //       })
+  //       .catch((error) => {
+  //         logging.error(NAMESPACE, `[update-Query] ${error.message}`);
+  //         res.status(500).json({
+  //           message: error.message,
+  //           error,
+  //         });
+  //       });
+  //   })
+  //   .catch((error) => {
+  //     logging.error(NAMESPACE, `[update-Connect] ${error.message}`);
+  //     res.status(500).json({
+  //       message: error.message,
+  //       error,
+  //     });
+  //   });
 };
 const deleteAccount = (req: Request, res: Response, next: NextFunction) => {
   const { email } = req.body;

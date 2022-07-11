@@ -4,6 +4,6 @@ import verifyJWT from "../middleware/verifyJWT";
 
 const router = express.Router();
 
-router.get("/", controller.test);
+router.get("/", verifyJWT, controller.test);
 
 export default router;
