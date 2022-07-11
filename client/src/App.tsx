@@ -8,7 +8,7 @@ import Landing from "./pages/Landing";
 import Register from "./pages/Register";
 import Mypage from "./pages/Mypage";
 import axios from "axios";
-import ErrorModal from "./components/ETC/ErrorModal/ErrorModal";
+import ErrorModal from "./components/Modal/ErrorModal/ErrorModal";
 function App() {
   const [innerWidth, setInnerWidth] = useState(window.innerWidth);
   const [userInfo, setUserInfo] = useState({
@@ -81,6 +81,7 @@ function App() {
       }
     }
   };
+  console.log(token);
   useEffect(() => {
     const url = new URL(window.location.href);
     const authorizationCode = url.searchParams.get("code");
@@ -116,7 +117,6 @@ function App() {
   window.addEventListener("resize", (e) => {
     setInnerWidth(window.innerWidth);
   });
-  console.log(userInfo);
   return (
     <div id="App">
       <BrowserRouter>
