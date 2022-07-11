@@ -8,10 +8,11 @@ const NAMESPACE = "Auth";
 const verifyJWT = (req: Request, res: Response, next: NextFunction) => {
   logging.info(NAMESPACE, `validating token`);
   const token = req.headers.authorization?.split(" ")[1];
-
+  console.log(token);
   if (token) {
     jwt.verify(token, config.server.token.secret, (error, decoded) => {
       if (error) {
+        logging.error(NAMESPACE, `Invalid token`);
         res.status(401).json({
           message: error.message,
           error,
@@ -23,6 +24,7 @@ const verifyJWT = (req: Request, res: Response, next: NextFunction) => {
       }
     });
   } else {
+    logging.error(NAMESPACE, `Unauthorized`);
     res.status(401).json({
       message: "Unauthorized",
     });
