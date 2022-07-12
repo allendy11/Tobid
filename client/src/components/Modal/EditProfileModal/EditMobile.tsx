@@ -1,43 +1,46 @@
 import React, { useState } from "react";
-import "./EditModal.css";
-import axios from "axios";
-import dotenv from "dotenv";
 import IUser from "../../../Interface/IUser";
-dotenv.config();
-const EditUserName = ({
+import "./EditProfileModal.css";
+import axios from "axios";
+const EditMobile = ({
   userInfo,
   setUserInfo,
-  setEditUserName,
+  setEditMobile,
 }: {
   userInfo: IUser["userInfo"];
   setUserInfo: IUser["setUserInfo"];
-  setEditUserName: React.Dispatch<React.SetStateAction<boolean>>;
+  setEditMobile: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
-  const [editNameInput, setEditNameInput] = useState("");
+  const [userInput, setUserInput] = useState("");
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEditNameInput(e.target.value);
+    setUserInput(e.target.value);
   };
   const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     if (
       e.target instanceof HTMLDivElement &&
-      e.target.id === "btn-cancel-editUserName"
+      e.target.id === "btn-cancel-editMobile"
     ) {
-      setEditUserName(false);
+      setEditMobile(false);
     } else if (
       e.target instanceof HTMLDivElement &&
-      e.target.id === "btn-done-editUserName"
+      e.target.id === "btn-done-editMobile"
     ) {
-      editUserNameFunc();
+      editMobileFunc();
     }
   };
-  const editUserNameFunc = () => {
+  const editMobileFunc = () => {
+    const regExp = /^01([0|1|6|7|8|9]?)-([0-9]{3,4})-([0-9]{4})$/;
+    if (!regExp.test(userInput)) {
+      console.log("wrong number");
+      return;
+    }
     const token_local = localStorage.getItem("token_local");
     if (token_local) {
       const _token_local = JSON.parse(token_local);
       axios({
         method: "PUT",
-        url: `${process.env.REACT_APP_SERVER_URL_LOCAL}/user/${userInfo.id}/username`,
-        data: { username: editNameInput },
+        url: `${process.env.REACT_APP_SERVER_URL_LOCAL}/user/${userInfo.id}/mobile`,
+        data: { mobile: userInput },
         headers: {
           authorization: `Bearer ${_token_local}`,
         },
@@ -46,42 +49,43 @@ const EditUserName = ({
           "userInfo_local",
           JSON.stringify({
             ...userInfo,
-            username: editNameInput,
+            mobile: userInput,
           })
         );
         setUserInfo({
           ...userInfo,
-          username: editNameInput,
+          mobile: userInput,
         });
-        setEditUserName(false);
+        setEditMobile(false);
       });
     }
   };
   const handleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      editUserNameFunc();
+      editMobileFunc();
     }
   };
   return (
-    <div id="EditUserName">
-      <div className="editUserName-box">
-        <div>Change Username</div>
+    <div id="EditUserName" className="editProfileModal">
+      <div className="editUserName-box, editProfileModal-box">
+        <div>Change Mobile</div>
       </div>
-      <div className="editUserName-box">
-        <div>USERNAME</div>
+      <div className="editUserName-box, editProfileModal-box">
+        <div>MOBILE</div>
         <div>
           <input
             type="text"
             onChange={(e) => handleChange(e)}
             onKeyUp={(e) => handleKeyUp(e)}
+            placeholder="010-1234-5678"
           />
         </div>
       </div>
-      <div className="editUserName-box">
-        <div id="btn-cancel-editUserName" onClick={(e) => handleClick(e)}>
+      <div className="editUserName-box, editProfileModal-box">
+        <div id="btn-cancel-editMobile" onClick={(e) => handleClick(e)}>
           Cancel
         </div>
-        <div id="btn-done-editUserName" onClick={(e) => handleClick(e)}>
+        <div id="btn-done-editMobile" onClick={(e) => handleClick(e)}>
           Done
         </div>
       </div>
@@ -89,4 +93,4 @@ const EditUserName = ({
   );
 };
 
-export default EditUserName;
+export default EditMobile;

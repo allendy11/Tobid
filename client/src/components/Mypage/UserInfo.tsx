@@ -3,6 +3,7 @@ const UserInfo = ({
   profile,
   setErrorModal,
   setEditUserName,
+  setEditMobile,
 }: {
   profile: { username: string; email: string; mobile: string };
   setErrorModal: React.Dispatch<
@@ -12,6 +13,7 @@ const UserInfo = ({
     }>
   >;
   setEditUserName: React.Dispatch<React.SetStateAction<boolean>>;
+  setEditMobile: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     if (e.target instanceof HTMLDivElement && e.target.id === "edit-email") {
@@ -28,6 +30,7 @@ const UserInfo = ({
       e.target instanceof HTMLDivElement &&
       e.target.id === "edit-mobile"
     ) {
+      setEditMobile(true);
     }
   };
   return (
