@@ -40,7 +40,13 @@ const Profile = ({
           setEditUserName={setEditUserName}
         />
       </div>
-      {editUserName ? <EditUserName setEditUserName={setEditUserName} /> : null}
+      {editUserName ? (
+        <EditUserName
+          userInfo={userInfo}
+          setUserInfo={setUserInfo}
+          setEditUserName={setEditUserName}
+        />
+      ) : null}
     </div>
   );
 };

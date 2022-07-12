@@ -1,5 +1,6 @@
 interface IUser {
   userInfo: {
+    id: number;
     username: string;
     email: string;
     mobile: string;
@@ -8,6 +9,7 @@ interface IUser {
   };
   setUserInfo: React.Dispatch<
     React.SetStateAction<{
+      id: number;
       username: string;
       email: string;
       mobile: string;
