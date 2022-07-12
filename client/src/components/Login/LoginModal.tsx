@@ -71,6 +71,7 @@ const LoginModal = ({
           localStorage.setItem(
             "userInfo_local",
             JSON.stringify({
+              id: res.data.user.id,
               username: res.data.user.username,
               email: res.data.user.email,
               mobile: res.data.user.mobile,

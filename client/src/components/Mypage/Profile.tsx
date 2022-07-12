@@ -4,7 +4,8 @@ import UserImage from "./UserImage";
 import UserInfo from "./UserInfo";
 import dotenv from "dotenv";
 import IUser from "../../Interface/IUser";
-import EditUserName from "../../components/Modal/EditModal/EditUserName";
+import EditUserName from "../../components/Modal/EditProfileModal/EditUserName";
+import EditMobile from "../Modal/EditProfileModal/EditMobile";
 dotenv.config();
 const Profile = ({
   userInfo,
@@ -21,6 +22,7 @@ const Profile = ({
   >;
 }) => {
   const [editUserName, setEditUserName] = useState(false);
+  const [editMobile, setEditMobile] = useState(false);
   const profile = {
     username: userInfo.username,
     email: userInfo.email,
@@ -38,9 +40,32 @@ const Profile = ({
           profile={profile}
           setErrorModal={setErrorModal}
           setEditUserName={setEditUserName}
+          setEditMobile={setEditMobile}
         />
       </div>
-      {editUserName ? <EditUserName setEditUserName={setEditUserName} /> : null}
+      {editUserName ? (
+        <div className="editProfileModal-background">
+          <div className="editProfileModal-background-a">
+            <EditUserName
+              userInfo={userInfo}
+              setUserInfo={setUserInfo}
+              setEditUserName={setEditUserName}
+            />
+          </div>
+        </div>
+      ) : null}
+
+      {editMobile ? (
+        <div className="editProfileModal-background">
+          <div className="editProfileModal-background-a">
+            <EditMobile
+              userInfo={userInfo}
+              setUserInfo={setUserInfo}
+              setEditMobile={setEditMobile}
+            />
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 };

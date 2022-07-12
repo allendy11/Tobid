@@ -12,6 +12,7 @@ import ErrorModal from "./components/Modal/ErrorModal/ErrorModal";
 function App() {
   const [innerWidth, setInnerWidth] = useState(window.innerWidth);
   const [userInfo, setUserInfo] = useState({
+    id: 0,
     username: "",
     email: "",
     mobile: "",
@@ -81,8 +82,8 @@ function App() {
       }
     }
   };
-  console.log(token);
   useEffect(() => {
+    console.log("useEffect");
     const url = new URL(window.location.href);
     const authorizationCode = url.searchParams.get("code");
     const loginStatus_local = localStorage.getItem("loginStatus_local");
@@ -98,10 +99,12 @@ function App() {
     const userInfo_local = localStorage.getItem("userInfo_local");
     if (token_local) {
       if (userInfo_local && JSON.parse(userInfo_local)) {
+        console.log("work");
         const _token_local = JSON.parse(token_local);
         const _userInfo_local = userInfo_local && JSON.parse(userInfo_local);
         setUserInfo({
           ...userInfo,
+          id: _userInfo_local.id,
           username: _userInfo_local.username,
           email: _userInfo_local.email,
           mobile: _userInfo_local.mobile,
