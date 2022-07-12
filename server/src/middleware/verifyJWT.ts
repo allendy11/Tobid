@@ -11,9 +11,9 @@ const verifyJWT = (req: Request, res: Response, next: NextFunction) => {
   if (token) {
     jwt.verify(token, config.server.token.secret, (error, decoded) => {
       if (error) {
-        logging.error(NAMESPACE, `Invalid token`);
+        logging.error(NAMESPACE, `Expired Token`);
         res.status(401).json({
-          message: error.message,
+          message: "Expired Token",
           error,
         });
       } else {
@@ -23,9 +23,9 @@ const verifyJWT = (req: Request, res: Response, next: NextFunction) => {
       }
     });
   } else {
-    logging.error(NAMESPACE, `Unauthorized`);
+    logging.error(NAMESPACE, `Invalid token`);
     res.status(401).json({
-      message: "Unauthorized",
+      message: "Invalid token",
     });
   }
 };
