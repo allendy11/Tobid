@@ -151,10 +151,11 @@ function App() {
         <Footer />
       </BrowserRouter>
       {errorModal.status ? (
-        <ErrorModal
-          message={errorModal.message}
-          setErrorModal={setErrorModal}
-        />
+        <div className="errorModal-background">
+          <div className="errorModal-background-a">
+            <ErrorModal errorModal={errorModal} setErrorModal={setErrorModal} />
+          </div>
+        </div>
       ) : null}
     </div>
   );

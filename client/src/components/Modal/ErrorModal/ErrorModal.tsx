@@ -1,16 +1,12 @@
 import React from "react";
 import "./ErrorModal.css";
+import IErrorModal from "../../../Interface/IErrorModal";
 const ErrorModal = ({
-  message,
+  errorModal,
   setErrorModal,
 }: {
-  message: string;
-  setErrorModal: React.Dispatch<
-    React.SetStateAction<{
-      status: boolean;
-      message: string;
-    }>
-  >;
+  errorModal: IErrorModal["errorModal"];
+  setErrorModal: IErrorModal["setErrorModal"];
 }) => {
   const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     setErrorModal({
@@ -20,8 +16,12 @@ const ErrorModal = ({
   };
   return (
     <div id="ErrorModal">
-      <div>{message}</div>
-      <div onClick={(e) => handleClick(e)}>확인</div>
+      <div>
+        <div>{errorModal.message}</div>
+      </div>
+      <div>
+        <div onClick={(e) => handleClick(e)}>확인</div>
+      </div>
     </div>
   );
 };
