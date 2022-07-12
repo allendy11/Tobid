@@ -28,7 +28,7 @@ const UserImage = ({ profileImage }: { profileImage: string }) => {
         <img
           id="profile-image"
           src={
-            profileImage === ""
+            profileImage === null
               ? `${process.env.PUBLIC_URL}/images/default/my_image.png`
               : profileImage
           }

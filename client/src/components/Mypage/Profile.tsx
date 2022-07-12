@@ -29,6 +29,7 @@ const Profile = ({
     mobile: userInfo.mobile,
   };
   const profileImage = userInfo.image;
+  console.log(profileImage);
   return (
     <div id="Profile">
       <div className="profile-container">
