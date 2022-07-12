@@ -166,6 +166,7 @@ const updateUserName = (req: Request, res: Response, next: NextFunction) => {
       const query = `UPDATE users SET username=?, updated_at=? WHERE id=?`;
       const currentDate = getCurrentDate();
       const params = [username, currentDate, id];
+      console.log(params);
       Query<IMySQLResult>(connection, query, params)
         .then((result) => {
           logging.info(NAMESPACE, `username updated`);
