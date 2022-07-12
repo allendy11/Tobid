@@ -1,29 +1,45 @@
 #ErrorModal {
-  width: 15rem;
-  height: 7rem;
-  border: 1px solid black;
-  background-color: rgb(230, 230, 230);
+  width: 20rem;
+  height: 10rem;
+  /* border: 1px solid black; */
+  background-color: #555860;
   border-radius: 15px;
   position: absolute;
-  top: 20rem;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%,-50%);
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  /* justify-content: center; */
+  /* align-items: center; */
+  color: white;
 }
 #ErrorModal > div:first-child {
-  margin-bottom: 1rem;
+  flex: 1 1 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.15rem;
 }
 #ErrorModal > div:last-child {
-  width: 2.5rem;
-  height: 1.5rem;
-  position: absolute;
-  bottom: 0.5rem;
-  border: 1px solid black;
+  flex: 0 1 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #494c54;
+  border-radius: 0px 0px 15px 15px;
+
+}
+#ErrorModal > div:last-child > div {
+  width: 4.5rem;
+  height: 2rem;
+  font-size: 1.15rem;
+  
+  /* border: 1px solid black; */
   border-radius: 5px;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  background-color: white;
+  background-color: #5765f2;
 }
