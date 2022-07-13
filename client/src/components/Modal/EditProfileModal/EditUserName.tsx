@@ -14,6 +14,10 @@ const EditUserName = ({
   setEditUserName: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const [userInput, setUserInput] = useState("");
+  const [errorMessage, setErrorMessage] = useState({
+    status: false,
+    message: "",
+  });
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUserInput(e.target.value);
   };
@@ -77,6 +81,9 @@ const EditUserName = ({
             placeholder={userInfo.username}
           />
         </div>
+      </div>
+      <div className="editUserName-box, editProfileModal-box">
+        {errorMessage.status ? <span>{errorMessage.message}</span> : null}
       </div>
       <div className="editUserName-box, editProfileModal-box">
         <div id="btn-cancel-editUserName" onClick={(e) => handleClick(e)}>
