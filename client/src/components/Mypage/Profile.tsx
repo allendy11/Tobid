@@ -29,7 +29,12 @@ const Profile = ({
     mobile: userInfo.mobile,
   };
   const profileImage = userInfo.image;
-  console.log(profileImage);
+  window.addEventListener("keyup", (e) => {
+    if (e.key === "Escape") {
+      setEditUserName(false);
+      setEditMobile(false);
+    }
+  });
   return (
     <div id="Profile">
       <div className="profile-container">

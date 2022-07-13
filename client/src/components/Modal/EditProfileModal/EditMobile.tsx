@@ -12,6 +12,10 @@ const EditMobile = ({
   setEditMobile: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const [userInput, setUserInput] = useState("");
+  const [errorMessage, setErrorMessage] = useState({
+    status: false,
+    message: "",
+  });
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUserInput(e.target.value);
   };
@@ -31,7 +35,10 @@ const EditMobile = ({
   const editMobileFunc = () => {
     const regExp = /^01([0|1|6|7|8|9]?)-([0-9]{3,4})-([0-9]{4})$/;
     if (!regExp.test(userInput)) {
-      console.log("wrong number");
+      setErrorMessage({
+        status: true,
+        message: "잘못된 번호입니다.",
+      });
       return;
     }
     const token_local = localStorage.getItem("token_local");
@@ -65,6 +72,7 @@ const EditMobile = ({
       editMobileFunc();
     }
   };
+
   return (
     <div id="EditUserName" className="editProfileModal">
       <div className="editUserName-box, editProfileModal-box">
@@ -80,6 +88,9 @@ const EditMobile = ({
             placeholder="010-1234-5678"
           />
         </div>
+      </div>
+      <div className="editMobile-box, editProfileModal-box">
+        {errorMessage.status ? <span>{errorMessage.message}</span> : null}
       </div>
       <div className="editUserName-box, editProfileModal-box">
         <div id="btn-cancel-editMobile" onClick={(e) => handleClick(e)}>
