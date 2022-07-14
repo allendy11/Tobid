@@ -1,11 +1,12 @@
 import React, { useState } from "react";
+import IUser from "../../Interface/IUser";
 const UserInfo = ({
-  profile,
+  userInfo,
   setErrorModal,
   setEditUserName,
   setEditMobile,
 }: {
-  profile: { username: string; email: string; mobile: string };
+  userInfo: IUser["userInfo"];
   setErrorModal: React.Dispatch<
     React.SetStateAction<{
       status: boolean;
@@ -38,7 +39,7 @@ const UserInfo = ({
       <div className="infoBox">
         <span>Email</span>
         <div>
-          <span>{profile.email}</span>
+          <span>{userInfo.email}</span>
           <div
             id="edit-email"
             className="edit-button"
@@ -51,7 +52,7 @@ const UserInfo = ({
       <div className="infoBox">
         <span>Username</span>
         <div>
-          <span>{profile.username}</span>
+          <span>{userInfo.username}</span>
           <div
             id="edit-username"
             className="edit-button"
@@ -64,7 +65,7 @@ const UserInfo = ({
       <div className="infoBox">
         <span>Mobile</span>
         <div>
-          <span>{profile.mobile}</span>
+          <span>{userInfo.mobile}</span>
           <div
             id="edit-mobile"
             className="edit-button"

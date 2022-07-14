@@ -28,7 +28,7 @@ const Profile = ({
     email: userInfo.email,
     mobile: userInfo.mobile,
   };
-  const profileImage = userInfo.image;
+  // const profileImage = userInfo.image;
   window.addEventListener("keyup", (e) => {
     if (e.key === "Escape") {
       setEditUserName(false);
@@ -41,9 +41,9 @@ const Profile = ({
         <span>Profile</span>
       </div>
       <div className="profile-container">
-        <UserImage profileImage={profileImage} />
+        <UserImage userInfo={userInfo} setUserInfo={setUserInfo} />
         <UserInfo
-          profile={profile}
+          userInfo={userInfo}
           setErrorModal={setErrorModal}
           setEditUserName={setEditUserName}
           setEditMobile={setEditMobile}

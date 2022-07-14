@@ -83,7 +83,6 @@ function App() {
     }
   };
   useEffect(() => {
-    console.log("useEffect");
     const url = new URL(window.location.href);
     const authorizationCode = url.searchParams.get("code");
     const loginStatus_local = localStorage.getItem("loginStatus_local");
@@ -99,7 +98,6 @@ function App() {
     const userInfo_local = localStorage.getItem("userInfo_local");
     if (token_local) {
       if (userInfo_local && JSON.parse(userInfo_local)) {
-        console.log("work");
         const _token_local = JSON.parse(token_local);
         const _userInfo_local = userInfo_local && JSON.parse(userInfo_local);
         setUserInfo({
