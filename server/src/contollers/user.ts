@@ -158,6 +158,7 @@ const login = (req: Request, res: Response, next: NextFunction) => {
       });
     });
 };
+// edit username
 const updateUserName = (req: Request, res: Response, next: NextFunction) => {
   const username = req.body.username;
   const id = req.params.id;
@@ -191,6 +192,7 @@ const updateUserName = (req: Request, res: Response, next: NextFunction) => {
       });
     });
 };
+//edit mobile
 const updateMobile = (req: Request, res: Response, next: NextFunction) => {
   const mobile = req.body.mobile;
   const id = req.params.id;
@@ -223,7 +225,16 @@ const updateMobile = (req: Request, res: Response, next: NextFunction) => {
       });
     });
 };
-const updateImage = (req: Request, res: Response, next: NextFunction) => {};
+// edit user image
+const updateImage = (req: Request, res: Response, next: NextFunction) => {
+  logging.info(NAMESPACE, "trying edit image");
+  console.log("file?");
+  if (req.file) {
+    console.log("yes");
+    console.log(req.file);
+    console.log(req.file.path);
+  }
+};
 
 const deleteAccount = (req: Request, res: Response, next: NextFunction) => {
   const { email } = req.body;
