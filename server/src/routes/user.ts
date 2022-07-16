@@ -15,8 +15,9 @@ router.put(
   "/:id/image",
   verifyJWT,
   upload.S3ProfileUpload.single("img"),
-  controller.updateImage
+  controller.updateUserImage
 );
+router.delete("/:id/image", verifyJWT, controller.deleteUserImage);
 router.delete("/delete", verifyJWT, controller.deleteAccount);
 router.post("/kakao", kakao);
 router.post("/google", google);
