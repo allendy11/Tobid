@@ -23,6 +23,11 @@ const UserImage = ({
       }
     };
     if (e.target.files) {
+      // 이미지 클릭후 변경없이 취소하는 경우
+      if (e.target.files.length === 0) {
+        return;
+      }
+      // 이지 클릭후 변경하는 경우
       reader.readAsDataURL(e.target.files[0]);
       const formData = new FormData();
       formData.append("img", e.target.files[0]);
@@ -57,7 +62,32 @@ const UserImage = ({
   const imageClick = (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
     inputRef.current && inputRef.current.click();
   };
-  const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {};
+  const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    const token_local = localStorage.getItem("token_local");
+    if (token_local) {
+      const _token_local = JSON.parse(token_local);
+      axios({
+        method: "DELETE",
+        url: `${process.env.REACT_APP_SERVER_URL_LOCAL}/user/${userInfo.id}/image`,
+        headers: {
+          authorization: `Bearer ${_token_local}`,
+        },
+        withCredentials: true,
+      }).then((res) => {
+        localStorage.setItem(
+          "userInfo_local",
+          JSON.stringify({
+            ...userInfo,
+            image: "",
+          })
+        );
+        setUserInfo({
+          ...userInfo,
+          image: "",
+        });
+      });
+    }
+  };
   // console.log(userInfo);
   return (
     <div id="UserImage">
@@ -73,7 +103,7 @@ const UserImage = ({
         <img
           id="profile-image"
           src={
-            userInfo.image === null
+            userInfo.image === ""
               ? `${process.env.PUBLIC_URL}/images/default/my_image.png`
               : userInfo.image
           }
@@ -81,7 +111,7 @@ const UserImage = ({
           onClick={(e) => imageClick(e)}
         />
         <div className="delete-button">
-          {userInfo.image === null ? (
+          {userInfo.image === "" ? (
             ""
           ) : (
             <div onClick={(e) => handleClick(e)}>Delete</div>
