@@ -75,7 +75,7 @@ const LoginModal = ({
               username: res.data.user.username,
               email: res.data.user.email,
               mobile: res.data.user.mobile,
-              image: res.data.user.image,
+              image: res.data.user.image === null ? "" : res.data.user.image,
               admin: res.data.user.admin,
             })
           );
