@@ -170,7 +170,7 @@ const updateUserName = (req: Request, res: Response, next: NextFunction) => {
       Query<IMySQLResult>(connection, query, params)
         .then((result) => {
           logging.info(NAMESPACE, `username updated`);
-          res.status(200).json({
+          res.status(201).json({
             message: "username updated",
             result,
           });
@@ -203,7 +203,7 @@ const updateMobile = (req: Request, res: Response, next: NextFunction) => {
       Query<IMySQLResult>(connection, query, params)
         .then((result) => {
           logging.info(NAMESPACE, `mobile updated`);
-          res.status(200).json({
+          res.status(201).json({
             message: "mobile updated",
             result,
           });
@@ -225,7 +225,7 @@ const updateMobile = (req: Request, res: Response, next: NextFunction) => {
     });
 };
 // edit user image
-const updateImage = (req: Request, res: Response, next: NextFunction) => {
+const updateUserImage = (req: Request, res: Response, next: NextFunction) => {
   logging.info(NAMESPACE, "trying edit image");
   const id = req.params.id;
   const url = (req.file as Express.MulterS3.File).location;
@@ -238,7 +238,7 @@ const updateImage = (req: Request, res: Response, next: NextFunction) => {
         .then((result) => {
           logging.info(NAMESPACE, "Image updated");
           res.status(201).json({
-            message: "Image updated",
+            message: "User image updated",
             url,
             result,
           });
@@ -259,7 +259,39 @@ const updateImage = (req: Request, res: Response, next: NextFunction) => {
       });
     });
 };
+// delete user image
+const deleteUserImage = (req: Request, res: Response, next: NextFunction) => {
+  const id = req.params.id;
+  Connect()
+    .then((connection) => {
+      const query = `UPDATE users SET image = ? where id =?`;
+      const params = ["", id];
+      Query(connection, query, params)
+        .then((result) => {
+          logging.info(NAMESPACE, `User image deleted`);
+          res.status(200).json({
+            message: "User image deleted",
+            result,
+          });
+        })
+        .catch((error) => {
+          logging.error(NAMESPACE, `Query error`);
+          res.status(500).json({
+            message: `Query error`,
+            error,
+          });
+        });
+    })
+    .catch((error) => {
+      logging.error(NAMESPACE, `Connect error`);
+      res.status(500).json({
+        message: `Connect error`,
+        error,
+      });
+    });
+};
 
+// delete account
 const deleteAccount = (req: Request, res: Response, next: NextFunction) => {
   const { email } = req.body;
   Connect()
@@ -297,6 +329,7 @@ export default {
   login,
   updateUserName,
   updateMobile,
-  updateImage,
+  updateUserImage,
+  deleteUserImage,
   deleteAccount,
 };
