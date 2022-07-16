@@ -7,7 +7,6 @@ import signJWT from "../middleware/signJWT";
 import getCurrentDate from "../functions/getCurrentDate";
 import IMySQLResult from "../interface/result";
 import IUser from "../interface/user";
-
 const NAMESPACE = "User";
 
 // verify token
@@ -228,12 +227,37 @@ const updateMobile = (req: Request, res: Response, next: NextFunction) => {
 // edit user image
 const updateImage = (req: Request, res: Response, next: NextFunction) => {
   logging.info(NAMESPACE, "trying edit image");
-  console.log("file?");
-  if (req.file) {
-    console.log("yes");
-    console.log(req.file);
-    console.log(req.file.path);
-  }
+  const id = req.params.id;
+  const url = (req.file as Express.MulterS3.File).location;
+  Connect()
+    .then((connection) => {
+      const query = `UPDATE users SET image=?, updated_at=? WHERE id = ?`;
+      const currentDate = getCurrentDate();
+      const params = [url, currentDate, id];
+      Query<IMySQLResult>(connection, query, params)
+        .then((result) => {
+          logging.info(NAMESPACE, "Image updated");
+          res.status(201).json({
+            message: "Image updated",
+            url,
+            result,
+          });
+        })
+        .catch((error) => {
+          logging.error(NAMESPACE, "Query Error");
+          res.status(500).json({
+            message: "Query error",
+            error,
+          });
+        });
+    })
+    .catch((error) => {
+      logging.error(NAMESPACE, "Connect Error");
+      res.status(500).json({
+        message: "Connect error",
+        error,
+      });
+    });
 };
 
 const deleteAccount = (req: Request, res: Response, next: NextFunction) => {

@@ -14,7 +14,7 @@ router.put("/:id/mobile", verifyJWT, controller.updateMobile);
 router.put(
   "/:id/image",
   verifyJWT,
-  upload.localProfileUpload.single("img"),
+  upload.S3ProfileUpload.single("img"),
   controller.updateImage
 );
 router.delete("/delete", verifyJWT, controller.deleteAccount);
