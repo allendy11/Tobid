@@ -37,7 +37,20 @@ const UserImage = ({
             authorization: `Bearer ${_token_local}`,
             "content-type": "multipart/form-data",
           },
-        }).then((res) => console.log(res.data));
+          withCredentials: true,
+        }).then((res) => {
+          localStorage.setItem(
+            "userInfo_local",
+            JSON.stringify({
+              ...userInfo,
+              image: res.data.url,
+            })
+          );
+          setUserInfo({
+            ...userInfo,
+            image: res.data.url,
+          });
+        });
       }
     }
   };
