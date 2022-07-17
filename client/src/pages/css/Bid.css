@@ -1,0 +1,115 @@
+#Bid {
+  margin-top: 4rem;
+  flex: 1 1 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.bid-container {
+  width: 60rem;
+  height: auto;
+  /* display: flex;
+  flex-direction: column;
+  justify-content: space-between; */
+}
+.bid-box {
+  width: 60rem;
+}
+.bid-title {
+  width: 60rem;
+  height: 6rem;
+  position: absolute;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+}
+.bid-contents {
+  width: 60rem;
+  height: auto;
+  margin-top: 6rem;
+  /* position: relative; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 6rem;
+}
+.bid-search {
+  width: calc(12rem * 3 + 4rem * 3);
+  height: 5rem;
+  /* border: 1px solid black; */
+  display: flex;
+  justify-content: center;
+  /* align-items: center; */
+}
+.bid-search > div {
+  margin-top: 1rem;
+}
+.bid-search-box {
+  width: 20rem;
+  height: 2rem;
+  /* border: 1px solid black; */
+  display: flex;
+  justify-content: end;
+  align-items: center;
+
+}
+.bid-search-box input {
+  width: 20rem;
+  height: 1.9rem;
+  padding-left: 0.5rem;
+  font-size: 1.2rem;
+  outline: none;
+  border-radius: 5px;
+
+}
+#btn-bid-search {
+  width: 6rem;
+  height: 2rem;
+  border: 1px solid black;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 1rem;
+  margin-right: 2rem;
+}
+.bid-board {
+  width: calc(12rem * 3 + 4rem * 3);
+  /* padding: 0 calc((60rem - 4*12rem - 8*1rem )/2.29); */
+  height: auto;
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  /* justify-content: center; */
+  align-content: space-around;
+}
+.bid-board .item {
+  width: 12rem;
+  height: 18rem;
+  /* border: 1px solid black; */
+  margin: 2rem;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-between; */
+  /* align-items: center; */
+
+}
+.bid-board .item > div {
+  /* margin-left: 1rem; */
+
+}
+.item-image {
+  width: 12rem;
+  height: 12rem;
+  border: 1px solid black;
+  object-fit: contain;
+  border-radius: 10px;
+}
+.item-contents {
+  margin-top: 1rem;
+}
