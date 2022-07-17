@@ -4,8 +4,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  position: fixed;
+  top: 0;
+  background-color: white;
+  z-index: 100;
 }
-#Nav .container {
+#Nav .nav-container {
   width: 60rem;
   height: 4rem;
   display: flex;
@@ -14,19 +18,37 @@
   position: relative;
   
 }
-#Nav .box {
+#Nav .nav-box {
   display: flex;
   align-items: center;
   height: 4rem;
 }
-#Nav .box:nth-child(1) {
+#Nav .nav-box:nth-child(1) {
+  margin-left: 1rem;
+}
+#Nav .nav-box:nth-child(1) > a {
+  
+}
+#Nav .nav-box:nth-child(1) > a > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-size: 1.5rem;
   font-weight: 700;
   letter-spacing: -0.5px;
 }
-#Nav .box:nth-child(1) img {
+#Nav .nav-box:nth-child(1) img {
   width: 2.4rem;
   margin-right: 0.2rem;
+}
+.nav-box:nth-child(2) {
+  width: 10rem;
+  position: absolute;
+  left: 9rem;
+  font-size: 1.2rem;
+}
+.nav-box:nth-child(3) {
+  margin-right: 1rem;
 }
 /*! UserMenu*/
 #UserMenu {}

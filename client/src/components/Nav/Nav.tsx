@@ -22,22 +22,32 @@ const Nav = ({
 
   return (
     <div id="Nav">
-      <div className="container">
-        <Link to="/">
-          <div className="box">
-            <img
-              src={process.env.PUBLIC_URL + "images/logo/logo_32.png"}
-              alt="logo-nav"
-            />
-            <span>TOBID</span>
+      <div className="nav-container">
+        <div className="nav-box">
+          <Link to="/">
+            <div>
+              <img
+                src={process.env.PUBLIC_URL + "images/logo/logo_32.png"}
+                alt="logo-nav"
+              />
+              <span>TOBID</span>
+            </div>
+          </Link>
+        </div>
+        <div className="nav-box">
+          <div>
+            <Link to="/bid">
+              <div>Bid</div>
+            </Link>
           </div>
-        </Link>
+          <div></div>
+        </div>
         {innerWidth > 980 ? (
-          <div className="box">
+          <div className="nav-box">
             <UserMenu loginStatus={loginStatus} handleClick={handleClick} />
           </div>
         ) : (
-          <div className="box" ref={menuBoxRef}>
+          <div className="nav-box" ref={menuBoxRef}>
             <div
               className="menuIcon-box"
               onClick={() => {

@@ -9,6 +9,7 @@ import Register from "./pages/Register";
 import Mypage from "./pages/Mypage";
 import axios from "axios";
 import ErrorModal from "./components/Modal/ErrorModal/ErrorModal";
+import Bid from "./pages/Bid";
 function App() {
   const [innerWidth, setInnerWidth] = useState(window.innerWidth);
   const [userInfo, setUserInfo] = useState({
@@ -145,6 +146,7 @@ function App() {
               />
             }
           />
+          <Route path="/bid" element={<Bid />} />
         </Routes>
         <Footer />
       </BrowserRouter>
