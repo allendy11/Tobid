@@ -1,7 +1,8 @@
 import React from "react";
 import "./css/Bid.css";
-import { bidContents } from "../dummyData/bidboard";
-const Auction = () => {
+import { Link } from "react-router-dom";
+import IItem from "../Interface/IItem";
+const Bid = ({ itemList }: { itemList: IItem[] }) => {
   return (
     <div id="Bid">
       <div className="bid-container">
@@ -14,16 +15,20 @@ const Auction = () => {
             <div id="btn-bid-search">Search</div>
           </div>
           <div className="bid-board">
-            {bidContents.map((el) => {
+            {itemList.map((el) => {
               return (
-                <div className="item">
-                  <div className="item-image"></div>
-                  <div className="item-contents">
-                    <div className="item-title">{el.title}</div>
-                    <div className="item-price">{el.price}</div>
-                    <div className="item-test"></div>
+                <Link to={`/bid/${el.id}`} key={el.id}>
+                  <div className="item">
+                    <div className="item-image">
+                      <img src={el.image} alt="" />
+                    </div>
+                    <div className="item-contents">
+                      <div className="item-title">{el.title}</div>
+                      <div className="item-price">{el.price}</div>
+                      <div className="item-test"></div>
+                    </div>
                   </div>
-                </div>
+                </Link>
               );
             })}
           </div>
@@ -33,4 +38,4 @@ const Auction = () => {
   );
 };
 
-export default Auction;
+export default Bid;

@@ -10,6 +10,8 @@ import Mypage from "./pages/Mypage";
 import axios from "axios";
 import ErrorModal from "./components/Modal/ErrorModal/ErrorModal";
 import Bid from "./pages/Bid";
+import Item from "./pages/Item";
+import itemList from "./dummyData/itemList";
 function App() {
   const [innerWidth, setInnerWidth] = useState(window.innerWidth);
   const [userInfo, setUserInfo] = useState({
@@ -146,7 +148,8 @@ function App() {
               />
             }
           />
-          <Route path="/bid" element={<Bid />} />
+          <Route path="/bid" element={<Bid itemList={itemList} />} />
+          <Route path="/bid/:id" element={<Item itemList={itemList} />} />
         </Routes>
         <Footer />
       </BrowserRouter>

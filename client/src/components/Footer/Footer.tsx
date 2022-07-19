@@ -1,5 +1,6 @@
 import React from "react";
 import "./Footer.css";
+import logo from "../../images/logo/logo_192b.png";
 const Footer = () => {
   return (
     <div id="Footer">
@@ -13,10 +14,7 @@ const Footer = () => {
             );
           }}
         >
-          <img
-            src={process.env.PUBLIC_URL + "images/logo/logo_192b.png"}
-            alt="logo-footer"
-          />
+          <img src={logo} alt="logo-footer" />
           <span>TOBID</span>
         </div>
         <div className="box">

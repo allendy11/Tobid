@@ -1,6 +1,8 @@
 import React from "react";
 import "./Oauth.css";
 import dotenv from "dotenv";
+import kakaoLogo from "../../images/oauth/kakao.png";
+import googleLogo from "../../images/oauth/google.png";
 dotenv.config();
 const Oauth = () => {
   const kakaoLogin = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -23,19 +25,13 @@ const Oauth = () => {
       <div className="oauth-container">
         <div className="oauth-box" onClick={(e) => googleLogin(e)}>
           <div>
-            <img
-              src={process.env.PUBLIC_URL + "images/oauth/google.png"}
-              alt="google"
-            />
+            <img src={googleLogo} alt="google" />
           </div>
           <div>Login with Google</div>
         </div>
         <div className="oauth-box" onClick={(e) => kakaoLogin(e)}>
           <div>
-            <img
-              src={process.env.PUBLIC_URL + "images/oauth/kakao.png"}
-              alt="kakao"
-            />
+            <img src={kakaoLogo} alt="kakao" />
           </div>
           <div>Login with Kakao</div>
         </div>

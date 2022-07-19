@@ -6,12 +6,12 @@
   align-items: center;
   position: fixed;
   top: 0;
-  background-color: white;
   z-index: 100;
 }
 #Nav .nav-container {
   width: 60rem;
   height: 4rem;
+  background-color: white;
   display: flex;
   justify-content: space-between;
   align-items: center;

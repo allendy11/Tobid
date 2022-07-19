@@ -2,6 +2,7 @@ import React, { useRef } from "react";
 import IUser from "../../Interface/IUser";
 import axios from "axios";
 import dotenv from "dotenv";
+import profileImage from "../../images/default/my_image.png";
 dotenv.config();
 const UserImage = ({
   userInfo,
@@ -102,11 +103,7 @@ const UserImage = ({
         />
         <img
           id="profile-image"
-          src={
-            userInfo.image === ""
-              ? `${process.env.PUBLIC_URL}/images/default/my_image.png`
-              : userInfo.image
-          }
+          src={userInfo.image === "" ? profileImage : userInfo.image}
           alt="Profile Image"
           onClick={(e) => imageClick(e)}
         />
