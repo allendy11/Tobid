@@ -30,6 +30,7 @@
   width: 100vw;
   height: 100vh;
   background-color: rgba(161, 161, 161, 0.559);
+  z-index: 200;
 }
 .editProfileModal-background-a {
   width: 100%;
