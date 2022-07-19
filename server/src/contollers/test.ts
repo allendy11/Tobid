@@ -5,7 +5,8 @@ import { Connect, Query } from "../config/mysql";
 const NAMESPACE = "Test";
 
 const test = (req: Request, res: Response, next: NextFunction) => {
-  res.status(200).json("work");
+  console.log(req.headers.cookies);
+  res.status(200).json(req.cookies);
 };
 
 export default { test };
