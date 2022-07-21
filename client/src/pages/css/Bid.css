@@ -53,7 +53,7 @@
   height: 2rem;
   /* border: 1px solid black; */
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   align-items: center;
 
 }
@@ -103,13 +103,22 @@
   /* margin-left: 1rem; */
 
 }
-.item-image {
+#Bid .item-image {
   width: 12rem;
   height: 12rem;
   border: 1px solid black;
-  object-fit: contain;
   border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.item-contents {
+#Bid .item-image > img {
+  width: 12rem;
+  height: 12rem;
+  object-fit: cover;
+  border-radius: 10px;
+  
+}
+#Bid .item-contents {
   margin-top: 1rem;
 }

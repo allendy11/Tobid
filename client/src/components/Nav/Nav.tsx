@@ -5,6 +5,7 @@ import UserMenu from "./UserMenu";
 import UserMenuModal from "./UserMenuModal";
 import MenuIcon from "../ETC/MenuIcon/MenuIcon";
 import INav from "../../Interface/INav";
+import logo from "../../images/logo/logo_32.png";
 const Nav = ({
   innerWidth,
   userInfo,
@@ -26,10 +27,7 @@ const Nav = ({
         <div className="nav-box">
           <Link to="/">
             <div>
-              <img
-                src={process.env.PUBLIC_URL + "images/logo/logo_32.png"}
-                alt="logo-nav"
-              />
+              <img src={logo} alt="logo-nav" />
               <span>TOBID</span>
             </div>
           </Link>
