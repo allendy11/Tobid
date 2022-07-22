@@ -122,3 +122,9 @@
 #Bid .item-contents {
   margin-top: 1rem;
 }
+#Bid .item-contents .item-title {
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: el;
+}
