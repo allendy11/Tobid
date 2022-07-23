@@ -1,0 +1,39 @@
+#BidItem {
+  width: 12rem;
+  height: 18rem;
+  margin: 2rem;
+  cursor: pointer;
+}
+.bidItem-container {
+  display: flex;
+  flex-direction: column;
+}
+.bidItem-container > div {
+  /* margin-left: 1rem; */
+
+}
+.bidItem-container .item-image {
+  width: 12rem;
+  height: 12rem;
+  border: 1px solid black;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.bidItem-container .item-image > img {
+  width: 12rem;
+  height: 12rem;
+  object-fit: cover;
+  border-radius: 10px;
+  
+}
+.bidItem-container .item-contents {
+  margin-top: 1rem;
+}
+.bidItem-container .item-contents .item-title {
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: el;
+}
