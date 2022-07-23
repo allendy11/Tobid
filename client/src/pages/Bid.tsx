@@ -6,12 +6,7 @@ import ItemSearch from "../components/Bid/ItemSearch";
 import BidItem from "../components/Bid/BidItem";
 const Bid = ({ itemList }: { itemList: IItem[] }) => {
   const [filteredItems, setFilteredItems] = useState([...itemList]);
-  // useEffect(() => {
-  //   if (itemList.length > 0) {
-  //     const _itemList = [...itemList]
-  //     setFilteredItems([..._itemList]);
-  //   }
-  // }, [filteredItems]);
+
   return (
     <div id="Bid">
       <div className="bid-container">
