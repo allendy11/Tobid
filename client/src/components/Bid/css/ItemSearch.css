@@ -48,8 +48,9 @@
   align-items: center;
   margin-left: 1rem;
   /* margin-right: 2rem; */
+  
 }
 .itemSearch-box:last-child {
   height: 2rem;
-  border: 1px solid black
+  /* border: 1px solid black; */
 }

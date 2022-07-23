@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import IItem from "../../Interface/IItem";
 import "./css/ItemSearch.css";
+import SearchWord from "./SearchWord";
 const ItemSearch = ({
   itemList,
   filteredItems,
@@ -10,23 +11,35 @@ const ItemSearch = ({
   filteredItems: IItem[];
   setFilteredItems: React.Dispatch<React.SetStateAction<IItem[]>>;
 }) => {
+  const inputRef = useRef<HTMLInputElement>(null);
   const [userInput, setUserInput] = useState({
     search: "",
   });
-  const [searchList, setSearchList] = useState({
+  const [searchList, setSearchList] = useState<{ list: string[] }>({
     list: [],
   });
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUserInput({ search: e.target.value.toLowerCase() });
+    setUserInput({ search: e.target.value });
   };
   const searchItem = () => {
-    const _filteredItems = filteredItems.filter((el) =>
-      el.title.toLowerCase().includes(userInput.search)
-    );
-    setFilteredItems([..._filteredItems]);
+    // const _filteredItems = filteredItems.filter((el) =>
+    //   el.title.toLowerCase().includes(userInput.search.toLowerCase())
+    // );
+    // setFilteredItems([..._filteredItems]);
+    setSearchList({
+      list: [...searchList.list, userInput.search],
+    });
+    if (inputRef.current) {
+      inputRef.current.value = "";
+    }
   };
   const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     searchItem();
+  };
+  const handleKeyUp = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === "Enter") {
+      searchItem();
+    }
   };
   return (
     <div id="ItemSearch">
@@ -35,20 +48,29 @@ const ItemSearch = ({
           <input
             type="text"
             placeholder="Search you want"
+            ref={inputRef}
             onChange={(e) => handleChange(e)}
+            onKeyPress={(e) => handleKeyUp(e)}
           />
           <div id="btn-itemSearch" onClick={(e) => handleClick(e)}>
             Search
           </div>
         </div>
         <div className="itemSearch-box">
-          {/* {searchList.length === 0 ? null : (
-          <div>
-            {searchList.map((el) => (
-              <div>{el}</div>
-            ))}
-          </div>
-        )} */}
+          {searchList.list.map((el, idx) => {
+            return (
+              <div key={idx}>
+                <SearchWord
+                  word={el}
+                  searchList={searchList}
+                  setSearchList={setSearchList}
+                  filteredItems={filteredItems}
+                  setFilteredItems={setFilteredItems}
+                  itemList={itemList}
+                />
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>

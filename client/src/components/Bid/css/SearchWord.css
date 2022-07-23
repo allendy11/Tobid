@@ -1,0 +1,23 @@
+.searchWord-container {
+  /* margin: 0 1rem; */
+  margin-left: 0.57rem;
+  cursor: pointer;
+  display: flex;
+}
+.searchWord-container span {
+  pointer-events: none;
+  border-bottom: 1px solid black;
+}
+#btn-delete-searchwWord {
+  width: 1.1rem;
+  height: 1rem;
+  margin: 0 0.2rem;
+  border: 1px solid black;
+  border-radius: 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 0.1rem;
+  pointer-events: none;
+
+}
