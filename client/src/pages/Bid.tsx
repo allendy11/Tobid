@@ -4,9 +4,11 @@ import { Link } from "react-router-dom";
 import IItem from "../Interface/IItem";
 import ItemSearch from "../components/Bid/ItemSearch";
 import BidItem from "../components/Bid/BidItem";
+import ISearchWord from "../Interface/ISearchWord";
 const Bid = ({ itemList }: { itemList: IItem[] }) => {
   const [filteredItems, setFilteredItems] = useState([...itemList]);
-
+  const [searchList, setSearchList] = useState<ISearchWord[]>([]);
+  // console.log(filteredItems);
   return (
     <div id="Bid">
       <div className="bid-container">
@@ -16,6 +18,8 @@ const Bid = ({ itemList }: { itemList: IItem[] }) => {
             itemList={itemList}
             filteredItems={filteredItems}
             setFilteredItems={setFilteredItems}
+            searchList={searchList}
+            setSearchList={setSearchList}
           />
           <div className="bid-board">
             {filteredItems.map((el) => {

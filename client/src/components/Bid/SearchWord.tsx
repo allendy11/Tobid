@@ -1,7 +1,9 @@
 import React, { useEffect } from "react";
 import "./css/SearchWord.css";
 import IItem from "../../Interface/IItem";
+import ISearchWord from "../../Interface/ISearchWord";
 const SearchWord = ({
+  id,
   word,
   searchList,
   setSearchList,
@@ -9,50 +11,38 @@ const SearchWord = ({
   setFilteredItems,
   itemList,
 }: {
+  id: number;
   word: string;
-  searchList: {
-    list: string[];
-  };
-  setSearchList: React.Dispatch<
-    React.SetStateAction<{
-      list: string[];
-    }>
-  >;
+  searchList: ISearchWord[];
+  setSearchList: React.Dispatch<React.SetStateAction<ISearchWord[]>>;
   filteredItems: IItem[];
   setFilteredItems: React.Dispatch<React.SetStateAction<IItem[]>>;
   itemList: IItem[];
 }) => {
   const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     if (e.target instanceof HTMLDivElement) {
-      const name = e.target.id;
-      const _searchList = searchList.list.filter((el) => el !== name);
-      if (_searchList.length === 0) {
-        setSearchList({
-          list: [],
-        });
+      const id = e.target.id;
+      const _searchList = searchList.filter((el) => el.id !== Number(id));
+      setSearchList([..._searchList]);
+      if (searchList.length === 1) {
+        setFilteredItems([...itemList]);
       } else {
-        setSearchList({
-          list: _searchList,
+        let _filteredItems = [...itemList];
+        _searchList.forEach((el) => {
+          console.log(el);
+          _filteredItems = _filteredItems.filter((ele) => {
+            return ele.title.toLowerCase().includes(el.word.toLowerCase());
+          });
+          console.log(_filteredItems);
+          setFilteredItems(_filteredItems);
         });
       }
     }
   };
-  useEffect(() => {
-    if (searchList.list.length === 0) {
-      setFilteredItems([...itemList]);
-    } else {
-      searchList.list.map((el) => {
-        const _filteredItems = itemList.filter((ele) =>
-          ele.title.toLowerCase().includes(el.toLowerCase())
-        );
-        setFilteredItems([..._filteredItems]);
-      });
-    }
-  }, [searchList.list]);
-  console.log(searchList);
+
   return (
     <div
-      id={word}
+      id={`${id}`}
       className="searchWord-container"
       onClick={(e) => handleClick(e)}
     >
