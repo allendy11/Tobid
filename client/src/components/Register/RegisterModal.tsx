@@ -99,7 +99,6 @@ const RegisterModal = () => {
             password: userInput.password,
           },
         }).then((res) => {
-          console.log("work");
           setErrMessage({
             status: false,
             message: "",

@@ -8,7 +8,6 @@ import ISearchWord from "../Interface/ISearchWord";
 const Bid = ({ itemList }: { itemList: IItem[] }) => {
   const [filteredItems, setFilteredItems] = useState([...itemList]);
   const [searchList, setSearchList] = useState<ISearchWord[]>([]);
-  // console.log(filteredItems);
   return (
     <div id="Bid">
       <div className="bid-container">
