@@ -1,34 +1,49 @@
 import React, { useState, useRef } from "react";
 import IItem from "../../Interface/IItem";
+import ISearchWord from "../../Interface/ISearchWord";
 import "./css/ItemSearch.css";
 import SearchWord from "./SearchWord";
 const ItemSearch = ({
   itemList,
   filteredItems,
   setFilteredItems,
+  searchList,
+  setSearchList,
 }: {
   itemList: IItem[];
   filteredItems: IItem[];
   setFilteredItems: React.Dispatch<React.SetStateAction<IItem[]>>;
+  searchList: ISearchWord[];
+  setSearchList: React.Dispatch<React.SetStateAction<ISearchWord[]>>;
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [userInput, setUserInput] = useState({
-    search: "",
-  });
-  const [searchList, setSearchList] = useState<{ list: string[] }>({
-    list: [],
+    searchWord: "",
   });
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUserInput({ search: e.target.value });
+    setUserInput({ searchWord: e.target.value });
   };
   const searchItem = () => {
-    // const _filteredItems = filteredItems.filter((el) =>
-    //   el.title.toLowerCase().includes(userInput.search.toLowerCase())
-    // );
-    // setFilteredItems([..._filteredItems]);
-    setSearchList({
-      list: [...searchList.list, userInput.search],
-    });
+    const _filteredItems = filteredItems.filter((el) =>
+      el.title.toLowerCase().includes(userInput.searchWord.toLowerCase())
+    );
+    setFilteredItems([..._filteredItems]);
+    if (searchList.length === 0) {
+      setSearchList([
+        {
+          id: 1,
+          word: userInput.searchWord,
+        },
+      ]);
+    } else {
+      setSearchList([
+        ...searchList,
+        {
+          id: searchList[searchList.length - 1].id + 1,
+          word: userInput.searchWord,
+        },
+      ]);
+    }
     if (inputRef.current) {
       inputRef.current.value = "";
     }
@@ -57,11 +72,12 @@ const ItemSearch = ({
           </div>
         </div>
         <div className="itemSearch-box">
-          {searchList.list.map((el, idx) => {
+          {searchList.map((el, idx) => {
             return (
               <div key={idx}>
                 <SearchWord
-                  word={el}
+                  id={el.id}
+                  word={el.word}
                   searchList={searchList}
                   setSearchList={setSearchList}
                   filteredItems={filteredItems}
