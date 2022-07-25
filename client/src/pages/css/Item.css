@@ -35,7 +35,7 @@
 #ItemInfo .item-image > img {
   width: 45rem;
   height: 30rem;
-  object-fit: cover;
+  object-fit: contain;
   border-radius: 15px;
 }
 #ItemInfo .item-info {
