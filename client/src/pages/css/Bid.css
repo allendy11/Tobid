@@ -38,47 +38,24 @@
   align-items: center;
   padding-bottom: 6rem;
 }
-.bid-search {
-  width: calc(12rem * 3 + 4rem * 3);
-  height: 5rem;
-  /* border: 1px solid black; */
-  display: flex;
-  justify-content: center;
-  /* align-items: center; */
-}
-.bid-search > div {
-  margin-top: 1rem;
-}
-.bid-search-box {
-  width: 20rem;
-  height: 2rem;
-  /* border: 1px solid black; */
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
 
-}
-.bid-search-box input {
-  width: 20rem;
-  height: 1.9rem;
-  padding-left: 0.5rem;
-  font-size: 1.2rem;
-  outline: none;
-  border-radius: 5px;
-
-}
-#btn-bid-search {
-  width: 6rem;
-  height: 2rem;
-  border: 1px solid black;
-  border-radius: 5px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-left: 1rem;
-  margin-right: 2rem;
-}
 .bid-board {
+  width: calc(12rem * 3 + 4rem * 3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.bid-board-box:first-child {
+  width: calc(12rem * 3 + 4rem * 3);
+  height: auto;
+  display: flex;
+  justify-content: center;
+}
+.bid-board-box:first-child > span {
+  margin-top: 5rem;
+  font-size: 1.5rem;
+}
+.bid-board-box:last-child {
   width: calc(12rem * 3 + 4rem * 3);
   /* padding: 0 calc((60rem - 4*12rem - 8*1rem )/2.29); */
   height: auto;

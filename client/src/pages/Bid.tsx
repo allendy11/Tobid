@@ -22,13 +22,21 @@ const Bid = ({ itemList }: { itemList: IItem[] }) => {
             setSearchList={setSearchList}
           />
           <div className="bid-board">
-            {filteredItems.map((el) => {
-              return (
-                <Link to={`/bid/${el.id}`} key={el.id}>
-                  <BidItem item={el} />
-                </Link>
-              );
-            })}
+            {filteredItems.length === 0 ? (
+              <div className="bid-board-box">
+                <span>검색결과가 없습니다.</span>
+              </div>
+            ) : (
+              <div className="bid-board-box">
+                {filteredItems.map((el) => {
+                  return (
+                    <Link to={`/bid/${el.id}`} key={el.id}>
+                      <BidItem filteredItem={el} />
+                    </Link>
+                  );
+                })}
+              </div>
+            )}
           </div>
         </div>
       </div>
