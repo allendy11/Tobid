@@ -89,7 +89,6 @@ const UserImage = ({
       });
     }
   };
-  // console.log(userInfo);
   return (
     <div id="UserImage">
       <form method="put" encType="multipart/form-data">

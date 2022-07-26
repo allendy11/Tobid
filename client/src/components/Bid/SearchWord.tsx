@@ -29,11 +29,9 @@ const SearchWord = ({
       } else {
         let _filteredItems = [...itemList];
         _searchList.forEach((el) => {
-          console.log(el);
           _filteredItems = _filteredItems.filter((ele) => {
             return ele.title.toLowerCase().includes(el.word.toLowerCase());
           });
-          console.log(_filteredItems);
           setFilteredItems(_filteredItems);
         });
       }

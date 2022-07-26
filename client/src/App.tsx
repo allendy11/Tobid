@@ -12,6 +12,7 @@ import ErrorModal from "./components/Modal/ErrorModal/ErrorModal";
 import Bid from "./pages/Bid";
 import Item from "./pages/Item";
 import itemList from "./dummyData/itemList";
+import ScrollToTop from "./components/ETC/ScrollToTop/ScrollToTop";
 function App() {
   const [innerWidth, setInnerWidth] = useState(window.innerWidth);
   const [userInfo, setUserInfo] = useState({
@@ -119,11 +120,14 @@ function App() {
 
   // window resize
   window.addEventListener("resize", (e) => {
+    console.log(window.innerWidth);
     setInnerWidth(window.innerWidth);
   });
+
   return (
     <div id="App">
       <BrowserRouter>
+        <ScrollToTop />
         <Nav
           innerWidth={innerWidth}
           userInfo={userInfo}
