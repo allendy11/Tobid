@@ -1,0 +1,36 @@
+/*! Others */
+#Others {
+  width: 50rem;
+   height: auto;
+   position: relative;
+   display: flex;
+   flex-wrap: wrap;
+   align-content: space-around;
+ }
+ .others-container {
+   width: 12rem;
+   height: 18rem;
+   margin: 2rem;
+   cursor: pointer;
+   display: flex;
+   flex-direction: column;
+ }
+ #Others .item-image {
+   width: 12rem;
+   height: 12rem;
+   border: 1px solid black;
+   border-radius: 10px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+ }
+ #Others .item-image > img {
+   width: 12rem;
+   height: 12rem;
+   object-fit: cover;
+   border-radius: 10px;
+   
+ }
+ #Others .others-contents {
+   margin-top: 1rem;
+ }
