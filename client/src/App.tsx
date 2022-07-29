@@ -13,6 +13,7 @@ import Bid from "./pages/Bid";
 import Item from "./pages/Item";
 import itemList from "./dummyData/itemList";
 import ScrollToTop from "./components/ETC/ScrollToTop/ScrollToTop";
+import Post from "./pages/Post";
 function App() {
   const [innerWidth, setInnerWidth] = useState(window.innerWidth);
   const [userInfo, setUserInfo] = useState({
@@ -154,6 +155,7 @@ function App() {
           />
           <Route path="/bid" element={<Bid itemList={itemList} />} />
           <Route path="/bid/:id" element={<Item itemList={itemList} />} />
+          <Route path="post" element={<Post />} />
         </Routes>
         <Footer />
       </BrowserRouter>

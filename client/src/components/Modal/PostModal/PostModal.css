@@ -1,0 +1,26 @@
+#PostModal {
+  width: 4rem;
+  height: 4rem;
+  position: fixed;
+  bottom: 2rem;
+  right: 5rem;
+  border-radius: 50%;
+  background-color: #3672d3;
+  border-radius: 50%;
+  transition: 0.3s all ease
+}
+#PostModal > a {
+
+}
+.btn-postModal {
+  width: 4rem;
+  height: 4rem;
+  font-size: 4rem;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.btn-postModal > span{
+  margin-bottom: 0.5rem;
+}

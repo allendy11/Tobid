@@ -1,6 +1,7 @@
 import React from "react";
 import IItem from "../../Interface/IItem";
 import { Link } from "react-router-dom";
+import "./css/Others.css";
 const Others = ({ otherItems }: { otherItems: IItem[] }) => {
   return (
     <div id="Others">

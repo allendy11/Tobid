@@ -5,6 +5,8 @@ import IItem from "../Interface/IItem";
 import ItemSearch from "../components/Bid/ItemSearch";
 import BidItem from "../components/Bid/BidItem";
 import ISearchWord from "../Interface/ISearchWord";
+import PostModal from "../components/Modal/PostModal/PostModal";
+
 const Bid = ({ itemList }: { itemList: IItem[] }) => {
   const [filteredItems, setFilteredItems] = useState([...itemList]);
   const [searchList, setSearchList] = useState<ISearchWord[]>([]);
@@ -40,6 +42,7 @@ const Bid = ({ itemList }: { itemList: IItem[] }) => {
           </div>
         </div>
       </div>
+      <PostModal />
     </div>
   );
 };
