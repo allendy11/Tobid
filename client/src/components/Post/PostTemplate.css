@@ -23,16 +23,19 @@
 }
 .postTemplate-box:nth-child(2) {
   flex: 1 1 0;
+}
+.postTemplate-box:nth-child(2) form {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-.postTemplate-box:nth-child(2) > .userInput {
+.postTemplate-box:nth-child(2) .userInput {
   width: 100%;
   /* border: 1px solid red; */
   font-size: 1rem;
+  margin-top: 1rem;
 }
-.postTemplate-box:nth-child(2) > .userInput > input {
+.postTemplate-box:nth-child(2) .userInput > input {
   width: 36rem;
   height: 2rem;
   outline: none;
@@ -41,7 +44,7 @@
   margin-left: 0.5rem;
   padding-left: 1rem;
 }
-.postTemplate-box:nth-child(2) > .userInput > textarea {
+.postTemplate-box:nth-child(2) .userInput > textarea {
   width: 35.2rem;
   font-size: 1.2rem;
   margin-top: 0.5rem;
@@ -49,23 +52,28 @@
   margin-left: 0.5rem;
   resize: none;
 }
-.postTemplate-box:nth-child(2) > .title {
+.postTemplate-box:nth-child(2) .title {
   flex: 0 1 5rem;
 
 }
-.postTemplate-box:nth-child(2) > .title > input {
+.postTemplate-box:nth-child(2) .title > input {
 
 }
-.postTemplate-box:nth-child(2) > .price {
+.postTemplate-box:nth-child(2) .price {
   flex: 0 1 5rem;
 
 }
-.postTemplate-box:nth-child(2) > .comments {
-  flex: 0 1 22rem;
-
-}
-.postTemplate-box:nth-child(2) > .picture {
+.postTemplate-box:nth-child(2) .comments {
   flex: 1 1 0;
+
+}
+.postTemplate-box:nth-child(2) .picture {
+  flex: 0 1 10rem;
+
+}
+.postTemplate-box:nth-child(2) .picture img {
+  width: 4rem;
+  height: 4rem;
 }
 .postTemplate-box:nth-child(3) {
   flex: 0 1 5rem;
@@ -76,7 +84,13 @@
   
 }
 
-.btn-postComplete {
+#btn-submit {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#btn-submit > input{
   width: 20rem;
   height: 3rem;
   display: flex;
