@@ -1,0 +1,12 @@
+#TitleBlack {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#TitleBlack img {
+  width: 3rem;
+}
+#TitleBlack span {
+  font-size: 2rem;
+  font-weight: 700;
+}

@@ -1,21 +1,12 @@
 import React from "react";
 import "./Footer.css";
-import logo from "../../images/logo/logo_192b.png";
+import TitleBlack from "../ETC/Title/TitleBlack";
 const Footer = () => {
   return (
     <div id="Footer">
       <div className="container">
-        <div
-          className="box"
-          onClick={() => {
-            localStorage.clear();
-            window.location.replace(
-              `${process.env.REACT_APP_CLIENT_URL_LOCAL}`
-            );
-          }}
-        >
-          <img src={logo} alt="logo-footer" />
-          <span>TOBID</span>
+        <div className="box">
+          <TitleBlack />
         </div>
         <div className="box">
           <div className="contents">
