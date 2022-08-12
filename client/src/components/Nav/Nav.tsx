@@ -5,7 +5,7 @@ import UserMenu from "./UserMenu";
 import UserMenuModal from "./UserMenuModal";
 import MenuIcon from "../ETC/MenuIcon/MenuIcon";
 import INav from "../../Interface/INav";
-import NavTitle from "../ETC/Title/NavTitle";
+import Title from "../ETC/Title/Title";
 // import logo from "../../images/logo/logo_32.png";
 
 const Nav = ({
@@ -27,7 +27,7 @@ const Nav = ({
     <div id="Nav">
       <div className="nav-container">
         <div className="nav-box">
-          <NavTitle />
+          <Title />
         </div>
         <div className="nav-box">
           <div>

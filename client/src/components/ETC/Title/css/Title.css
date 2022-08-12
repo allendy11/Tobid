@@ -1,9 +1,9 @@
-#NavTitle {
+#Title {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-#NavTitle > a > div {
+#Title > a > div {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -11,10 +11,9 @@
   font-weight: 700;
   letter-spacing: -0.5px;
 }
-#NavTItle #title-text {
-  font-size: 1rem;
+#Title #title-text {
 }
-#NavTitle #title-logo {
+#Title #title-logo {
   width: 2.4rem;
   margin-right: 0.2rem;
 }
