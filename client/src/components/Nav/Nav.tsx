@@ -5,7 +5,9 @@ import UserMenu from "./UserMenu";
 import UserMenuModal from "./UserMenuModal";
 import MenuIcon from "../ETC/MenuIcon/MenuIcon";
 import INav from "../../Interface/INav";
-import logo from "../../images/logo/logo_32.png";
+import NavTitle from "../ETC/Title/NavTitle";
+// import logo from "../../images/logo/logo_32.png";
+
 const Nav = ({
   innerWidth,
   userInfo,
@@ -25,12 +27,7 @@ const Nav = ({
     <div id="Nav">
       <div className="nav-container">
         <div className="nav-box">
-          <Link to="/">
-            <div>
-              <img src={logo} alt="logo-nav" />
-              <span>TOBID</span>
-            </div>
-          </Link>
+          <NavTitle />
         </div>
         <div className="nav-box">
           <div>

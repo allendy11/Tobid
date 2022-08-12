@@ -1,0 +1,21 @@
+#NavTitle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#NavTitle > a > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+#NavTItle #title-text {
+  font-size: 1rem;
+}
+#NavTitle #title-logo {
+  width: 2.4rem;
+  margin-right: 0.2rem;
+}
+
