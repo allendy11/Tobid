@@ -95,35 +95,41 @@ const LoginModal = ({
     <div id="LoginModal">
       <div className="modal-container">
         <div className="modal-box">
-          <div>
-            <input
-              id="input-email"
-              type="email"
-              placeholder="Email"
-              value={userInput.email}
-              onChange={(e) => handleChange(e)}
-              onKeyPress={(e) => handleKeyUp(e)}
-            />
+          <div className="login-userInput">
+            <div>
+              <input
+                id="input-email"
+                type="email"
+                placeholder="Email"
+                value={userInput.email}
+                onChange={(e) => handleChange(e)}
+                onKeyPress={(e) => handleKeyUp(e)}
+              />
+            </div>
+            <div>
+              <input
+                id="input-password"
+                type="password"
+                placeholder="Password"
+                value={userInput.password}
+                onChange={(e) => handleChange(e)}
+                onKeyPress={(e) => handleKeyUp(e)}
+              />
+            </div>
           </div>
-          <div>
-            <input
-              id="input-password"
-              type="password"
-              placeholder="Password"
-              value={userInput.password}
-              onChange={(e) => handleChange(e)}
-              onKeyPress={(e) => handleKeyUp(e)}
-            />
+          <div className="error-message">
+            {errMessage.status ? <div>{errMessage.message}</div> : <div></div>}
           </div>
-          {errMessage.status ? <div>{errMessage.message}</div> : <div></div>}
-          <div id="btn-login" onClick={(e) => handleClick(e)}>
-            Login
-          </div>
-          <div>
-            <span>Don't have an account?</span>
-            <Link to="/register">
-              <span>Register</span>
-            </Link>
+          <div className="login-button">
+            <div id="btn-login" onClick={(e) => handleClick(e)}>
+              Log in
+            </div>
+            <div className="go-register">
+              <span>Don't have an account?</span>
+              <Link to="/register">
+                <span>Register</span>
+              </Link>
+            </div>
           </div>
         </div>
         <div className="modal-box">

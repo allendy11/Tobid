@@ -36,7 +36,7 @@
 }
 #Login .box:nth-child(2) .box-contents {
   height: 8rem;
-  width: 32rem;
+  width: 25rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
