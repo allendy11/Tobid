@@ -19,8 +19,8 @@ const Login = ({
         </div>
         <div className="box">
           <div className="box-contents">
-            <div className="content1">Login</div>
-            <div className="content2">Welcome to TOBID.</div>
+            <div className="content">Welcome to TOBID.</div>
+            <div className="content">Login</div>
           </div>
         </div>
         <div className="box">

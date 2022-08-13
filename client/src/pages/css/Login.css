@@ -27,6 +27,7 @@
   display: flex;
 }
 #Login .box:nth-child(2) {
+  /* border: 1px solid black; */
   height: 13rem;
   display: flex;
   flex-direction: column;
@@ -35,18 +36,39 @@
 
 }
 #Login .box:nth-child(2) .box-contents {
-  height: 8rem;
+  /* border: 1px solid black; */
+  height: 13rem;
   width: 25rem;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-end;
+  align-items: center;
   font-size: 1.5rem;
 
 }
-#Login .box:nth-child(2) .content1 {
+#Login .box:nth-child(2) .content {
+  height: 5rem;
+  width: 25rem;
+  /* border: 1px solid black; */
+  display: flex;
+  align-items: center;
+  /* margin-right: 2rem; */
+}
+#Login .box:nth-child(2) .content:first-child {
+  font-size: 2rem;
+  /* font-weight: 700; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#Login .box:nth-child(2) .content:last-child {
+  /* height: 4rem; */
+  font-size: 1.7rem;
   font-weight: 700;
-  font-size: 3rem;
-  margin-bottom: 0.8rem;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+  margin-bottom: 1rem;
 }
 #Login .box:nth-child(3){
   height: 35rem;
